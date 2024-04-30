@@ -1,4 +1,4 @@
-package io.github.chitchat.server;
+package io.github.chitchat;
 
 import java.io.*;
 import java.net.Socket;

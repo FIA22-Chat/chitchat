@@ -1,4 +1,4 @@
-package io.github.chitchat.service;
+package io.github.chitchat;
 
 public enum EMessageType
 {
