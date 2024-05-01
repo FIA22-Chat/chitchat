@@ -1,11 +1,11 @@
+name: Scan
+
 on:
-  workflow_call:
-  workflow_dispatch:
   schedule:
     - cron: '0 0 * * 0'
 
 jobs:
-  analyze-qodana:
+  analyze-qodana-schedule:
     name: Analyze-Qodana
     runs-on: ubuntu-latest
     needs:
@@ -33,7 +33,7 @@ jobs:
         with:
           sarif_file: ${{ runner.temp }}/qodana/results/qodana.sarif.json
 
-  analyze-codeql:
+  analyze-codeql-schedule:
     name: Analyze-CodeQL
     runs-on: ubuntu-latest
     needs:
