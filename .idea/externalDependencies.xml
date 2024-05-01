@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalDependencies">
+    <plugin id="com.github.lipiridi.spotless-applier" />
+    <plugin id="com.intellij.grazie.pro" />
+    <plugin id="izhangzhihao.rainbow.brackets.lite" />
+    <plugin id="zielu.gittoolbox" />
+  </component>
+</project>
