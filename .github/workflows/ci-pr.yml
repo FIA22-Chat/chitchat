@@ -1,4 +1,4 @@
-name: "CI"
+name: "CI-PullRequest"
 
 on:
   workflow_call:
@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Setup
-        uses: chitchat/setup-java@v1
+        uses: ./setup-java
 
       - name: Verify
         run: mvn verify -f pom.xml
@@ -27,10 +27,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Setup
-        uses: chitchat/setup-java@v1
+        uses: ./setup-java
 
       - name: Check formatting
         run: mvn spotless:check -f pom.xml
+
+  test:
+    name: Test-Maven
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup
+        uses: ./setup-java
+
+      - name: Test
+        run: mvn test -f pom.xml
 
   lint:
     name: Lint-Qodana
@@ -45,22 +55,19 @@ jobs:
       - name: Qodana Scan
         uses: JetBrains/qodana-action@v2024.1
         with:
-          pr-mode: true
-          args: --apply-fixes
-          push-fixes: pull-request
+          pr-mode: false
+          args: --cleanup,--config,.github/qodana.yaml
+          push-fixes: branch
           post-pr-comment: false
+          upload-result: true
         env:
+          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  
-  test:
-    name: Test-Maven
-    runs-on: ubuntu-latest
-    steps:
-      - name: Setup
-        uses: chitchat/setup-java@v1
 
-      - name: Test
-        run: mvn test -f pom.xml
+      - name: Upload Qodana SARIF
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: ${{ runner.temp }}/qodana/results/qodana.sarif.json
 
   analyze:
     name: Analyze-CodeQL
@@ -68,7 +75,6 @@ jobs:
     needs:
       - verify
       - format
-      - lint
       - test
     permissions:
       security-events: write
