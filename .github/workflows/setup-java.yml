@@ -1,0 +1,19 @@
+name: setup-java
+
+inputs:
+  java_version:
+    required: false
+    default: 22
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: "temurin"
+        java-version: ${{ inputs.java_version }}
+        cache: "maven"
