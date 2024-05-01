@@ -1,4 +1,4 @@
-name: "CI-PullRequest"
+name: "CI"
 
 on:
   workflow_call:
@@ -16,6 +16,9 @@ jobs:
     name: Verify-Maven
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Setup
         uses: ./setup-java
 
@@ -26,6 +29,9 @@ jobs:
     name: Format-Spotless
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Setup
         uses: ./setup-java
 
@@ -36,6 +42,9 @@ jobs:
     name: Test-Maven
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Setup
         uses: ./setup-java
 
