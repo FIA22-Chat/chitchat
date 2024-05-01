@@ -24,11 +24,13 @@ jobs:
         with:
           distribution: "temurin"
           java-version: "22"
-          java-package: "jdk+fx"
           cache: "maven"
 
+      - name: Install Dependencies
+        run: mvn -B install -DskipTests -f pom.xml
+
       - name: Verify
-        run: mvn verify -f pom.xml
+        run: mvn -B verify -f pom.xml
 
   format:
     name: Format-Spotless
@@ -45,7 +47,7 @@ jobs:
           cache: "maven"
 
       - name: Check formatting
-        run: mvn spotless:check -f pom.xml
+        run: mvn -B spotless:check -f pom.xml
 
   test:
     name: Test-Maven
@@ -59,11 +61,13 @@ jobs:
         with:
           distribution: "temurin"
           java-version: "22"
-          java-package: "jdk+fx"
           cache: "maven"
 
+      - name: Install Dependencies
+        run: mvn -B install -DskipTests -f pom.xml
+
       - name: Test
-        run: mvn test -f pom.xml
+        run: mvn -B test -f pom.xml
 
   lint:
     name: Lint-Qodana
