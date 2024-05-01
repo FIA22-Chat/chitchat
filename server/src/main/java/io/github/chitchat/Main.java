@@ -1,6 +1,6 @@
-package io.github.chitchat.server;
+package io.github.chitchat;
 
-public class Server
+public class Main
 {
     public static void main(String[] args)
     {
