@@ -1,0 +1,20 @@
+documentation:
+  - changed-files:
+      - any-glob-to-any-file: '**/*.md'
+
+dependencies:
+  - changed-files:
+      - any-glob-to-any-file: '**/pom.xml'
+      - any-glob-to-any-file: '.mvn/wrapper/maven-wrapper.properties'
+        
+gui:
+  - changed-files:
+      - any-glob-to-any-file: '**/*.fxml'
+        
+client:
+  - changed-files:
+      - any-glob-to-any-file: '**/client/**'
+
+server:
+  - changed-files:
+      - any-glob-to-any-file: '**/server/**'
