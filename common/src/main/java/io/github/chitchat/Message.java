@@ -1,23 +1,19 @@
 package io.github.chitchat;
-public class Message
-{
+
+public class Message {
     private Message type;
     private String content;
 
-
-    public Message(Message type, String content)
-    {
+    public Message(Message type, String content) {
         this.type = type;
         this.content = content;
     }
 
-    public Message getType()
-    {
+    public Message getType() {
         return this.type;
     }
 
-    public String getContent()
-    {
+    public String getContent() {
         return this.content;
     }
 }

@@ -1,7 +1,6 @@
 package io.github.chitchat;
 
-public enum EMessageType
-{
+public enum EMessageType {
     USER_NAME,
     USER_NAME_RESPONSE,
     USER_LIST,
