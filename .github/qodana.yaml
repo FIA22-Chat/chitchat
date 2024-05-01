@@ -3,12 +3,7 @@ version: "1.0"
 profile:
   name: qodana.recommended
 
-failureConditions:
-  severityThresholds:
-    critical: 0
-    high: 0
-    moderate: 2
-    low: 4
+failThreshold: 0
 
 projectJDK: "22"
 linter: jetbrains/qodana-jvm-community:2024.1
