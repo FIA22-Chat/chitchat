@@ -80,9 +80,8 @@ jobs:
       - name: Qodana Scan
         uses: JetBrains/qodana-action@v2024.1
         with:
-          pr-mode: false
-          args: --apply-fixes,--config,.github/qodana.yaml
-          push-fixes: pull-request
+          pr-mode: true
+          args: --config,.github/qodana.yaml
           post-pr-comment: false
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
