@@ -2,7 +2,11 @@ documentation:
   - changed-files:
       - any-glob-to-any-file: '**/*.md'
 
-dependencies:
+github:
+  - changed-files:
+      - any-glob-to-any-file: '.github/**'
+
+maven:
   - changed-files:
       - any-glob-to-any-file: '**/pom.xml'
       - any-glob-to-any-file: '.mvn/wrapper/maven-wrapper.properties'

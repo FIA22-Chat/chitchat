@@ -1,0 +1,61 @@
+name: Scan
+
+on:
+  workflow_dispatch:
+  workflow_call:
+  schedule:
+    - cron: '0 0 * * 0'
+
+jobs:
+  analyze-qodana-schedule:
+    name: Analyze Qodana
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: master
+          fetch-depth: 0
+
+      - name: Qodana Scan
+        uses: JetBrains/qodana-action@v2024.1
+        with:
+          pr-mode: false
+          args: --apply-fixes,--config,.github/qodana.yaml
+          push-fixes: pull-request
+        env:
+          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Qodana SARIF
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: ${{ runner.temp }}/qodana/results/qodana.sarif.json
+
+  analyze-codeql-schedule:
+    name: Analyze CodeQL
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "22"
+          cache: "maven"
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: java-kotlin
+          build-mode: none # Only Java is analyzed
+          queries: security-and-quality
+
+      - name: CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:java-kotlin"
