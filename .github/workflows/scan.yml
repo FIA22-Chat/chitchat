@@ -1,16 +1,15 @@
 name: Scan
 
 on:
+  workflow_dispatch:
+  workflow_call:
   schedule:
     - cron: '0 0 * * 0'
 
 jobs:
   analyze-qodana-schedule:
-    name: Analyze-Qodana
+    name: Analyze Qodana
     runs-on: ubuntu-latest
-    needs:
-      - verify
-      - test
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -34,11 +33,8 @@ jobs:
           sarif_file: ${{ runner.temp }}/qodana/results/qodana.sarif.json
 
   analyze-codeql-schedule:
-    name: Analyze-CodeQL
+    name: Analyze CodeQL
     runs-on: ubuntu-latest
-    needs:
-      - verify
-      - test
     permissions:
       security-events: write
     steps:
