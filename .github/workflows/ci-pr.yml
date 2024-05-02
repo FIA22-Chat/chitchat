@@ -67,6 +67,7 @@ jobs:
   analyze-qodana:
     name: Analyze Qodana
     runs-on: ubuntu-latest
+    if: github.event_name != 'merge_group'
     needs:
       - verify
       - test
@@ -76,6 +77,12 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
+
+      - name: test
+        run: echo ${{ github.event_name }}
+
+      - name: test2
+        run: echo ${{ github.event.action }}
 
       - name: Qodana Scan
         uses: JetBrains/qodana-action@v2024.1
