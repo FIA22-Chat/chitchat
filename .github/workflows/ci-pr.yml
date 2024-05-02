@@ -13,7 +13,7 @@ concurrency:
 
 jobs:
   verify:
-    name: Verify-Maven
+    name: Run Verify
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -30,7 +30,7 @@ jobs:
         run: mvn -B verify -f pom.xml
 
   test:
-    name: Test-Maven
+    name: Run Tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -47,9 +47,8 @@ jobs:
         run: mvn -B test -f pom.xml
 
   format:
-    name: Format-Spotless
+    name: Check Formatting
     runs-on: ubuntu-latest
-    if: github.actor != 'dependabot'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -60,15 +59,14 @@ jobs:
           distribution: "temurin"
           java-version: "22"
           cache: "maven"
-          cache-dependency-path: "pom.xml" # Creates a cache for spotless
+          cache-dependency-path: "pom.xml" # Creates a cache for spotless only
 
       - name: Check formatting
         run: mvn -B spotless:check -f pom.xml
 
   analyze-qodana:
-    name: Analyze-Qodana
+    name: Analyze Qodana
     runs-on: ubuntu-latest
-    if: github.actor != 'dependabot'
     needs:
       - verify
       - test
