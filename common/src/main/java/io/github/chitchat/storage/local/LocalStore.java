@@ -129,6 +129,7 @@ public class LocalStore<T extends Serializable> implements Flushable {
      * @throws IOException if an I/O error occurs
      */
     private void save() throws IOException {
+        var _ = fileStore.getParentFile().mkdirs();
         var _ = fileStore.createNewFile();
 
         var outputStream = new FileOutputStream(fileStore);
