@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout disableAnsi="false"
+				pattern="%style{%date{HH:mm:ss}}{yellow} [%t] %highlight{%-5level}{FATAL=bg_red, ERROR=red, WARN=yellow, INFO=green, DEBUG=cyan, TRACE=white} %logger{1} - %msg%n" />
+		</Console>
+		<RollingFile name="Rolling_File_Appender"
+			fileName="${env:LOG_PATH:-.}/chitchat-server.log"
+			filePattern="${env:LOG_PATH:-.}/chitchat-server-%d{yyyy-MM-dd}-%i.log.gz">
+			<PatternLayout
+				pattern="%d{DEFAULT} [%t] %-5level %logger{36} - %msg%n" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="15 MB" />
+				<TimeBasedTriggeringPolicy />
+			</Policies>
+			<DefaultRolloverStrategy max="30" />
+		</RollingFile>
+	</Appenders>
+	<Loggers>
+		<Root level="${env:LOG_LEVEL_CONSOLE:-INFO}"
+			name="io.github.chitchat.server">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="Rolling_File_Appender" />
+		</Root>
+	</Loggers>
+</Configuration>

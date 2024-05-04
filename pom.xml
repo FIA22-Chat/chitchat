@@ -81,6 +81,7 @@
                         <format>
                             <includes>
                                 <include>src/**/resources/**/*.fxml</include>
+                                <include>src/**/resources/**/*.xml</include>
                             </includes>
                             <eclipseWtp>
                                 <type>XML</type>
