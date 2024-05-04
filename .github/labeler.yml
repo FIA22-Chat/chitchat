@@ -22,3 +22,7 @@ client:
 server:
   - changed-files:
       - any-glob-to-any-file: '**/server/**'
+
+common:
+  - changed-files:
+      - any-glob-to-any-file: '**/common/**'
