@@ -18,7 +18,7 @@
 		</RollingFile>
 	</Appenders>
 	<Loggers>
-		<Root level="${env:LOG_LEVEL_CONSOLE:-INFO}"
+		<Root level="${env:LOG_LEVEL_CONSOLE:-WARN}"
 			name="io.github.chitchat.client">
 			<AppenderRef ref="Console" />
 			<AppenderRef ref="Rolling_File_Appender" />
