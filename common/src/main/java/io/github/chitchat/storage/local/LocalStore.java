@@ -3,6 +3,8 @@ package io.github.chitchat.storage.local;
 import io.github.chitchat.storage.local.config.Evaluation;
 import java.io.*;
 import java.nio.file.Path;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -12,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class LocalStore<T extends Serializable> implements Flushable {
     public static final String STORE_HOME = "STORE_HOME";
+    private static final Logger log = LogManager.getLogger(LocalStore.class);
 
     @NotNull private final File fileStore;
     private final Evaluation evaluationStrategy;
@@ -59,6 +62,7 @@ public class LocalStore<T extends Serializable> implements Flushable {
         if (storagePath == null) storagePath = Path.of(pathEnv == null ? "" : pathEnv);
         fileStore =
                 storagePath.resolve(value.getClass().getSimpleName() + name + ".store").toFile();
+        log.trace("File store path: {}", fileStore.getAbsolutePath());
 
         if (evaluation == Evaluation.EAGER)
             if (!load()) save(); // Try to load, saving the default value if loading fails
@@ -77,7 +81,7 @@ public class LocalStore<T extends Serializable> implements Flushable {
         try {
             save();
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("Failed to save the value to the disk.", e);
         }
     }
 
@@ -91,7 +95,7 @@ public class LocalStore<T extends Serializable> implements Flushable {
             try {
                 load();
             } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
+                log.error("Failed to load the value from the disk.", e);
             }
         }
         return value;
@@ -105,6 +109,7 @@ public class LocalStore<T extends Serializable> implements Flushable {
      */
     @Override
     public void flush() throws IOException {
+        log.trace("Flushing the value to the disk.");
         save();
     }
 
