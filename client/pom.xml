@@ -61,6 +61,15 @@
                 <version>0.0.8</version>
                 <executions>
                     <execution>
+                        <id>debug</id>
+                        <configuration>
+                            <options>
+                                <option>-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:8000</option>
+                            </options>
+                            <mainClass>io.github.chitchat.client/io.github.chitchat.client.HelloApplication</mainClass>
+                        </configuration>
+                    </execution>
+                    <execution>
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>io.github.chitchat.client/io.github.chitchat.client.HelloApplication</mainClass>
