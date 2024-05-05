@@ -1,4 +1,4 @@
-package io.github.chitchat;
+package io.github.chitchat.common;
 
 public class Message {
     private Message type;
