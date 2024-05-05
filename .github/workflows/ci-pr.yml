@@ -29,23 +29,6 @@ jobs:
       - name: Verify
         run: mvn -B verify -f pom.xml
 
-  test:
-    name: Run Tests
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: "temurin"
-          java-version: "22"
-          cache: "maven"
-
-      - name: Test
-        run: mvn -B test -f pom.xml
-
   format:
     name: Check Formatting
     runs-on: ubuntu-latest
@@ -70,7 +53,6 @@ jobs:
     if: github.event_name != 'merge_group'
     needs:
       - verify
-      - test
     steps:
       - name: Checkout
         uses: actions/checkout@v4

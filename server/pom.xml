@@ -17,6 +17,16 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -55,6 +65,7 @@
                             <artifact>*:*</artifact>
                             <excludes>
                                 <exclude>module-info.class</exclude>
+                                <exclude>META-INF.versions*</exclude>
                                 <exclude>META-INF/license/**</exclude>
                                 <exclude>META-INF/*</exclude>
                                 <exclude>META-INF/maven/**</exclude>

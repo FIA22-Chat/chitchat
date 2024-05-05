@@ -37,15 +37,13 @@
             <artifactId>log4j-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>5.10.2</version>
-            <scope>test</scope>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.10.2</version>
+            <artifactId>junit-jupiter</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
