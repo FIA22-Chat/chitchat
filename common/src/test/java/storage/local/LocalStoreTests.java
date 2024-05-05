@@ -6,6 +6,7 @@ import io.github.chitchat.storage.local.LocalStore;
 import io.github.chitchat.storage.local.config.Evaluation;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.HashMap;
 import org.junit.jupiter.api.Test;
 
 public class LocalStoreTests {
@@ -73,5 +74,33 @@ public class LocalStoreTests {
         assertEquals("newValue", store2.get());
 
         store2.drop();
+    }
+
+    @Test
+    void objectLocalStore() throws IOException, ClassNotFoundException {
+        var map = new HashMap<String, Integer>();
+        map.put("test1", 1);
+        map.put("test2", 2);
+
+        var store = new LocalStore<>(map, "testObjectStore", path, Evaluation.LAZY);
+        assertNotNull(store);
+        store.flush();
+
+        var value = store.get();
+        assertEquals(map, value);
+        assertEquals(1, value.get("test1"));
+        assertEquals(2, value.get("test2"));
+
+        map.put("test3", 3);
+        store.set(map);
+        store.flush();
+
+        value = store.get();
+        assertEquals(map, value);
+        assertEquals(1, value.get("test1"));
+        assertEquals(2, value.get("test2"));
+        assertEquals(3, value.get("test3"));
+
+        store.drop();
     }
 }
