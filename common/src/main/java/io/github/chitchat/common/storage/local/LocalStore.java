@@ -1,6 +1,6 @@
-package io.github.chitchat.storage.local;
+package io.github.chitchat.common.storage.local;
 
-import io.github.chitchat.storage.local.config.Evaluation;
+import io.github.chitchat.common.storage.local.config.Evaluation;
 import java.io.*;
 import java.nio.file.Path;
 import org.apache.logging.log4j.LogManager;

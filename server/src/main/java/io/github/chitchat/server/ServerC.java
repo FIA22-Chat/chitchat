@@ -1,4 +1,4 @@
-package io.github.chitchat;
+package io.github.chitchat.server;
 
 import java.io.IOException;
 import java.net.ServerSocket;

@@ -2,8 +2,8 @@ package storage.local;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import io.github.chitchat.storage.local.LocalStore;
-import io.github.chitchat.storage.local.config.Evaluation;
+import io.github.chitchat.common.storage.local.LocalStore;
+import io.github.chitchat.common.storage.local.config.Evaluation;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashMap;

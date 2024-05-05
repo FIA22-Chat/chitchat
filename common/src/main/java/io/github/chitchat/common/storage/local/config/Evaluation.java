@@ -1,4 +1,4 @@
-package io.github.chitchat.storage.local.config;
+package io.github.chitchat.common.storage.local.config;
 
 /** Defines how the value should be reevaluated. */
 public enum Evaluation {
