@@ -5,11 +5,8 @@
 			<PatternLayout disableAnsi="false"
 				pattern="%style{%date{HH:mm:ss}}{yellow} [%t] %highlight{%-5level}{FATAL=bg_red, ERROR=red, WARN=yellow, INFO=green, DEBUG=cyan, TRACE=white} %logger{1} - %msg%n" />
 		</Console>
-		<RollingFile name="Rolling_File_Appender"
-			fileName="${env:LOG_PATH:-.}/chitchat-client.log"
-			filePattern="${env:LOG_PATH:-.}/chitchat-client-%d{yyyy-MM-dd}-%i.log.gz">
-			<PatternLayout
-				pattern="%d{DEFAULT} [%t] %-5level %logger{36} - %msg%n" />
+		<RollingFile name="Rolling_File_Appender" fileName="${env:LOG_PATH:-.}/chitchat-client.log" filePattern="${env:LOG_PATH:-.}/chitchat-client-%d{yyyy-MM-dd}-%i.log.gz">
+			<PatternLayout pattern="%d{DEFAULT} [%t] %-5level %logger{36} - %msg%n" />
 			<Policies>
 				<SizeBasedTriggeringPolicy size="10 MB" />
 				<TimeBasedTriggeringPolicy />
