@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="600.0" prefWidth="881.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.chitchat.client.view.pages.main.MainController">
+
+
+
+    <left>
+        <ListView fx:id="chatList" prefWidth="200.0" />
+    </left>
+
+    <center>
+        <VBox>
+            <TextArea fx:id="chatArea" editable="false" prefHeight="450.0" prefWidth="600.0" wrapText="true" />
+        </VBox>
+    </center>
+
+    <bottom>
+        <HBox styleClass="input-area">
+            <TextArea fx:id="inputArea" prefHeight="50.0" prefWidth="700.0" promptText="Type a message...111" wrapText="true" />
+            <Button fx:id="sendButton" onAction="#sendMessage" text="Send" />
+        </HBox>
+    </bottom>
+    <stylesheets>
+        <URL value="@main.css" />
+    </stylesheets>
+</BorderPane>
