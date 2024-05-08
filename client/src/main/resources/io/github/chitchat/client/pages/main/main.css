@@ -33,3 +33,12 @@
     -fx-padding: 5px 10px;
     -fx-border-radius: 5px;
 }
+
+#callButton
+{
+    -fx-padding: 10px;
+    -fx-background-image: url('../../icons/call.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: 20px 20px;
+}
