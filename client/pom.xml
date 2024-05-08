@@ -76,7 +76,7 @@
                     <execution>
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>io.github.chitchat.client/io.github.chitchat.client.HelloApplication</mainClass>
+                            <mainClass>io.github.chitchat.client.HelloApplication</mainClass>
                             <compress>2</compress>
                             <launcher>chitchat</launcher>
                             <jlinkZipName>chitchat</jlinkZipName>

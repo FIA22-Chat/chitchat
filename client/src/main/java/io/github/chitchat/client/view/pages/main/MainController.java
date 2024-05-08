@@ -1,6 +1,16 @@
 package io.github.chitchat.client.view.pages.main;
 
-public class MainController 
+import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.BorderPane;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class MainController
 {
 
     @FXML
@@ -18,33 +28,29 @@ public class MainController
     @FXML
     private BorderPane borderPane;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        // Füge die Chatlisteinträge hinzu
+
+    public void initialize(URL url, ResourceBundle resourceBundle)
+    {
+
         chatList.getItems().addAll("Chat 1", "Chat 2", "Chat 3");
 
 
-        // Eventhandler für das Senden einer Nachricht
+
         sendButton.setOnAction(event -> sendMessage());
     }
 
     @FXML
-    private void sendMessage() {
-        // Sende die eingegebene Nachricht
-        String message = inputArea.getText().trim();
-        if (!message.isEmpty()) {
-            chatArea.appendText("You: " + message + "\n");
-            inputArea.clear();
-        }
+    private void sendMessage()
+    {
+
+
+
     }
 
     @FXML
-    private void loadChatMessages() {
-        // Lade Nachrichten für den ausgewählten Chat
-        String selectedChat = chatList.getSelectionModel().getSelectedItem();
-        if (selectedChat != null) {
-            chatArea.setText("Loading messages for chat: " + selectedChat);
-        }
+    private void loadChatMessages()
+    {
+
     }
 
 }

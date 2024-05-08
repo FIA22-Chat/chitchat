@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.HelloController">
+<BorderPane prefHeight="600.0" prefWidth="881.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.chitchat.client.view.pages.main.MainController">
 
 
 
@@ -20,11 +20,11 @@
 
     <bottom>
         <HBox styleClass="input-area">
-            <TextArea fx:id="inputArea" prefHeight="50.0" prefWidth="700.0" promptText="Type a message..." wrapText="true" />
+            <TextArea fx:id="inputArea" prefHeight="50.0" prefWidth="700.0" promptText="Type a message...111" wrapText="true" />
             <Button fx:id="sendButton" onAction="#sendMessage" text="Send" />
         </HBox>
     </bottom>
     <stylesheets>
-        <URL value="@style.css" />
+        <URL value="@main.css" />
     </stylesheets>
 </BorderPane>
