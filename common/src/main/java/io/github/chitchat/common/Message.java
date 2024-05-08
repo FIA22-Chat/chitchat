@@ -9,7 +9,7 @@ public class Message {
     private String to;
     private LocalDateTime uhrzeit;
 
-    public Message(Message type, String from, String to, String content, LocalDateTime uhrzeit ) {
+    public Message(Message type, String from, String to, String content, LocalDateTime uhrzeit) {
         this.type = type;
         this.content = content;
     }

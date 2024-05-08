@@ -64,17 +64,16 @@
         </dependency>
     </dependencies>
     <build>
-    <plugins>
-        <plugin>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-maven-plugin</artifactId>
-            <version>10.7.1</version>
-            <configuration>
-                <user>databaseUser</user>
-                <password>databasePassword</password>
-
-            </configuration>
-        </plugin>
-    </plugins>
+        <plugins>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>10.7.1</version>
+                <configuration>
+                    <user>databaseUser</user>
+                    <password>databasePassword</password>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 </project>
