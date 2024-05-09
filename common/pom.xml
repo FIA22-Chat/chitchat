@@ -35,6 +35,11 @@
             <version>2.23.1</version>
         </dependency>
         <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>10.7.1</version>
+        </dependency>
+        <dependency>
             <groupId>org.jdbi</groupId>
             <artifactId>jdbi3-core</artifactId>
         </dependency>
@@ -72,15 +77,28 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <compilerArgs>
+                        <arg>-parameters</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>10.7.1</version>
                 <configuration>
-                    <user>databaseUser</user>
-                    <password>databasePassword</password>
+                    <url>jdbc:sqlite:./target/chitchat.db</url>
+                    <locations>
+                        <location>filesystem:./src/main/resources/io/github/chitchat/common/migration</location>
+                    </locations>
                 </configuration>
             </plugin>
         </plugins>
