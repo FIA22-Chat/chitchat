@@ -1,18 +1,33 @@
 package io.github.chitchat.common.database.models;
 
+import java.time.Instant;
+import java.util.EnumSet;
+import java.util.UUID;
+import lombok.*;
+
+@Data
+@AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class User {
-    private int id;
+    /** A unique identifier in the format of UUID v7 which includes a timestamp. */
+    @EqualsAndHashCode.Include private UUID id;
+
+    /** The type of user, see {@link UserType}. */
+    private UserType type;
+
+    /**
+     * A set of global level permissions that the user has assigned to them, these always take
+     * precedence over group level permissions.
+     */
+    private EnumSet<UserPermission> permission;
+
     private String name;
-    // private HashSHA256 password;
-    private String salt;
+
     private String email;
 
-    /*    public User(int id, String name, String email, HashSHA256 password, String salt)
-    {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.salt = salt;
-    } */
+    /** A string representing the Argon2 hash of the password. Contains the salt and the hash. */
+    private String password;
+
+    /** The timestamp when the user data was last modified. */
+    private Instant modifiedAt;
 }
