@@ -18,8 +18,12 @@ public class Database {
 
     /**
      * Creates and configures a new SQLite database at the given path, the database file will be
-     * named as {@value DB_NAME}. Required migrations are automatically applied to the database. The
-     * caller is responsible for opening and closing the database connection.
+     * named as {@value DB_NAME}.
+     *
+     * <p>Migrations will be automatically applied to the database and are required to be located
+     * under resources/db/migration and
+     *
+     * <p>The caller is responsible for opening and closing the database connection.
      *
      * @param path the path to create the database at
      * @return a new Jdbi instance
@@ -29,11 +33,7 @@ public class Database {
         String url = "jdbc:sqlite:" + path.resolve(DB_NAME).toAbsolutePath();
         log.trace("Using database URL: {}", url);
 
-        Flyway.configure()
-                .dataSource(url, null, null)
-                .locations("classpath:io/github/chitchat/common/migration")
-                .load()
-                .migrate();
+        Flyway.configure().dataSource(url, null, null).load().migrate();
         return Jdbi.create(url)
                 .installPlugin(new SQLitePlugin())
                 .installPlugin(new SqlObjectPlugin());
