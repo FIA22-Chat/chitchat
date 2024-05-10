@@ -1,5 +1,6 @@
-package io.github.chitchat.common.database.models;
+package io.github.chitchat.client.models;
 
+import io.github.chitchat.common.storage.database.models.User;
 import java.util.List;
 import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
@@ -31,20 +32,14 @@ public interface UserDAO {
     @RegisterBeanMapper(User.class)
     User getByName(String name);
 
-    @SqlQuery("select * from user where email = :email")
-    @RegisterBeanMapper(User.class)
-    User getByEmail(String email);
-
     @SqlUpdate(
-            "insert into user (id, type, permission, name, email, password, modifiedAt) values"
-                    + " (:id, :type, :permission, :name, :email, :password, :modifiedAt)")
+            "insert into user (id, type, permission, name) values (:id, :type, :permission, :name)")
     void insert(User user);
 
     @SqlUpdate("delete from user where id = :id")
     void delete(User user);
 
     @SqlUpdate(
-            "update user set type = :type, permission = :permission, name = :name, email = :email,"
-                    + " password = :password, modifiedAt = :modifiedAt where id = :id")
+            "update user set type = :type, permission = :permission, name = :name where id = :id")
     void update(User user);
 }

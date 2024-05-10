@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS "group"
 (
     id          integer NOT NULL UNIQUE PRIMARY KEY,
     name        text    NOT NULL,
+    description text    NOT NULL,
     modified_at integer NOT NULL
 );
 
