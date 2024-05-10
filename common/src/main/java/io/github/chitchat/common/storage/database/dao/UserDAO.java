@@ -1,12 +1,14 @@
-package io.github.chitchat.client.models;
+package io.github.chitchat.common.storage.database.dao;
 
 import io.github.chitchat.common.storage.database.models.User;
 import java.util.List;
 import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
+import org.jdbi.v3.sqlobject.transaction.Transaction;
 
-public interface UserDAO {
+@RegisterBeanMapper(User.class)
+public interface UserDAO<T extends User> {
     @SqlQuery("select count(*) from user")
     int count();
 
@@ -14,32 +16,31 @@ public interface UserDAO {
     boolean existsById(int id);
 
     @SqlQuery("select exists(select 1 from user where id = :id)")
-    boolean exists(User user);
+    boolean exists(T user);
 
     @SqlQuery("select * from user order by id")
-    @RegisterBeanMapper(User.class)
-    List<User> getAll();
+    List<T> getAll();
+
+    @SqlQuery("select * from user where id in (<ids>) order by id")
+    List<T> getByIds(List<Integer> ids);
 
     @SqlQuery("select * from user where id = :id")
-    @RegisterBeanMapper(User.class)
-    User getById(int id);
-
-    @SqlQuery("select * from user where id in (<ids>)")
-    @RegisterBeanMapper(User.class)
-    List<User> getByIds(List<Integer> ids);
+    T getById(int id);
 
     @SqlQuery("select * from user where name = :name")
-    @RegisterBeanMapper(User.class)
-    User getByName(String name);
+    T getByName(String name);
 
+    @Transaction
     @SqlUpdate(
             "insert into user (id, type, permission, name) values (:id, :type, :permission, :name)")
-    void insert(User user);
+    void insert(T user);
 
+    @Transaction
     @SqlUpdate("delete from user where id = :id")
-    void delete(User user);
+    void delete(T user);
 
+    @Transaction
     @SqlUpdate(
             "update user set type = :type, permission = :permission, name = :name where id = :id")
-    void update(User user);
+    void update(T user);
 }
