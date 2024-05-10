@@ -1,6 +1,8 @@
 package io.github.chitchat.common.storage.database.models;
 
-public enum UserType {
+import java.io.Serializable;
+
+public enum UserType implements Serializable {
     USER,
     BOT
 }

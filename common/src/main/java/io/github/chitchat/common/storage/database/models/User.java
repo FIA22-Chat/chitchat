@@ -1,12 +1,13 @@
 package io.github.chitchat.common.storage.database.models;
 
+import java.io.Serializable;
 import java.util.EnumSet;
 import java.util.UUID;
 import lombok.*;
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class User {
+public class User implements Serializable {
     /** A unique identifier in the format of UUID v7 which includes a timestamp. */
     @EqualsAndHashCode.Include private UUID id;
 
