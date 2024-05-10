@@ -16,7 +16,7 @@ public class Database {
      * Creates and configures a new Jdbi instance with the provided data source.
      *
      * <p>Migrations will be automatically applied to the database and are required to be located
-     * under "resources/db/migration".
+     * under the {@code db/migration} directory in the classpath.
      *
      * <p>The caller is responsible for opening and closing the database connection.
      *
