@@ -20,41 +20,51 @@ public class Util {
     }
 
     /**
-     * Returns the path to the user's application directory based on the operating system.
+     * Returns the path to the user's application directory based on the operating system. The
+     * directory will be created if it does not exist.
      *
      * @param appName the name of the application
      * @return the path to the user's application directory
      */
     @NotNull public static Path getUserAppDir(@NotNull String appName) {
+        Path path;
         if (os.contains("win")) {
-            return Path.of(System.getenv("LOCALAPPDATA"), appName);
-        }
-        if (os.contains("mac")) {
-            return Path.of(
-                    System.getProperty("user.home"), "Library", "Application Support", appName);
+            path = Path.of(System.getenv("LOCALAPPDATA"), appName);
+        } else if (os.contains("mac")) {
+            path =
+                    Path.of(
+                            System.getProperty("user.home"),
+                            "Library",
+                            "Application Support",
+                            appName);
+        } else {
+            path = Path.of(System.getProperty("user.home"), "." + appName);
         }
 
-        return Path.of(System.getProperty("user.home"), "." + appName);
+        var _ = path.toFile().mkdirs();
+        return path;
     }
 
     /**
-     * Returns the path to the user's cache directory based on the operating system.
+     * Returns the path to the user's cache directory based on the operating system. The directory
+     * will be created if it does not exist.
      *
      * @param appName the name of the application
      * @return the path to the user's cache directory
      */
     @NotNull public static Path getUserCacheDir(@NotNull String appName) {
-        var os = System.getProperty("os.name").toLowerCase();
+        Path path;
         if (os.contains("win")) {
-            return Path.of(System.getProperty("LOCALAPPDATA"), "Temp", appName);
-        }
-        if (os.contains("mac")) {
-            return Path.of(System.getProperty("user.home"), "Library", "Caches", appName);
-        }
-        if (os.contains("nix")) {
-            return Path.of(System.getProperty("user.home"), ".cache", appName);
+            path = Path.of(System.getProperty("LOCALAPPDATA"), "Temp", appName);
+        } else if (os.contains("mac")) {
+            path = Path.of(System.getProperty("user.home"), "Library", "Caches", appName);
+        } else if (os.contains("nix")) {
+            path = Path.of(System.getProperty("user.home"), ".cache", appName);
+        } else {
+            path = Path.of(System.getProperty("user.home"), "." + appName, "cache");
         }
 
-        return Path.of(System.getProperty("user.home"), "." + appName, "cache");
+        var _ = path.toFile().mkdirs();
+        return path;
     }
 }
