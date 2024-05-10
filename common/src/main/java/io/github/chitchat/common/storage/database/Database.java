@@ -32,6 +32,7 @@ public class Database {
         Flyway.configure().dataSource(dataSource).load().migrate();
         log.trace("Migrations applied successfully");
 
+        log.trace("Installing Jdbi plugin: {}", SqlObjectPlugin.class.getName());
         var jdbi = Jdbi.create(dataSource).installPlugin(new SqlObjectPlugin());
         for (JdbiPlugin plugin : jdbiPlugins) {
             log.trace("Installing Jdbi plugin: {}", plugin.getClass().getName());

@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS message
     user_id     integer NOT NULL REFERENCES user (id),
     group_id    text    NOT NULL REFERENCES "group" (id),
     type        integer NOT NULL,
-    content     text    NOT NULL,
+    content     blob    NOT NULL,
     modified_at integer NOT NULL
 );
 CREATE INDEX IF NOT EXISTS message_user_id_index ON message (user_id);
