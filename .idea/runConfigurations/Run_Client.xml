@@ -26,6 +26,7 @@
           <option name="delegateBuildToMaven" value="true" />
           <option name="environmentProperties">
             <map>
+              <entry key="DB_PATH" value="target/db" />
               <entry key="LOG_LEVEL_CONSOLE" value="TRACE" />
               <entry key="LOG_LEVEL_FILE" value="TRACE" />
               <entry key="LOG_PATH" value="target/log" />
