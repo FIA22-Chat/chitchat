@@ -23,7 +23,7 @@ public class Main {
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     private static DataSource createDataSource() {
-        var dbPathStr = Util.getEnvOrDefault("DB_PATH", Util.getUserAppDir(APP_NAME).toString());
+        var dbPathStr = Util.getEnvOrDefault("DB_PATH", ".");
         var dbPath = Path.of(dbPathStr, DB_NAME);
         dbPath.toFile().getParentFile().mkdirs();
 
