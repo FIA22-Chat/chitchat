@@ -5,16 +5,19 @@ import java.time.Instant;
 import java.util.UUID;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NonNull;
+import lombok.experimental.SuperBuilder;
 
 @Data
+@SuperBuilder
 @EqualsAndHashCode(callSuper = false)
 public class UserSession extends BaseModel {
     /** The user this session belongs to. */
-    private UUID userId;
+    @NonNull private UUID userId;
 
     /** The token that is used to authenticate the user. */
-    private String token;
+    @NonNull private String token;
 
     /** The timestamp when the session is going to expire. */
-    private Instant expiresAt;
+    @NonNull private Instant expiresAt;
 }

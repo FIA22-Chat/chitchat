@@ -5,23 +5,26 @@ import java.time.Instant;
 import java.util.UUID;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NonNull;
+import lombok.experimental.SuperBuilder;
 
 /** Represents a message in the database. */
 @Data
+@SuperBuilder
 @EqualsAndHashCode(callSuper = true)
 public class Message extends IndexableModel {
     /** The user that sent the message. */
-    private UUID userId;
+    @NonNull private UUID userId;
 
     /** The group that the message was sent to. */
-    private UUID groupId;
+    @NonNull private UUID groupId;
 
     /** The type of message, see {@link MessageType}. */
-    private MessageType type;
+    @NonNull private MessageType type;
 
     /** The content of the message. */
-    private Byte[] content;
+    @NonNull private Byte[] content;
 
     /** The timestamp when the message was sent. */
-    private Instant modifiedAt;
+    @NonNull private Instant modifiedAt;
 }
