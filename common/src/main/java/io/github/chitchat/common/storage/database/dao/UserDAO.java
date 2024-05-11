@@ -16,7 +16,7 @@ public interface UserDAO<T extends User> {
     int count();
 
     @SqlQuery("select exists(select 1 from user where id = :id)")
-    boolean existsById(int id);
+    boolean existsById(UUID id);
 
     @SqlQuery("select exists(select 1 from user where id = :id)")
     boolean exists(@BindBean T user);
@@ -25,7 +25,7 @@ public interface UserDAO<T extends User> {
     List<T> getAll();
 
     @SqlQuery("select * from user where id in (<ids>) order by id")
-    List<T> getByIds(List<Integer> ids);
+    List<T> getByIds(List<UUID> ids);
 
     @SqlQuery("select * from user where id = :id")
     Optional<T> getById(UUID id);

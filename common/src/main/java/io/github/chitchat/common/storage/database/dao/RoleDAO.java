@@ -3,6 +3,7 @@ package io.github.chitchat.common.storage.database.dao;
 import io.github.chitchat.common.storage.database.models.Role;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
 import org.jdbi.v3.sqlobject.customizer.BindBean;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
@@ -15,7 +16,7 @@ public interface RoleDAO<T extends Role> {
     int count();
 
     @SqlQuery("select exists(select 1 from role where id = :id)")
-    boolean existsById(int id);
+    boolean existsById(UUID id);
 
     @SqlQuery("select exists(select 1 from role where id = :id)")
     boolean exists(@BindBean T role);
@@ -24,13 +25,13 @@ public interface RoleDAO<T extends Role> {
     List<T> getAll();
 
     @SqlQuery("select * from role where id in (<ids>) order by id")
-    List<T> getByIds(List<Integer> ids);
+    List<T> getByIds(List<UUID> ids);
 
     @SqlQuery("select * from role where id = :id")
-    Optional<T> getById(int id);
+    Optional<T> getById(UUID id);
 
     @SqlQuery("select * from role where group_id = :groupId")
-    List<T> getByGroupId(int groupId);
+    List<T> getByGroupId(UUID groupId);
 
     @SqlQuery("select * from role where name = :name")
     Optional<T> getByName(String name);

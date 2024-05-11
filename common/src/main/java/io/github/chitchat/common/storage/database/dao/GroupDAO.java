@@ -3,6 +3,7 @@ package io.github.chitchat.common.storage.database.dao;
 import io.github.chitchat.common.storage.database.models.Group;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
 import org.jdbi.v3.sqlobject.customizer.BindBean;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
@@ -15,7 +16,7 @@ public interface GroupDAO<T extends Group> {
     int count();
 
     @SqlQuery("select exists(select 1 from \"group\" where id = :id)")
-    boolean existsById(int id);
+    boolean existsById(UUID id);
 
     @SqlQuery("select exists(select 1 from \"group\" where id = :id)")
     boolean exists(@BindBean T group);
@@ -24,10 +25,10 @@ public interface GroupDAO<T extends Group> {
     List<T> getAll();
 
     @SqlQuery("select * from \"group\" where id in (<ids>) order by id")
-    List<T> getByIds(List<Integer> ids);
+    List<T> getByIds(List<UUID> ids);
 
     @SqlQuery("select * from \"group\" where id = :id")
-    Optional<T> getById(int id);
+    Optional<T> getById(UUID id);
 
     @SqlQuery("select * from \"group\" where name = :name")
     Optional<T> getByName(String name);
