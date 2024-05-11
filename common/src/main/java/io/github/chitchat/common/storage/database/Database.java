@@ -1,5 +1,7 @@
 package io.github.chitchat.common.storage.database;
 
+import io.github.chitchat.common.storage.database.arguments.PermissionArgumentFactory;
+import io.github.chitchat.common.storage.database.arguments.UUIDArgumentFactory;
 import javax.sql.DataSource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -32,8 +34,14 @@ public class Database {
         Flyway.configure().dataSource(dataSource).load().migrate();
         log.trace("Migrations applied successfully");
 
+        log.trace("Registering UUID argument factory");
+        var jdbi =
+                Jdbi.create(dataSource)
+                        .registerArgument(new UUIDArgumentFactory())
+                        .registerArgument(new PermissionArgumentFactory());
+
         log.trace("Installing Jdbi plugin: {}", SqlObjectPlugin.class.getName());
-        var jdbi = Jdbi.create(dataSource).installPlugin(new SqlObjectPlugin());
+        jdbi.installPlugin(new SqlObjectPlugin());
         for (JdbiPlugin plugin : jdbiPlugins) {
             log.trace("Installing Jdbi plugin: {}", plugin.getClass().getName());
             jdbi.installPlugin(plugin);
