@@ -2,7 +2,10 @@ package io.github.chitchat.common.storage.database.dao;
 
 import io.github.chitchat.common.storage.database.models.User;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
+import org.jdbi.v3.sqlobject.customizer.BindBean;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 import org.jdbi.v3.sqlobject.transaction.Transaction;
@@ -16,7 +19,7 @@ public interface UserDAO<T extends User> {
     boolean existsById(int id);
 
     @SqlQuery("select exists(select 1 from user where id = :id)")
-    boolean exists(T user);
+    boolean exists(@BindBean T user);
 
     @SqlQuery("select * from user order by id")
     List<T> getAll();
@@ -25,22 +28,22 @@ public interface UserDAO<T extends User> {
     List<T> getByIds(List<Integer> ids);
 
     @SqlQuery("select * from user where id = :id")
-    T getById(int id);
+    Optional<T> getById(UUID id);
 
     @SqlQuery("select * from user where name = :name")
-    T getByName(String name);
+    Optional<T> getByName(String name);
 
     @Transaction
     @SqlUpdate(
             "insert into user (id, type, permission, name) values (:id, :type, :permission, :name)")
-    void insert(T user);
+    void insert(@BindBean T user);
 
     @Transaction
     @SqlUpdate("delete from user where id = :id")
-    void delete(T user);
+    void delete(@BindBean T user);
 
     @Transaction
     @SqlUpdate(
             "update user set type = :type, permission = :permission, name = :name where id = :id")
-    void update(T user);
+    void update(@BindBean T user);
 }

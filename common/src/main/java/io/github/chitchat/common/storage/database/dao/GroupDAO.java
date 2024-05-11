@@ -4,6 +4,7 @@ import io.github.chitchat.common.storage.database.models.Group;
 import java.util.List;
 import java.util.Optional;
 import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
+import org.jdbi.v3.sqlobject.customizer.BindBean;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 import org.jdbi.v3.sqlobject.transaction.Transaction;
@@ -17,7 +18,7 @@ public interface GroupDAO<T extends Group> {
     boolean existsById(int id);
 
     @SqlQuery("select exists(select 1 from \"group\" where id = :id)")
-    boolean exists(T group);
+    boolean exists(@BindBean T group);
 
     @SqlQuery("select * from \"group\" order by id")
     List<T> getAll();
@@ -35,15 +36,15 @@ public interface GroupDAO<T extends Group> {
     @SqlUpdate(
             "insert into \"group\" (id, name, description, modified_at) values"
                     + " (:id, :name, :description, :modifiedAt)")
-    void insert(T group);
+    void insert(@BindBean T group);
 
     @Transaction
     @SqlUpdate("delete from \"group\" where id = :id")
-    void delete(T group);
+    void delete(@BindBean T group);
 
     @Transaction
     @SqlUpdate(
             "update \"group\" set name = :name, description = :description, modified_at ="
                     + " :modifiedAt where id = :id")
-    void update(T group);
+    void update(@BindBean T group);
 }
