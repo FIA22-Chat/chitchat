@@ -99,6 +99,9 @@
                     <execution>
                         <id>default-cli</id>
                         <configuration>
+                            <options>
+                                <option>--add-opens=java.base/java.util=ALL-UNNAMED</option>
+                            </options>
                             <mainClass>io.github.chitchat.client.HelloApplication</mainClass>
                             <compress>2</compress>
                             <launcher>chitchat</launcher>
