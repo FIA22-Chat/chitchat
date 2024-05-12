@@ -39,14 +39,21 @@ public class Database {
      * @throws FlywayException if an error occurs while applying migrations
      */
     public static @NotNull Jdbi create(
-            @NotNull DataSource dataSource, JdbiPlugin @NotNull ... jdbiPlugins)
+            @NotNull DataSource dataSource,
+            boolean runMigration,
+            JdbiPlugin @NotNull ... jdbiPlugins)
             throws FlywayException {
         log.trace("Using database URL: {}", dataSource.toString());
 
-        Flyway.configure().dataSource(dataSource).load().migrate();
-        log.trace("Migrations applied successfully");
+        if (runMigration) {
+            log.trace("Applying migrations");
+            Flyway.configure().dataSource(dataSource).load().migrate();
+            log.trace("Migrations applied successfully");
+        } else {
+            log.trace("Skipping migrations");
+        }
 
-        log.trace("Registering UUID argument factory");
+        log.trace("Registering argument factories");
         var jdbi =
                 Jdbi.create(dataSource)
                         .registerArgument(new UUIDArgumentFactory())

@@ -18,7 +18,7 @@ public class Main {
 
     public static void main(String[] args) {
         log.info("Starting server...");
-        var db = Database.create(createDataSource(), new SQLitePlugin());
+        var db = Database.create(createDataSource(), true, new SQLitePlugin());
         db.registerRowMapper(ServerUser.class, new ServerUserRowMapper());
 
         new ServerC();

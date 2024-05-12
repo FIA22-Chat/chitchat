@@ -21,7 +21,7 @@ public class HelloApplication extends Application {
 
     public static void main(String[] args) {
         log.info("Starting client...");
-        var db = Database.create(createDataSource(), new SQLitePlugin());
+        var db = Database.create(createDataSource(), false, new SQLitePlugin());
 
         launch();
     }
