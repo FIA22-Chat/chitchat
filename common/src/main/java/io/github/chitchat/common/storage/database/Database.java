@@ -1,15 +1,26 @@
 package io.github.chitchat.common.storage.database;
 
-import io.github.chitchat.common.storage.database.arguments.PermissionArgumentFactory;
-import io.github.chitchat.common.storage.database.arguments.UUIDArgumentFactory;
+import io.github.chitchat.common.storage.database.dao.arguments.PermissionArgumentFactory;
+import io.github.chitchat.common.storage.database.dao.arguments.UUIDArgumentFactory;
+import io.github.chitchat.common.storage.database.dao.mappers.GroupRowMapper;
+import io.github.chitchat.common.storage.database.dao.mappers.MessageRowMapper;
+import io.github.chitchat.common.storage.database.dao.mappers.RoleRowMapper;
+import io.github.chitchat.common.storage.database.dao.mappers.UserRowMapper;
+import io.github.chitchat.common.storage.database.models.Group;
+import io.github.chitchat.common.storage.database.models.Message;
+import io.github.chitchat.common.storage.database.models.Role;
+import io.github.chitchat.common.storage.database.models.User;
 import javax.sql.DataSource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.flywaydb.core.Flyway;
 import org.flywaydb.core.api.FlywayException;
 import org.jdbi.v3.core.Jdbi;
+import org.jdbi.v3.core.enums.EnumStrategy;
+import org.jdbi.v3.core.enums.Enums;
 import org.jdbi.v3.core.spi.JdbiPlugin;
 import org.jdbi.v3.sqlobject.SqlObjectPlugin;
+import org.jetbrains.annotations.NotNull;
 
 public class Database {
     private static final Logger log = LogManager.getLogger(Database.class);
@@ -27,7 +38,8 @@ public class Database {
      * @return a new Jdbi instance
      * @throws FlywayException if an error occurs while applying migrations
      */
-    public static Jdbi create(DataSource dataSource, JdbiPlugin... jdbiPlugins)
+    public static @NotNull Jdbi create(
+            @NotNull DataSource dataSource, JdbiPlugin @NotNull ... jdbiPlugins)
             throws FlywayException {
         log.trace("Using database URL: {}", dataSource.toString());
 
@@ -38,7 +50,12 @@ public class Database {
         var jdbi =
                 Jdbi.create(dataSource)
                         .registerArgument(new UUIDArgumentFactory())
-                        .registerArgument(new PermissionArgumentFactory());
+                        .registerArgument(new PermissionArgumentFactory())
+                        .registerRowMapper(User.class, new UserRowMapper())
+                        .registerRowMapper(Role.class, new RoleRowMapper())
+                        .registerRowMapper(Group.class, new GroupRowMapper())
+                        .registerRowMapper(Message.class, new MessageRowMapper());
+        jdbi.getConfig(Enums.class).setEnumStrategy(EnumStrategy.BY_ORDINAL);
 
         log.trace("Installing Jdbi plugin: {}", SqlObjectPlugin.class.getName());
         jdbi.installPlugin(new SqlObjectPlugin());
