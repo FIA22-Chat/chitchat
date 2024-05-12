@@ -1,4 +1,4 @@
-package io.github.chitchat.common.storage.database.arguments;
+package io.github.chitchat.common.storage.database.dao.arguments;
 
 import com.fasterxml.uuid.impl.UUIDUtil;
 import java.sql.Types;
