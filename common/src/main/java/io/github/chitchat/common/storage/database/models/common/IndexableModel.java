@@ -2,7 +2,6 @@ package io.github.chitchat.common.storage.database.models.common;
 
 import java.util.UUID;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 /**
  * The {@link IndexableModel} class is the base class for all models that have an index. All models
@@ -15,12 +14,12 @@ import lombok.experimental.SuperBuilder;
  * @see BaseModel
  */
 @Data
-@SuperBuilder
+@AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 public class IndexableModel extends BaseModel {
     /**
      * A unique identifier in the format of UUID v7 which includes a timestamp. This enables the
      * model to be sorted chronologically.
      */
-    @NonNull @EqualsAndHashCode.Include private UUID id;
+    @NonNull @EqualsAndHashCode.Include protected UUID id;
 }

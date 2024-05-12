@@ -3,14 +3,11 @@ package io.github.chitchat.common.storage.database.models;
 import io.github.chitchat.common.storage.database.models.common.BaseModel;
 import java.time.Instant;
 import java.util.UUID;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NonNull;
-import lombok.experimental.SuperBuilder;
+import lombok.*;
 
 /** Represent the association between a user and a group. */
-@Data
-@SuperBuilder
+@Getter
+@Setter
 @EqualsAndHashCode(callSuper = false)
 public class UserGroup extends BaseModel {
     /** The user that is part of the group. */
@@ -21,4 +18,10 @@ public class UserGroup extends BaseModel {
 
     /** The timestamp when a change was made to the user group. */
     @NonNull private Instant modifiedAt;
+
+    public UserGroup(@NonNull UUID userId, @NonNull UUID groupId, @NonNull Instant modifiedAt) {
+        this.userId = userId;
+        this.groupId = groupId;
+        this.modifiedAt = modifiedAt;
+    }
 }
