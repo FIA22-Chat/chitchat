@@ -1,11 +1,13 @@
 package io.github.chitchat.common.storage.database;
 
 import com.fasterxml.uuid.Generators;
-import com.fasterxml.uuid.impl.TimeBasedEpochGenerator;
+import com.fasterxml.uuid.impl.TimeBasedEpochRandomGenerator;
+import java.util.Random;
 import java.util.UUID;
 
 public class Generator {
-    private static final TimeBasedEpochGenerator generator = Generators.timeBasedEpochGenerator();
+    private static final TimeBasedEpochRandomGenerator generator =
+            Generators.timeBasedEpochRandomGenerator(new Random());
 
     /**
      * Generates a new UUID v7.
