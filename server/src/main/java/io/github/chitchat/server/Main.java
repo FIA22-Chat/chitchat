@@ -2,6 +2,8 @@ package io.github.chitchat.server;
 
 import io.github.chitchat.common.Util;
 import io.github.chitchat.common.storage.database.Database;
+import io.github.chitchat.server.database.dao.mappers.ServerUserRowMapper;
+import io.github.chitchat.server.database.models.ServerUser;
 import java.nio.file.Path;
 import javax.sql.DataSource;
 import org.apache.logging.log4j.LogManager;
@@ -17,6 +19,7 @@ public class Main {
     public static void main(String[] args) {
         log.info("Starting server...");
         var db = Database.create(createDataSource(), new SQLitePlugin());
+        db.registerRowMapper(ServerUser.class, new ServerUserRowMapper());
 
         new ServerC();
     }
