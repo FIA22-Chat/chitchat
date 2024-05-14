@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS "group"
     id          blob NOT NULL UNIQUE PRIMARY KEY,
     name        text    NOT NULL,
     description text    NOT NULL,
-    modified_at integer NOT NULL
+    modified_at text NOT NULL
 );
 
 -- Each message can be sent by a user to a specific group
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS message
     group_id    blob    NOT NULL REFERENCES "group" (id),
     type        integer NOT NULL,
     content     blob    NOT NULL,
-    modified_at integer NOT NULL
+    modified_at text NOT NULL
 );
 CREATE INDEX IF NOT EXISTS message_user_id_index ON message (user_id);
 CREATE INDEX IF NOT EXISTS message_group_id_index ON message (group_id);
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS user_group
 (
     user_id     blob NOT NULL REFERENCES user (id),
     group_id    blob NOT NULL REFERENCES "group" (id),
-    modified_at integer NOT NULL
+    modified_at text NOT NULL
 );
 CREATE INDEX IF NOT EXISTS user_group_user_id_index ON user_group (user_id);
 CREATE INDEX IF NOT EXISTS user_group_group_id_index ON user_group (group_id);
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS role
     group_id    blob NOT NULL REFERENCES "group" (id),
     name        text    NOT NULL,
     permission  integer NOT NULL,
-    modified_at integer NOT NULL
+    modified_at text NOT NULL
 );
 CREATE INDEX IF NOT EXISTS role_group_id_index ON role (group_id);
 
@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS user_role
 (
     user_id     blob NOT NULL REFERENCES user (id),
     role_id     blob NOT NULL REFERENCES role (id),
-    modified_at integer NOT NULL
+    modified_at text NOT NULL
 );
 CREATE INDEX IF NOT EXISTS user_role_user_id_index ON user_role (user_id);
 CREATE INDEX IF NOT EXISTS user_role_role_id_index ON user_role (role_id);

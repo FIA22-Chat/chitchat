@@ -22,6 +22,6 @@ public class ServerUserRowMapper implements RowMapper<ServerUser> {
                 rs.getString("name"),
                 rs.getString("email"),
                 rs.getString("password"),
-                Instant.ofEpochMilli(rs.getLong("modified_at")));
+                Instant.parse(rs.getString("modified_at")));
     }
 }

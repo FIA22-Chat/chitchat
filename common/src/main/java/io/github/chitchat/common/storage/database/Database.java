@@ -1,5 +1,6 @@
 package io.github.chitchat.common.storage.database;
 
+import io.github.chitchat.common.storage.database.dao.arguments.InstantArgumentFactory;
 import io.github.chitchat.common.storage.database.dao.arguments.PermissionArgumentFactory;
 import io.github.chitchat.common.storage.database.dao.arguments.UUIDArgumentFactory;
 import io.github.chitchat.common.storage.database.dao.mappers.GroupRowMapper;
@@ -58,6 +59,7 @@ public class Database {
                 Jdbi.create(dataSource)
                         .registerArgument(new UUIDArgumentFactory())
                         .registerArgument(new PermissionArgumentFactory())
+                        .registerArgument(new InstantArgumentFactory())
                         .registerRowMapper(User.class, new UserRowMapper())
                         .registerRowMapper(Role.class, new RoleRowMapper())
                         .registerRowMapper(Group.class, new GroupRowMapper())

@@ -17,6 +17,6 @@ public class GroupRowMapper implements RowMapper<Group> {
                 UUIDUtil.uuid(rs.getBytes("id")),
                 rs.getString("name"),
                 rs.getString("description"),
-                Instant.ofEpochMilli(rs.getLong("modified_at")));
+                Instant.parse(rs.getString("modified_at")));
     }
 }

@@ -20,6 +20,6 @@ public class MessageRowMapper implements RowMapper<Message> {
                 UUIDUtil.uuid(rs.getString("group_id")),
                 MessageType.from(rs.getInt("type")),
                 rs.getBytes("content"),
-                Instant.ofEpochMilli(rs.getLong("modified_at")));
+                Instant.parse(rs.getString("modified_at")));
     }
 }

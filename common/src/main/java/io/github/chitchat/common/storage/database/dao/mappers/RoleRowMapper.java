@@ -20,6 +20,6 @@ public class RoleRowMapper implements RowMapper<Role> {
                 UUIDUtil.uuid(rs.getString("group_id")),
                 rs.getString("name"),
                 BitFlag.fromBitMask(PermissionType.class, rs.getLong("permission")),
-                Instant.ofEpochMilli(rs.getLong("modified_at")));
+                Instant.parse(rs.getString("modified_at")));
     }
 }
