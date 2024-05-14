@@ -2,37 +2,23 @@ package database.dao;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import io.github.chitchat.common.storage.database.Database;
 import io.github.chitchat.common.storage.database.Generator;
 import io.github.chitchat.common.storage.database.dao.UserDAO;
 import io.github.chitchat.common.storage.database.models.User;
 import io.github.chitchat.common.storage.database.models.inner.PermissionType;
 import io.github.chitchat.common.storage.database.models.inner.UserType;
-import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.EnumSet;
-import java.util.UUID;
+import java.util.List;
 import org.jdbi.v3.core.Jdbi;
-import org.jdbi.v3.sqlite3.SQLitePlugin;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
-import org.sqlite.SQLiteDataSource;
 
 public class UserTests {
-    static final Path PATH = Path.of("src/test/resources").toAbsolutePath();
-    static final Jdbi db = createDB("test.db");
+    static final Jdbi db = initDB("user.db");
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
-    static @NotNull Jdbi createDB(String name) {
-        var dbPath = PATH.resolve(name);
-        dbPath.toFile().delete();
-        dbPath.toFile().deleteOnExit();
-
-        var datasource = new SQLiteDataSource();
-        datasource.setUrl("jdbc:sqlite:" + dbPath);
-
-        var db = Database.create(datasource, false, new SQLitePlugin());
+    static @NotNull Jdbi initDB(String name) {
+        var db = Common.createDB(name);
         db.useHandle(
                 handle ->
                         handle.execute(
@@ -53,7 +39,7 @@ public class UserTests {
 
     @Test
     void testUserCount() {
-        Jdbi dbCount = createDB("testCount.db");
+        Jdbi dbCount = initDB("testUserCount.db");
         var dao = dbCount.onDemand(UserDAO.class);
         var user = generateUser();
         dao.insert(user);
@@ -87,7 +73,7 @@ public class UserTests {
 
     @Test
     void testUserGetAll() {
-        Jdbi dbAll = createDB("testAll.db");
+        Jdbi dbAll = initDB("testUserGetAll.db");
         var dao = dbAll.onDemand(UserDAO.class);
         var user = generateUser();
         dao.insert(user);
@@ -105,11 +91,7 @@ public class UserTests {
         dao.insert(user1);
         dao.insert(user2);
 
-        ArrayList<UUID> list = new ArrayList<>();
-        list.add(user1.getId());
-        list.add(user2.getId());
-
-        var users = dao.getByIds(list);
+        var users = dao.getByIds(List.of(user1.getId(), user2.getId()));
         assertTrue(users.contains(user1));
         assertTrue(users.contains(user2));
     }
@@ -127,7 +109,7 @@ public class UserTests {
 
     @Test
     void testUserGetByName() {
-        var dbName = createDB("testName.db");
+        var dbName = initDB("testUserGetByName.db");
         var dao = dbName.onDemand(UserDAO.class);
         var user = generateUser();
         dao.insert(user);
