@@ -36,7 +36,7 @@ public interface MessageDAO {
     @RegisterRowMapper(MessageRowMapper.class)
     Optional<Message> getById(UUID id);
 
-    @SqlQuery("select * from message where id = :id")
+    @SqlQuery("select * from message where group_id = :id")
     @RegisterRowMapper(MessageRowMapper.class)
     Optional<Message> getByGroupId(UUID id);
 

@@ -16,8 +16,8 @@ public class MessageRowMapper implements RowMapper<Message> {
     public Message map(@NotNull ResultSet rs, StatementContext ctx) throws SQLException {
         return new Message(
                 UUIDUtil.uuid(rs.getBytes("id")),
-                UUIDUtil.uuid(rs.getString("user_id")),
-                UUIDUtil.uuid(rs.getString("group_id")),
+                UUIDUtil.uuid(rs.getBytes("user_id")),
+                UUIDUtil.uuid(rs.getBytes("group_id")),
                 MessageType.from(rs.getInt("type")),
                 rs.getBytes("content"),
                 Instant.parse(rs.getString("modified_at")));
