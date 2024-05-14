@@ -14,7 +14,7 @@ public class GroupRowMapper implements RowMapper<Group> {
     @Override
     public Group map(@NotNull ResultSet rs, StatementContext ctx) throws SQLException {
         return new Group(
-                UUIDUtil.uuid(rs.getString("id")),
+                UUIDUtil.uuid(rs.getBytes("id")),
                 rs.getString("name"),
                 rs.getString("description"),
                 Instant.ofEpochMilli(rs.getLong("modified_at")));

@@ -16,7 +16,7 @@ public class RoleRowMapper implements RowMapper<Role> {
     @Override
     public Role map(@NotNull ResultSet rs, StatementContext ctx) throws SQLException {
         return new Role(
-                UUIDUtil.uuid(rs.getString("id")),
+                UUIDUtil.uuid(rs.getBytes("id")),
                 UUIDUtil.uuid(rs.getString("group_id")),
                 rs.getString("name"),
                 BitFlag.fromBitMask(PermissionType.class, rs.getLong("permission")),

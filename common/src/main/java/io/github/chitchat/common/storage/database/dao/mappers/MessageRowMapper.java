@@ -15,7 +15,7 @@ public class MessageRowMapper implements RowMapper<Message> {
     @Override
     public Message map(@NotNull ResultSet rs, StatementContext ctx) throws SQLException {
         return new Message(
-                UUIDUtil.uuid(rs.getString("id")),
+                UUIDUtil.uuid(rs.getBytes("id")),
                 UUIDUtil.uuid(rs.getString("user_id")),
                 UUIDUtil.uuid(rs.getString("group_id")),
                 MessageType.from(rs.getInt("type")),
