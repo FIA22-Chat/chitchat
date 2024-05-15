@@ -1,7 +1,6 @@
 package database.dao;
 
 import io.github.chitchat.common.storage.database.Database;
-
 import java.io.File;
 import java.nio.file.Path;
 import org.jdbi.v3.core.Jdbi;
