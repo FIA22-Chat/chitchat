@@ -15,18 +15,38 @@
         <RowConstraints />
         <RowConstraints />
         <RowConstraints />
-      <RowConstraints />
+        <RowConstraints />
     </rowConstraints>
 
 
-    <VBox GridPane.columnIndex="1" GridPane.rowIndex="0">
-        <Label text="Zuletzt online: Now" />
-        <Button fx:id="callButton" prefHeight="37.0" prefWidth="45.0" />
-    </VBox>
 
+    <GridPane GridPane.columnIndex="1" GridPane.rowIndex="0"> 
+
+        <columnConstraints>
+            <ColumnConstraints hgrow="ALWAYS" />
+            <ColumnConstraints hgrow="ALWAYS" />
+            <ColumnConstraints hgrow="ALWAYS" />
+        </columnConstraints>
+
+
+
+            <Label alignment="CENTER" prefHeight="22.0" prefWidth="103.0" text="Zuletzt online: Now" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM"/>
+
+
+        <Button fx:id="callButton" prefHeight="57.0" prefWidth="57.0" GridPane.columnIndex="2" />
+        <Button fx:id="callVideoButton" prefHeight="57.0" prefWidth="57.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" />
+
+
+
+      <rowConstraints>
+          <RowConstraints maxHeight="100.0" minHeight="100.0" prefHeight="100.0" />
+         
+      </rowConstraints>
+
+
+    </GridPane>
 
     <ListView fx:id="chatList" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.rowSpan="3" />
-
 
     <SplitPane GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="3">
         <items>
@@ -35,7 +55,6 @@
             </VBox>
         </items>
     </SplitPane>
-
 
     <HBox alignment="BOTTOM_LEFT" spacing="10" styleClass="input-area" GridPane.columnIndex="1" GridPane.rowIndex="4">
         <TextArea fx:id="inputArea" prefHeight="50.0" prefWidth="600.0" promptText="Type a message..." wrapText="true" />
