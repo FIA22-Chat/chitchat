@@ -38,7 +38,7 @@
 
 		</children>
 	</GridPane>
-			<Button id="startButton" fx:id="startButton" alignment="CENTER" maxHeight="80.0" maxWidth="150.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Login" textAlignment="CENTER" textOverrun="CLIP" />
+			<Button  id="loginButton" fx:id="LoginButton" alignment="CENTER" maxHeight="80.0" maxWidth="150.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Login" textAlignment="CENTER" textOverrun="CLIP" />
 	<stylesheets>
 		<URL value="@login.css" />
 	</stylesheets>
