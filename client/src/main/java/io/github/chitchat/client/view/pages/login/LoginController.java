@@ -1,3 +1,7 @@
 package io.github.chitchat.client.view.pages.login;
 
-public class LoginController {}
+import javafx.scene.layout.GridPane;
+
+public class LoginController {
+
+}
