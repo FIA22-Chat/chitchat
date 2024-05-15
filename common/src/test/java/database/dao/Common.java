@@ -1,6 +1,8 @@
 package database.dao;
 
 import io.github.chitchat.common.storage.database.Database;
+
+import java.io.File;
 import java.nio.file.Path;
 import org.jdbi.v3.core.Jdbi;
 import org.jdbi.v3.sqlite3.SQLitePlugin;
@@ -13,8 +15,10 @@ public class Common {
     @SuppressWarnings("ResultOfMethodCallIgnored")
     public static @NotNull Jdbi createDB(String name) {
         var dbPath = PATH.resolve(name);
-        dbPath.toFile().delete(); // Ensure the file is deleted
-        dbPath.toFile().deleteOnExit(); // Ensure the file is deleted on exit
+        File file = dbPath.toFile();
+        file.delete(); // Ensure the file is deleted
+        file.deleteOnExit(); // Ensure the file is deleted on exit
+        file.getParentFile().mkdirs();
 
         var datasource = new SQLiteDataSource();
         datasource.setUrl("jdbc:sqlite:" + dbPath);
