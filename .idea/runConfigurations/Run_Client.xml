@@ -51,6 +51,7 @@
           <option name="goals">
             <list>
               <option value="javafx:run" />
+              <option value="-Dconfig.executable=${user.home}/.jdks/temurin-22.0.1/bin/java" />
             </list>
           </option>
           <option name="multimoduleDir" />
