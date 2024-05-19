@@ -3,7 +3,7 @@ package io.github.chitchat.common;
 import java.nio.file.Path;
 import org.jetbrains.annotations.NotNull;
 
-public class Util {
+public class PathUtil {
     private static final String os = System.getProperty("os.name").toLowerCase();
 
     /**

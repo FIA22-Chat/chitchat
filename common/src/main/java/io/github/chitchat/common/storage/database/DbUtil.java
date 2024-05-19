@@ -5,7 +5,7 @@ import com.fasterxml.uuid.impl.TimeBasedEpochRandomGenerator;
 import java.util.Random;
 import java.util.UUID;
 
-public class Generator {
+public class DbUtil {
     private static final TimeBasedEpochRandomGenerator generator =
             Generators.timeBasedEpochRandomGenerator(new Random());
 
