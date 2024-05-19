@@ -1,6 +1,6 @@
 package io.github.chitchat.server;
 
-import io.github.chitchat.common.Util;
+import io.github.chitchat.common.PathUtil;
 import io.github.chitchat.common.storage.database.Database;
 import io.github.chitchat.server.database.dao.mappers.ServerUserRowMapper;
 import io.github.chitchat.server.database.models.ServerUser;
@@ -9,6 +9,7 @@ import javax.sql.DataSource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jdbi.v3.sqlite3.SQLitePlugin;
+import org.jetbrains.annotations.NotNull;
 import org.sqlite.SQLiteDataSource;
 
 public class Main {
@@ -25,8 +26,8 @@ public class Main {
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    private static DataSource createDataSource() {
-        var dbPathStr = Util.getEnvOrDefault("DB_PATH", ".");
+    private static @NotNull DataSource createDataSource() {
+        var dbPathStr = PathUtil.getEnvOrDefault("DB_PATH", ".");
         var dbPath = Path.of(dbPathStr, DB_NAME);
         dbPath.toFile().getParentFile().mkdirs();
 
