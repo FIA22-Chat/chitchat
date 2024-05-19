@@ -11,13 +11,11 @@ public class GroupService {
 
     private final Jdbi db;
 
-    public GroupService(Jdbi db)
-    {
+    public GroupService(Jdbi db) {
         this.db = db;
     }
 
-    public boolean addToGroup(Group group, User user)
-    {
+    public boolean addToGroup(Group group, User user) {
         if (!db.onDemand(GroupDAO.class).exists(group)) {
             throw new RuntimeException("GroupDAO");
         }
@@ -28,6 +26,5 @@ public class GroupService {
 
         db.onDemand(UserGroupDAO.class).insert(group, user);
         return true;
-
     }
 }
