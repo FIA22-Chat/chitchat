@@ -37,6 +37,10 @@
             <artifactId>jdbi3-sqlobject</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.jdbi</groupId>
+            <artifactId>jdbi3-generator</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>

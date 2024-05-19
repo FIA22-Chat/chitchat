@@ -2,8 +2,8 @@ package database.dao;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import io.github.chitchat.common.storage.database.Generator;
-import io.github.chitchat.common.storage.database.dao.GroupDAO;
+import io.github.chitchat.common.storage.database.DbUtil;
+import io.github.chitchat.common.storage.database.dao.GroupDAOImpl;
 import io.github.chitchat.common.storage.database.models.Group;
 import java.time.Instant;
 import java.util.List;
@@ -32,13 +32,13 @@ public class GroupTests {
 
     @Contract(" -> new")
     static @NotNull Group generateGroup() {
-        return new Group(Generator.newId(), "TestGroup", "TestDescription", Instant.now());
+        return new Group(DbUtil.newId(), "TestGroup", "TestDescription", Instant.now());
     }
 
     @Test
     void testGroupCount() {
         Jdbi dbCount = initDB("testCount.db");
-        var dao = dbCount.onDemand(GroupDAO.class);
+        var dao = new GroupDAOImpl.OnDemand(dbCount);
         var group = generateGroup();
         dao.insert(group);
         assertEquals(1, dao.count());
@@ -49,7 +49,7 @@ public class GroupTests {
 
     @Test
     void testGroupExistsById() {
-        var dao = db.onDemand(GroupDAO.class);
+        var dao = new GroupDAOImpl.OnDemand(db);
         var group = generateGroup();
         dao.insert(group);
         assertTrue(dao.existsById(group.getId()));
@@ -60,7 +60,7 @@ public class GroupTests {
 
     @Test
     void testGroupExists() {
-        var dao = db.onDemand(GroupDAO.class);
+        var dao = new GroupDAOImpl.OnDemand(db);
         var group = generateGroup();
         dao.insert(group);
         assertTrue(dao.exists(group));
@@ -72,7 +72,7 @@ public class GroupTests {
     @Test
     void testGroupGetAll() {
         Jdbi dbGetAll = initDB("groupGetAll.db");
-        var dao = dbGetAll.onDemand(GroupDAO.class);
+        var dao = new GroupDAOImpl.OnDemand(dbGetAll);
         var group = generateGroup();
         dao.insert(group);
         assertEquals(1, dao.getAll().size());
@@ -83,20 +83,20 @@ public class GroupTests {
 
     @Test
     void testGroupGetByIds() {
-        var dao = db.onDemand(GroupDAO.class);
+        var dao = new GroupDAOImpl.OnDemand(db);
         var group1 = generateGroup();
         var group2 = generateGroup();
         dao.insert(group1);
         dao.insert(group2);
 
-        var list = dao.getByIds(List.of(group1.getId(), group2.getId()));
+        var list = dao.getById(List.of(group1.getId(), group2.getId()));
         assertTrue(list.contains(group1));
         assertTrue(list.contains(group2));
     }
 
     @Test
     void testGroupGetById() {
-        var dao = db.onDemand(GroupDAO.class);
+        var dao = new GroupDAOImpl.OnDemand(db);
         var group = generateGroup();
         dao.insert(group);
         assertEquals(group, dao.getById(group.getId()).get());
@@ -108,7 +108,7 @@ public class GroupTests {
     @Test
     void testGroupGetByName() {
         var dbName = initDB("groupGetByName.db");
-        var dao = dbName.onDemand(GroupDAO.class);
+        var dao = new GroupDAOImpl.OnDemand(dbName);
         var group = generateGroup();
         dao.insert(group);
         assertEquals(group, dao.getByName(group.getName()).get());
@@ -119,7 +119,7 @@ public class GroupTests {
 
     @Test
     void testGroupInsert() {
-        var dao = db.onDemand(GroupDAO.class);
+        var dao = new GroupDAOImpl.OnDemand(db);
         var group = generateGroup();
         dao.insert(group);
 
@@ -130,7 +130,7 @@ public class GroupTests {
 
     @Test
     void testGroupDelete() {
-        var dao = db.onDemand(GroupDAO.class);
+        var dao = new GroupDAOImpl.OnDemand(db);
         var group = generateGroup();
         dao.insert(group);
 
@@ -144,7 +144,7 @@ public class GroupTests {
 
     @Test
     void testGroupUpdate() {
-        var dao = db.onDemand(GroupDAO.class);
+        var dao = new GroupDAOImpl.OnDemand(db);
         var group = generateGroup();
         dao.insert(group);
 

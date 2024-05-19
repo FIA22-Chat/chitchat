@@ -2,8 +2,8 @@ package database.dao;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import io.github.chitchat.common.storage.database.Generator;
-import io.github.chitchat.common.storage.database.dao.RoleDAO;
+import io.github.chitchat.common.storage.database.DbUtil;
+import io.github.chitchat.common.storage.database.dao.RoleDAOImpl;
 import io.github.chitchat.common.storage.database.models.Role;
 import io.github.chitchat.common.storage.database.models.inner.PermissionType;
 import java.time.Instant;
@@ -38,8 +38,8 @@ public class RoleTests {
     @Contract(" -> new")
     static @NotNull Role generateRole() {
         return new Role(
-                Generator.newId(),
-                Generator.newId(),
+                DbUtil.newId(),
+                DbUtil.newId(),
                 "TestRole",
                 EnumSet.of(PermissionType.SEND_MESSAGE),
                 Instant.now());
@@ -48,7 +48,7 @@ public class RoleTests {
     @Test
     void testRoleCount() {
         Jdbi dbCount = initDB("testRoleCount.db");
-        var dao = dbCount.onDemand(RoleDAO.class);
+        var dao = new RoleDAOImpl.OnDemand(dbCount);
         var role = generateRole();
         dao.insert(role);
         assertEquals(1, dao.count());
@@ -59,7 +59,7 @@ public class RoleTests {
 
     @Test
     void testRoleExistsById() {
-        var dao = db.onDemand(RoleDAO.class);
+        var dao = new RoleDAOImpl.OnDemand(db);
         var role = generateRole();
         dao.insert(role);
         assertTrue(dao.existsById(role.getId()));
@@ -70,7 +70,7 @@ public class RoleTests {
 
     @Test
     void testRoleExists() {
-        var dao = db.onDemand(RoleDAO.class);
+        var dao = new RoleDAOImpl.OnDemand(db);
         var role = generateRole();
         dao.insert(role);
         assertTrue(dao.exists(role));
@@ -82,7 +82,7 @@ public class RoleTests {
     @Test
     void testRoleGetAll() {
         Jdbi dbGetAll = initDB("roleGetAll.db");
-        var dao = dbGetAll.onDemand(RoleDAO.class);
+        var dao = new RoleDAOImpl.OnDemand(dbGetAll);
         var role = generateRole();
         dao.insert(role);
         assertEquals(1, dao.getAll().size());
@@ -92,20 +92,20 @@ public class RoleTests {
 
     @Test
     void testRoleGetByIds() {
-        var dao = db.onDemand(RoleDAO.class);
+        var dao = new RoleDAOImpl.OnDemand(db);
         var role1 = generateRole();
         var role2 = generateRole();
         dao.insert(role1);
         dao.insert(role2);
 
-        var roles = dao.getByIds(List.of(role1.getId(), role2.getId()));
+        var roles = dao.getById(List.of(role1.getId(), role2.getId()));
         assertTrue(roles.contains(role1));
         assertTrue(roles.contains(role2));
     }
 
     @Test
     void testRoleGetByGroupId() {
-        var dao = db.onDemand(RoleDAO.class);
+        var dao = new RoleDAOImpl.OnDemand(db);
         var role = generateRole();
         dao.insert(role);
 
@@ -115,7 +115,7 @@ public class RoleTests {
 
     @Test
     void testRoleGetByName() {
-        var dao = db.onDemand(RoleDAO.class);
+        var dao = new RoleDAOImpl.OnDemand(db);
         var role = generateRole();
         dao.insert(role);
         assertEquals(role, dao.getByName(role.getName()).get());
@@ -126,7 +126,7 @@ public class RoleTests {
 
     @Test
     void testRoleInsert() {
-        var dao = db.onDemand(RoleDAO.class);
+        var dao = new RoleDAOImpl.OnDemand(db);
         var role = generateRole();
         dao.insert(role);
 
@@ -137,7 +137,7 @@ public class RoleTests {
 
     @Test
     void testRoleDelete() {
-        var dao = db.onDemand(RoleDAO.class);
+        var dao = new RoleDAOImpl.OnDemand(db);
         var role = generateRole();
         dao.insert(role);
 
@@ -151,7 +151,7 @@ public class RoleTests {
 
     @Test
     void testRoleUpdate() {
-        var dao = db.onDemand(RoleDAO.class);
+        var dao = new RoleDAOImpl.OnDemand(db);
         var role = generateRole();
         dao.insert(role);
 

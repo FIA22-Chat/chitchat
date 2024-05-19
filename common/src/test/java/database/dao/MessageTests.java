@@ -2,8 +2,8 @@ package database.dao;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import io.github.chitchat.common.storage.database.Generator;
-import io.github.chitchat.common.storage.database.dao.MessageDAO;
+import io.github.chitchat.common.storage.database.DbUtil;
+import io.github.chitchat.common.storage.database.dao.MessageDAOImpl;
 import io.github.chitchat.common.storage.database.models.Message;
 import io.github.chitchat.common.storage.database.models.inner.MessageType;
 import java.time.Instant;
@@ -38,9 +38,9 @@ public class MessageTests {
     @Contract(" -> new")
     static @NotNull Message generateMessage() {
         return new Message(
-                Generator.newId(),
-                Generator.newId(),
-                Generator.newId(),
+                DbUtil.newId(),
+                DbUtil.newId(),
+                DbUtil.newId(),
                 MessageType.TEXT,
                 "TestMessage".getBytes(),
                 Instant.now());
@@ -49,7 +49,7 @@ public class MessageTests {
     @Test
     void testMessageCount() {
         Jdbi dbCount = initDB("testMessageCount.db");
-        var dao = dbCount.onDemand(MessageDAO.class);
+        var dao = new MessageDAOImpl.OnDemand(dbCount);
         var message = generateMessage();
         dao.insert(message);
         assertEquals(1, dao.count());
@@ -60,7 +60,7 @@ public class MessageTests {
 
     @Test
     void testMessageExistsById() {
-        var dao = db.onDemand(MessageDAO.class);
+        var dao = new MessageDAOImpl.OnDemand(db);
         var message = generateMessage();
         dao.insert(message);
         assertTrue(dao.existsById(message.getId()));
@@ -71,7 +71,7 @@ public class MessageTests {
 
     @Test
     void testMessageExists() {
-        var dao = db.onDemand(MessageDAO.class);
+        var dao = new MessageDAOImpl.OnDemand(db);
         var message = generateMessage();
         dao.insert(message);
         assertTrue(dao.exists(message));
@@ -83,7 +83,7 @@ public class MessageTests {
     @Test
     void testMessageGetAll() {
         Jdbi dbAll = initDB("testMessageGetAll.db");
-        var dao = dbAll.onDemand(MessageDAO.class);
+        var dao = new MessageDAOImpl.OnDemand(dbAll);
         var message = generateMessage();
         dao.insert(message);
         assertEquals(1, dao.getAll().size());
@@ -94,20 +94,20 @@ public class MessageTests {
 
     @Test
     void testMessageGetByIds() {
-        var dao = db.onDemand(MessageDAO.class);
+        var dao = new MessageDAOImpl.OnDemand(db);
         var message1 = generateMessage();
         var message2 = generateMessage();
         dao.insert(message1);
         dao.insert(message2);
 
-        var messages = dao.getByIds(List.of(message1.getId(), message2.getId()));
+        var messages = dao.getById(List.of(message1.getId(), message2.getId()));
         assertTrue(messages.contains(message1));
         assertTrue(messages.contains(message2));
     }
 
     @Test
     void testMessageGetById() {
-        var dao = db.onDemand(MessageDAO.class);
+        var dao = new MessageDAOImpl.OnDemand(db);
         var message = generateMessage();
         dao.insert(message);
         assertEquals(message, dao.getById(message.getId()).get());
@@ -118,7 +118,7 @@ public class MessageTests {
 
     @Test
     void testMessageGetByUserId() {
-        var dao = db.onDemand(MessageDAO.class);
+        var dao = new MessageDAOImpl.OnDemand(db);
         var message = generateMessage();
         dao.insert(message);
         assertEquals(message, dao.getByUserId(message.getUserId()).get());
@@ -129,7 +129,7 @@ public class MessageTests {
 
     @Test
     void testMessageGetByGroupId() {
-        var dao = db.onDemand(MessageDAO.class);
+        var dao = new MessageDAOImpl.OnDemand(db);
         var message = generateMessage();
         dao.insert(message);
         assertEquals(message, dao.getByGroupId(message.getGroupId()).get());
@@ -140,7 +140,7 @@ public class MessageTests {
 
     @Test
     void testMessageInsert() {
-        var dao = db.onDemand(MessageDAO.class);
+        var dao = new MessageDAOImpl.OnDemand(db);
         var message = generateMessage();
         dao.insert(message);
 
@@ -151,7 +151,7 @@ public class MessageTests {
 
     @Test
     void testMessageDelete() {
-        var dao = db.onDemand(MessageDAO.class);
+        var dao = new MessageDAOImpl.OnDemand(db);
         var message = generateMessage();
         dao.insert(message);
 
@@ -165,7 +165,7 @@ public class MessageTests {
 
     @Test
     void testMessageUpdate() {
-        var dao = db.onDemand(MessageDAO.class);
+        var dao = new MessageDAOImpl.OnDemand(db);
         var message = generateMessage();
         dao.insert(message);
 

@@ -2,8 +2,8 @@ package database.dao;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import io.github.chitchat.common.storage.database.Generator;
-import io.github.chitchat.common.storage.database.dao.UserDAO;
+import io.github.chitchat.common.storage.database.DbUtil;
+import io.github.chitchat.common.storage.database.dao.UserDAOImpl;
 import io.github.chitchat.common.storage.database.models.User;
 import io.github.chitchat.common.storage.database.models.inner.PermissionType;
 import io.github.chitchat.common.storage.database.models.inner.UserType;
@@ -22,25 +22,24 @@ public class UserTests {
         db.useHandle(
                 handle ->
                         handle.execute(
-                                "CREATE TABLE IF NOT EXISTS user ( id         blob NOT NULL UNIQUE"
-                                    + " PRIMARY KEY,    type       integer NOT NULL,    permission"
-                                    + " integer NOT NULL,    name       text    NOT NULL)"));
+                                """
+                                        CREATE TABLE IF NOT EXISTS user ( id         blob NOT NULL UNIQUE
+                                        PRIMARY KEY,    type       integer NOT NULL,    permission
+                                        integer NOT NULL,    name       text    NOT NULL)
+                                        """));
         return db;
     }
 
     @Contract(" -> new")
     static @NotNull User generateUser() {
         return new User(
-                Generator.newId(),
-                UserType.USER,
-                EnumSet.of(PermissionType.SEND_MESSAGE),
-                "TestUser");
+                DbUtil.newId(), UserType.USER, EnumSet.of(PermissionType.SEND_MESSAGE), "TestUser");
     }
 
     @Test
     void testUserCount() {
         Jdbi dbCount = initDB("testUserCount.db");
-        var dao = dbCount.onDemand(UserDAO.class);
+        var dao = new UserDAOImpl.OnDemand(dbCount);
         var user = generateUser();
         dao.insert(user);
         assertEquals(1, dao.count());
@@ -51,7 +50,8 @@ public class UserTests {
 
     @Test
     void testUserExistsById() {
-        var dao = db.onDemand(UserDAO.class);
+        var dao = new UserDAOImpl.OnDemand(db);
+
         var user = generateUser();
         dao.insert(user);
         assertTrue(dao.existsById(user.getId()));
@@ -62,7 +62,8 @@ public class UserTests {
 
     @Test
     void testUserExists() {
-        var dao = db.onDemand(UserDAO.class);
+        var dao = new UserDAOImpl.OnDemand(db);
+
         var user = generateUser();
         dao.insert(user);
         assertTrue(dao.exists(user));
@@ -74,7 +75,7 @@ public class UserTests {
     @Test
     void testUserGetAll() {
         Jdbi dbAll = initDB("testUserGetAll.db");
-        var dao = dbAll.onDemand(UserDAO.class);
+        var dao = new UserDAOImpl.OnDemand(dbAll);
         var user = generateUser();
         dao.insert(user);
         assertEquals(1, dao.getAll().size());
@@ -85,20 +86,22 @@ public class UserTests {
 
     @Test
     void testUserGetByIds() {
-        var dao = db.onDemand(UserDAO.class);
+        var dao = new UserDAOImpl.OnDemand(db);
+
         var user1 = generateUser();
         var user2 = generateUser();
         dao.insert(user1);
         dao.insert(user2);
 
-        var users = dao.getByIds(List.of(user1.getId(), user2.getId()));
+        var users = dao.getById(List.of(user1.getId(), user2.getId()));
         assertTrue(users.contains(user1));
         assertTrue(users.contains(user2));
     }
 
     @Test
     void testUserGetById() {
-        var dao = db.onDemand(UserDAO.class);
+        var dao = new UserDAOImpl.OnDemand(db);
+
         var user = generateUser();
         dao.insert(user);
         assertEquals(user, dao.getById(user.getId()).get());
@@ -110,7 +113,7 @@ public class UserTests {
     @Test
     void testUserGetByName() {
         var dbName = initDB("testUserGetByName.db");
-        var dao = dbName.onDemand(UserDAO.class);
+        var dao = new UserDAOImpl.OnDemand(dbName);
         var user = generateUser();
         dao.insert(user);
         assertEquals(user, dao.getByName(user.getName()).get());
@@ -121,7 +124,7 @@ public class UserTests {
 
     @Test
     void testUserInsert() {
-        var dao = db.onDemand(UserDAO.class);
+        var dao = new UserDAOImpl.OnDemand(db);
         var user = generateUser();
         dao.insert(user);
 
@@ -132,7 +135,8 @@ public class UserTests {
 
     @Test
     void testUserDelete() {
-        var dao = db.onDemand(UserDAO.class);
+        var dao = new UserDAOImpl.OnDemand(db);
+
         var user = generateUser();
         dao.insert(user);
 
@@ -146,7 +150,8 @@ public class UserTests {
 
     @Test
     void testUserUpdate() {
-        var dao = db.onDemand(UserDAO.class);
+        var dao = new UserDAOImpl.OnDemand(db);
+
         var user = generateUser();
         dao.insert(user);
 
