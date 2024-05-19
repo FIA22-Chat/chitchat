@@ -4,64 +4,66 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane prefHeight="600.0" prefWidth="881.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.chitchat.client.view.pages.main.MainController">
+<GridPane prefHeight="600.0" prefWidth="881.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="io.github.chitchat.client.view.pages.main.MainController"
+>
 
-    <columnConstraints>
-        <ColumnConstraints />
-        <ColumnConstraints />
-    </columnConstraints>
-    <rowConstraints>
-        <RowConstraints prefHeight="100.0" />
-        <RowConstraints />
-        <RowConstraints />
-        <RowConstraints />
-        <RowConstraints />
-    </rowConstraints>
-
-
-
-    <GridPane GridPane.columnIndex="1" GridPane.rowIndex="0"> 
-
-        <columnConstraints>
-            <ColumnConstraints hgrow="ALWAYS" />
-            <ColumnConstraints hgrow="ALWAYS" />
-            <ColumnConstraints hgrow="ALWAYS" />
-        </columnConstraints>
+	<columnConstraints>
+		<ColumnConstraints />
+		<ColumnConstraints />
+	</columnConstraints>
+	<rowConstraints>
+		<RowConstraints prefHeight="100.0" />
+		<RowConstraints />
+		<RowConstraints />
+		<RowConstraints />
+		<RowConstraints />
+	</rowConstraints>
 
 
 
-            <Label alignment="CENTER" prefHeight="22.0" prefWidth="103.0" text="Zuletzt online: Now" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM"/>
+	<GridPane GridPane.columnIndex="1" GridPane.rowIndex="0">
+
+		<columnConstraints>
+			<ColumnConstraints hgrow="ALWAYS" />
+			<ColumnConstraints hgrow="ALWAYS" />
+			<ColumnConstraints hgrow="ALWAYS" />
+		</columnConstraints>
 
 
-        <Button fx:id="callButton" prefHeight="57.0" prefWidth="57.0" GridPane.columnIndex="2" />
-        <Button fx:id="callVideoButton" prefHeight="57.0" prefWidth="57.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" />
+
+		<Label alignment="CENTER" prefHeight="22.0" prefWidth="103.0" text="Zuletzt online: Now" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
+
+
+		<Button fx:id="callButton" prefHeight="57.0" prefWidth="57.0" GridPane.columnIndex="2" />
+		<Button fx:id="callVideoButton" prefHeight="57.0" prefWidth="57.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" />
 
 
 
-      <rowConstraints>
-          <RowConstraints maxHeight="100.0" minHeight="100.0" prefHeight="100.0" />
-         
-      </rowConstraints>
+		<rowConstraints>
+			<RowConstraints maxHeight="100.0" minHeight="100.0" prefHeight="100.0" />
+
+		</rowConstraints>
 
 
-    </GridPane>
+	</GridPane>
 
-    <ListView fx:id="chatList" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.rowSpan="3" />
+	<ListView fx:id="chatList" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.rowSpan="3" />
 
-    <SplitPane GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="3">
-        <items>
-            <VBox>
-                <TextArea fx:id="chatArea" editable="false" prefHeight="450.0" prefWidth="600.0" wrapText="true" />
-            </VBox>
-        </items>
-    </SplitPane>
+	<SplitPane GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="3">
+		<items>
+			<VBox>
+				<TextArea fx:id="chatArea" editable="false" prefHeight="450.0" prefWidth="600.0" wrapText="true" />
+			</VBox>
+		</items>
+	</SplitPane>
 
-    <HBox alignment="BOTTOM_LEFT" spacing="10" styleClass="input-area" GridPane.columnIndex="1" GridPane.rowIndex="4">
-        <TextArea fx:id="inputArea" prefHeight="50.0" prefWidth="600.0" promptText="Type a message..." wrapText="true" />
-        <Button fx:id="sendButton" onAction="#sendMessage" text="Send" />
-    </HBox>
+	<HBox alignment="BOTTOM_LEFT" spacing="10" styleClass="input-area" GridPane.columnIndex="1" GridPane.rowIndex="4">
+		<TextArea fx:id="inputArea" prefHeight="50.0" prefWidth="600.0" promptText="Type a message..." wrapText="true" />
+		<Button fx:id="sendButton" onAction="#sendMessage" text="Send" />
+	</HBox>
 
-    <stylesheets>
-        <URL value="@main.css" />
-    </stylesheets>
+	<stylesheets>
+		<URL value="@main.css" />
+	</stylesheets>
 </GridPane>

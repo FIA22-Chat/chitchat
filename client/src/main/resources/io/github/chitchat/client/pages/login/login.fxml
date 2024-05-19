@@ -4,7 +4,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox id="background" alignment="TOP_CENTER" prefHeight="800.0" prefWidth="1000.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.chitchat.client.view.pages.login.LoginController">
+<VBox id="background" alignment="TOP_CENTER" prefHeight="800.0" prefWidth="1000.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
+	xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.chitchat.client.view.pages.login.LoginController"
+>
 
 	<GridPane alignment="CENTER" hgap="15.0" vgap="15.0" VBox.vgrow="ALWAYS">
 		<columnConstraints>
@@ -18,27 +20,28 @@
 		</rowConstraints>
 		<children>
 
-         <GridPane fx:id="innerLoginBox">
-           <columnConstraints>
-             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-           </columnConstraints>
+			<GridPane fx:id="innerLoginBox">
+				<columnConstraints>
+					<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+				</columnConstraints>
 
-           <rowConstraints>
-             <RowConstraints minHeight="10.0" prefHeight="30.0"  />
-             <RowConstraints minHeight="10.0" prefHeight="30.0"  />
-             <RowConstraints minHeight="10.0" prefHeight="30.0"  />
-           </rowConstraints>
+				<rowConstraints>
+					<RowConstraints minHeight="10.0" prefHeight="30.0" />
+					<RowConstraints minHeight="10.0" prefHeight="30.0" />
+					<RowConstraints minHeight="10.0" prefHeight="30.0" />
+				</rowConstraints>
 
-            <children>
-      			<TextField promptText="Username" GridPane.rowIndex="0" />
-      			<TextField promptText="Password" GridPane.rowIndex="1" />
-            </children>
+				<children>
+					<TextField promptText="Username" GridPane.rowIndex="0" />
+					<TextField promptText="Password" GridPane.rowIndex="1" />
+				</children>
 
-         </GridPane>
+			</GridPane>
 
 		</children>
 	</GridPane>
-			<Button  id="loginButton" fx:id="LoginButton" alignment="CENTER" maxHeight="80.0" maxWidth="150.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Login" textAlignment="CENTER" textOverrun="CLIP" />
+	<Button id="loginButton" fx:id="LoginButton" alignment="CENTER" maxHeight="80.0" maxWidth="150.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" prefHeight="50.0"
+		prefWidth="150.0" text="Login" textAlignment="CENTER" textOverrun="CLIP" />
 	<stylesheets>
 		<URL value="@login.css" />
 	</stylesheets>
