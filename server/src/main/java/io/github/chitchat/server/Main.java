@@ -21,8 +21,6 @@ public class Main {
         log.info("Starting server...");
         var db = Database.create(createDataSource(), true, new SQLitePlugin());
         db.registerRowMapper(ServerUser.class, new ServerUserRowMapper());
-
-        new ServerC();
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
