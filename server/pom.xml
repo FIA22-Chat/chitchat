@@ -99,6 +99,7 @@
                         <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
                             <resource>META-INF/services/java.sql.Driver</resource>
                         </transformer>
+                        <transformer implementation="org.apache.logging.log4j.maven.plugins.shade.transformer.Log4j2PluginCacheFileTransformer"/>
                     </transformers>
                     <filters>
                         <filter>
@@ -107,16 +108,29 @@
                                 <exclude>module-info.class</exclude>
                                 <exclude>META-INF.versions*</exclude>
                                 <exclude>META-INF/license/**</exclude>
-                                <exclude>META-INF/*</exclude>
                                 <exclude>META-INF/maven/**</exclude>
+                                <exclude>META-INF/*</exclude>
                                 <exclude>LICENSE</exclude>
                                 <exclude>NOTICE</exclude>
                                 <exclude>/*.txt</exclude>
                                 <exclude>build.properties</exclude>
                             </excludes>
                         </filter>
+                        <filter>
+                            <artifact>org.apache.logging.log4j:log4j-core</artifact>
+                            <includes>
+                                <include>**</include>
+                            </includes>
+                        </filter>
                     </filters>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.logging.log4j</groupId>
+                        <artifactId>log4j-transform-maven-shade-plugin-extensions</artifactId>
+                        <version>0.1.0</version>
+                    </dependency>
+                </dependencies>
                 <executions>
                     <execution>
                         <goals>
