@@ -25,8 +25,8 @@ public class HelloApplication extends Application {
         FXMLLoader fxmlLoader =
                 new FXMLLoader(HelloApplication.class.getResource("pages/main/main.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800, 800);
-        primaryStage.setTitle("Chat");
         primaryStage.getIcons().addAll(getIcons());
+        primaryStage.setTitle("Chat");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -36,12 +36,12 @@ public class HelloApplication extends Application {
         var sizes = new int[] {16, 20, 24, 30, 32, 36, 40, 48, 60, 64, 72, 80, 96, 256};
 
         log.trace("Loading {} icons", sizes.length);
-        for (int i = 0; i < sizes.length; i++)
+        for (var i = 0; i < sizes.length; i++)
             list[i] =
                     new Image(
                             Objects.requireNonNull(
                                     HelloApplication.class.getResourceAsStream(
-                                            "icons/logo/AppList.targetsize-" + sizes[i] + ".png")));
+                                            "icons/logo/logo-" + sizes[i] + "x.png")));
 
         return list;
     }
