@@ -27,11 +27,11 @@ public abstract class UserDAO implements IIndexableDAO<UUID, User> {
     @SqlQuery("select exists(select 1 from user where id = :id)")
     public abstract boolean exists(@BindBean User user);
 
-    @SqlQuery("select * from user order by id")
+    @SqlQuery("select * from user")
     @RegisterRowMapper(UserRowMapper.class)
     public abstract List<User> getAll();
 
-    @SqlQuery("select * from user where id in (<ids>) order by id")
+    @SqlQuery("select * from user where id in (<ids>)")
     @RegisterRowMapper(UserRowMapper.class)
     public abstract List<User> getById(@BindList("ids") List<UUID> ids);
 

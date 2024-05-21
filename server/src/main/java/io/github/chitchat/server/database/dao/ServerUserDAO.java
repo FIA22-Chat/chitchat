@@ -23,11 +23,11 @@ public interface ServerUserDAO {
     @SqlQuery("select exists(select 1 from user where id = :id)")
     boolean exists(@BindBean ServerUser user);
 
-    @SqlQuery("select * from user order by id")
+    @SqlQuery("select * from user")
     @RegisterRowMapper(ServerUserRowMapper.class)
     List<ServerUser> getAll();
 
-    @SqlQuery("select * from user where id in (<ids>) order by id")
+    @SqlQuery("select * from user where id in (<ids>)")
     @RegisterRowMapper(ServerUserRowMapper.class)
     List<ServerUser> getByIds(List<UUID> ids);
 

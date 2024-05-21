@@ -27,11 +27,11 @@ public abstract class MessageDAO implements IIndexableDAO<UUID, Message> {
     @SqlQuery("select exists(select 1 from message where id = :id)")
     public abstract boolean exists(@BindBean Message group);
 
-    @SqlQuery("select * from message order by id")
+    @SqlQuery("select * from message")
     @RegisterRowMapper(MessageRowMapper.class)
     public abstract List<Message> getAll();
 
-    @SqlQuery("select * from message where id in (<ids>) order by id")
+    @SqlQuery("select * from message where id in (<ids>)")
     @RegisterRowMapper(MessageRowMapper.class)
     public abstract List<Message> getById(@BindList("ids") List<UUID> ids);
 

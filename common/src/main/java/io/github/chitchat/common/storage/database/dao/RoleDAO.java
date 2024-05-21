@@ -27,11 +27,11 @@ public abstract class RoleDAO implements IIndexableDAO<UUID, Role> {
     @SqlQuery("select exists(select 1 from role where id = :id)")
     public abstract boolean exists(@BindBean Role role);
 
-    @SqlQuery("select * from role order by id")
+    @SqlQuery("select * from role")
     @RegisterRowMapper(RoleRowMapper.class)
     public abstract List<Role> getAll();
 
-    @SqlQuery("select * from role where id in (<ids>) order by id")
+    @SqlQuery("select * from role where id in (<ids>)")
     @RegisterRowMapper(RoleRowMapper.class)
     public abstract List<Role> getById(@BindList("ids") List<UUID> ids);
 

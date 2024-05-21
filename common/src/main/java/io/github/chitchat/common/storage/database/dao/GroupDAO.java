@@ -27,11 +27,11 @@ public abstract class GroupDAO implements IIndexableDAO<UUID, Group> {
     @SqlQuery("select exists(select 1 from \"group\" where id = :id)")
     public abstract boolean exists(@BindBean Group group);
 
-    @SqlQuery("select * from \"group\" order by id")
+    @SqlQuery("select * from \"group\"")
     @RegisterRowMapper(GroupRowMapper.class)
     public abstract List<Group> getAll();
 
-    @SqlQuery("select * from \"group\" where id in (<ids>) order by id")
+    @SqlQuery("select * from \"group\" where id in (<ids>)")
     @RegisterRowMapper(GroupRowMapper.class)
     public abstract List<Group> getById(@BindList("ids") List<UUID> ids);
 
