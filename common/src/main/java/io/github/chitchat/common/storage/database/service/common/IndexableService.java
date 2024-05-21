@@ -3,10 +3,7 @@ package io.github.chitchat.common.storage.database.service.common;
 import io.github.chitchat.common.storage.database.dao.common.IIndexableDAO;
 import io.github.chitchat.common.storage.database.models.common.IndexableModel;
 import io.github.chitchat.common.storage.database.service.exceptions.DuplicateItemException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 import org.jetbrains.annotations.NotNull;
 
@@ -22,7 +19,7 @@ public abstract class IndexableService<
         return cache.get(id);
     }
 
-    public Map<UUID, Model> get(List<UUID> ids) {
+    public Map<UUID, Model> get(Collection<UUID> ids) {
         // We take the performance hit of converting the set to a list to avoid multiple calls to
         // the database
         return cache.getAll(
