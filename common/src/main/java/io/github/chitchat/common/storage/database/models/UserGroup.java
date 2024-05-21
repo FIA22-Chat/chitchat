@@ -26,6 +26,12 @@ public class UserGroup extends BaseModel {
         this.modifiedAt = modifiedAt;
     }
 
+    public UserGroup(@NonNull User user, @NonNull Group group, @NonNull Instant modifiedAt) {
+        this.userId = user.getId();
+        this.groupId = group.getId();
+        this.modifiedAt = modifiedAt;
+    }
+
     @Override
     public String toString() {
         return new StringJoiner(", ", UserGroup.class.getSimpleName() + "[", "]")

@@ -3,14 +3,8 @@ package io.github.chitchat.common.storage.database;
 import io.github.chitchat.common.storage.database.dao.arguments.InstantArgumentFactory;
 import io.github.chitchat.common.storage.database.dao.arguments.PermissionArgumentFactory;
 import io.github.chitchat.common.storage.database.dao.arguments.UUIDArgumentFactory;
-import io.github.chitchat.common.storage.database.dao.mappers.GroupRowMapper;
-import io.github.chitchat.common.storage.database.dao.mappers.MessageRowMapper;
-import io.github.chitchat.common.storage.database.dao.mappers.RoleRowMapper;
-import io.github.chitchat.common.storage.database.dao.mappers.UserRowMapper;
-import io.github.chitchat.common.storage.database.models.Group;
-import io.github.chitchat.common.storage.database.models.Message;
-import io.github.chitchat.common.storage.database.models.Role;
-import io.github.chitchat.common.storage.database.models.User;
+import io.github.chitchat.common.storage.database.dao.mappers.*;
+import io.github.chitchat.common.storage.database.models.*;
 import javax.sql.DataSource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -63,7 +57,8 @@ public class Database {
                         .registerRowMapper(User.class, new UserRowMapper())
                         .registerRowMapper(Role.class, new RoleRowMapper())
                         .registerRowMapper(Group.class, new GroupRowMapper())
-                        .registerRowMapper(Message.class, new MessageRowMapper());
+                        .registerRowMapper(Message.class, new MessageRowMapper())
+                        .registerRowMapper(UserGroup.class, new UserGroupRowMapper());
         jdbi.getConfig(Enums.class).setEnumStrategy(EnumStrategy.BY_ORDINAL);
 
         log.trace("Installing Jdbi plugin: {}", SqlObjectPlugin.class.getName());
