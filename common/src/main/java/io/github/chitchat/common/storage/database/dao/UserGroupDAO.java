@@ -15,6 +15,7 @@ import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
 import org.jdbi.v3.sqlobject.customizer.BindBean;
 import org.jdbi.v3.sqlobject.customizer.BindList;
+import org.jdbi.v3.sqlobject.statement.SqlBatch;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 import org.jdbi.v3.sqlobject.transaction.Transaction;
@@ -130,6 +131,14 @@ public abstract class UserGroupDAO implements IBaseDAO<UserGroup> {
                     + " user_group.group_id where user_group.user_id = :id")
     @RegisterRowMapper(GroupRowMapper.class)
     public abstract List<Group> getUserGroups(@BindBean User user);
+
+    @Transaction
+    @SqlBatch(
+            "insert into user_group (user_id, group_id, modified_at) values (:user.id, :group.id,"
+                    + " :modifiedAt)")
+    @RegisterBeanMapper(UserGroup.class)
+    public abstract void insert(
+            Instant modifiedAt, @BindBean("group") Group group, @BindBean("user") User... user);
 
     @Transaction
     @SqlUpdate(

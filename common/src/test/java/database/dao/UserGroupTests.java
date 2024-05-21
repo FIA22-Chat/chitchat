@@ -293,15 +293,20 @@ public class UserGroupTests {
 
         var user = generateUser();
         var user2 = generateUser();
+        var user3 = generateUser();
+        var user4 = generateUser();
         var group = generateGroup();
         userDao.insert(user);
         userDao.insert(user2);
+        userDao.insert(user3);
+        userDao.insert(user4);
         groupDao.insert(group);
         userGroupDao.insert(group, user, Instant.now());
         userGroupDao.insert(new UserGroup(user2, group, Instant.now()));
+        userGroupDao.insert(Instant.now(), group, user3, user4);
 
         var groupUsers = userGroupDao.getGroupUsers(group.getId());
-        assertEquals(2, groupUsers.size());
+        assertEquals(4, groupUsers.size());
         assertTrue(groupUsers.contains(user));
         assertTrue(groupUsers.contains(user2));
 
@@ -311,14 +316,26 @@ public class UserGroupTests {
         userGroups = userGroupDao.getUserGroups(user2.getId());
         assertEquals(1, userGroups.size());
         assertTrue(userGroups.contains(group));
+        userGroups = userGroupDao.getUserGroups(user3.getId());
+        assertEquals(1, userGroups.size());
+        assertTrue(userGroups.contains(group));
+        userGroups = userGroupDao.getUserGroups(user4.getId());
+        assertEquals(1, userGroups.size());
+        assertTrue(userGroups.contains(group));
 
         userGroupDao.delete(group, user);
         userGroupDao.delete(group, user2);
+        userGroupDao.delete(group, user3);
+        userGroupDao.delete(group, user4);
         groupUsers = userGroupDao.getGroupUsers(group.getId());
         assertEquals(0, groupUsers.size());
         userGroups = userGroupDao.getUserGroups(user.getId());
         assertEquals(0, userGroups.size());
         userGroups = userGroupDao.getUserGroups(user2.getId());
+        assertEquals(0, userGroups.size());
+        userGroups = userGroupDao.getUserGroups(user3.getId());
+        assertEquals(0, userGroups.size());
+        userGroups = userGroupDao.getUserGroups(user4.getId());
         assertEquals(0, userGroups.size());
     }
 
@@ -328,7 +345,7 @@ public class UserGroupTests {
         var groupDao = new GroupDAOImpl.OnDemand(db);
         var userGroupDao = new UserGroupDAOImpl.OnDemand(db);
 
-        var user1 = generateUser();
+        var user = generateUser();
         var user2 = generateUser();
         var user3 = generateUser();
         var user4 = generateUser();
@@ -336,20 +353,20 @@ public class UserGroupTests {
         var userGroup2 = new UserGroup(user2, group, Instant.now());
         var userGroup3 = new UserGroup(user3, group, Instant.now());
         var userGroup4 = new UserGroup(user4, group, Instant.now());
-        userDao.insert(user1);
+        userDao.insert(user);
         userDao.insert(user2);
         userDao.insert(user3);
         userDao.insert(user4);
         groupDao.insert(group);
-        userGroupDao.insert(group, user1, Instant.now());
+        userGroupDao.insert(group, user, Instant.now());
         userGroupDao.insert(userGroup2);
         userGroupDao.insert(userGroup3);
         userGroupDao.insert(userGroup4);
 
-        userGroupDao.delete(group, user1);
+        userGroupDao.delete(group, user);
         var groupUsers = userGroupDao.getGroupUsers(group);
         assertEquals(3, groupUsers.size());
-        assertFalse(groupUsers.contains(user1));
+        assertFalse(groupUsers.contains(user));
         assertTrue(groupUsers.contains(user2));
         assertTrue(groupUsers.contains(user3));
         assertTrue(groupUsers.contains(user4));
@@ -357,7 +374,7 @@ public class UserGroupTests {
         userGroupDao.delete(userGroup2);
         groupUsers = userGroupDao.getGroupUsers(group);
         assertEquals(2, groupUsers.size());
-        assertFalse(groupUsers.contains(user1));
+        assertFalse(groupUsers.contains(user));
         assertFalse(groupUsers.contains(user2));
         assertTrue(groupUsers.contains(user3));
         assertTrue(groupUsers.contains(user4));
