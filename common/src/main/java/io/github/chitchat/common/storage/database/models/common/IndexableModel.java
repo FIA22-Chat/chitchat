@@ -16,7 +16,7 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
-public class IndexableModel extends BaseModel {
+public abstract class IndexableModel extends BaseModel {
     /**
      * A unique identifier in the format of UUID v7 which includes a timestamp. This enables the
      * model to be sorted chronologically.

@@ -10,4 +10,4 @@ import lombok.AllArgsConstructor;
  * @see IndexableModel
  */
 @AllArgsConstructor
-public class BaseModel implements Serializable {}
+public abstract class BaseModel implements Serializable {}
