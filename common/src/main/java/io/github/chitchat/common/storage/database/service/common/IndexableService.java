@@ -1,5 +1,6 @@
 package io.github.chitchat.common.storage.database.service.common;
 
+import com.github.benmanes.caffeine.cache.CacheLoader;
 import io.github.chitchat.common.storage.database.dao.common.IIndexableDAO;
 import io.github.chitchat.common.storage.database.models.common.IndexableModel;
 import io.github.chitchat.common.storage.database.service.exceptions.DuplicateItemException;
@@ -9,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 public abstract class IndexableService<
                 Dao extends IIndexableDAO<UUID, Model>, Model extends IndexableModel>
-        extends BaseService<Dao, UUID, Model> {
+        extends BaseService<Dao, UUID, Model> implements IIndexableService<Model> {
 
     public IndexableService(@NotNull Dao dao, int cacheSize) {
         super(dao, key -> dao.getById(key).orElse(null), cacheSize);
@@ -32,7 +33,7 @@ public abstract class IndexableService<
     @Override
     public void create(@NotNull Model value) throws DuplicateItemException {
         if (cache.getIfPresent(value.getId()) != null)
-            throw new DuplicateItemException("Group already exists");
+            throw new DuplicateItemException("Item already exists");
 
         dao.insert(value);
         cache.put(value.getId(), value);
