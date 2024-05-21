@@ -40,10 +40,11 @@ public class User extends IndexableModel {
     @Override
     public String toString() {
         return new StringJoiner(", ", User.class.getSimpleName() + "[", "]")
-                .add("id=" + id)
                 .add("type=" + type)
                 .add("permission=" + permission)
                 .add("name='" + name + "'")
+                .add("id=" + id)
+                .add("createdAt=" + createdAt)
                 .toString();
     }
 }

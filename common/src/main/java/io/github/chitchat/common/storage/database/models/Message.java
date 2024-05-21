@@ -52,6 +52,7 @@ public class Message extends IndexableModel {
                 .add("content=" + Arrays.toString(content))
                 .add("modifiedAt=" + modifiedAt)
                 .add("id=" + id)
+                .add("createdAt=" + createdAt)
                 .toString();
     }
 }

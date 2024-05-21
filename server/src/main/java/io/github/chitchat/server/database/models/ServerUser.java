@@ -47,6 +47,7 @@ public class ServerUser extends User {
                 .add("permission=" + permission)
                 .add("name='" + name + "'")
                 .add("id=" + id)
+                .add("createdAt=" + createdAt)
                 .toString();
     }
 }

@@ -2,6 +2,7 @@ package io.github.chitchat.common.storage.database.models;
 
 import io.github.chitchat.common.storage.database.models.common.BaseModel;
 import java.time.Instant;
+import java.util.StringJoiner;
 import java.util.UUID;
 import lombok.*;
 
@@ -23,5 +24,14 @@ public class UserGroup extends BaseModel {
         this.userId = userId;
         this.groupId = groupId;
         this.modifiedAt = modifiedAt;
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", UserGroup.class.getSimpleName() + "[", "]")
+                .add("userId=" + userId)
+                .add("groupId=" + groupId)
+                .add("modifiedAt=" + modifiedAt)
+                .toString();
     }
 }

@@ -38,6 +38,7 @@ public class Group extends IndexableModel {
                 .add("description='" + description + "'")
                 .add("modifiedAt=" + modifiedAt)
                 .add("id=" + id)
+                .add("createdAt=" + createdAt)
                 .toString();
     }
 }

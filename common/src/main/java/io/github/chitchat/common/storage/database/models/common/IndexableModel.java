@@ -1,5 +1,7 @@
 package io.github.chitchat.common.storage.database.models.common;
 
+import com.fasterxml.uuid.impl.UUIDUtil;
+import java.time.Instant;
 import java.util.UUID;
 import lombok.*;
 
@@ -22,4 +24,17 @@ public abstract class IndexableModel extends BaseModel {
      * model to be sorted chronologically.
      */
     @NonNull @EqualsAndHashCode.Include protected UUID id;
+
+    /**
+     * The timestamp when the model was created. This is extracted from the {@link #id} field.
+     *
+     * @apiNote This field is immutable and cannot be changed.
+     */
+    @NonNull @Setter(AccessLevel.NONE)
+    protected Instant createdAt;
+
+    public IndexableModel(@NonNull UUID id) {
+        this.id = id;
+        this.createdAt = Instant.ofEpochMilli(UUIDUtil.extractTimestamp(id));
+    }
 }

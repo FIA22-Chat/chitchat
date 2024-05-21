@@ -46,6 +46,7 @@ public class Role extends IndexableModel {
                 .add("permission=" + permission)
                 .add("modifiedAt=" + modifiedAt)
                 .add("id=" + id)
+                .add("createdAt=" + createdAt)
                 .toString();
     }
 }
