@@ -41,11 +41,11 @@ public abstract class MessageDAO implements IIndexableDAO<UUID, Message> {
 
     @SqlQuery("select * from message where group_id = :id")
     @RegisterRowMapper(MessageRowMapper.class)
-    public abstract Optional<Message> getByGroupId(UUID id);
+    public abstract List<Message> getByGroupId(UUID id);
 
     @SqlQuery("select * from message where user_id = :id")
     @RegisterRowMapper(MessageRowMapper.class)
-    public abstract Optional<Message> getByUserId(UUID id);
+    public abstract List<Message> getByUserId(UUID id);
 
     @Transaction
     @SqlUpdate(

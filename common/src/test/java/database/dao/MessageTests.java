@@ -121,7 +121,7 @@ public class MessageTests {
         var dao = new MessageDAOImpl.OnDemand(db);
         var message = generateMessage();
         dao.insert(message);
-        assertEquals(message, dao.getByUserId(message.getUserId()).get());
+        assertTrue(dao.getByUserId(message.getUserId()).contains(message));
 
         dao.delete(message);
         assertTrue(dao.getByUserId(message.getUserId()).isEmpty());
@@ -132,7 +132,7 @@ public class MessageTests {
         var dao = new MessageDAOImpl.OnDemand(db);
         var message = generateMessage();
         dao.insert(message);
-        assertEquals(message, dao.getByGroupId(message.getGroupId()).get());
+        assertTrue(dao.getByGroupId(message.getGroupId()).contains(message));
 
         dao.delete(message);
         assertTrue(dao.getByGroupId(message.getGroupId()).isEmpty());
