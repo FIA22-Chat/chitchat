@@ -8,7 +8,8 @@ import io.github.chitchat.common.storage.database.models.common.BaseModel;
 import io.github.chitchat.common.storage.database.service.exceptions.DuplicateItemException;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class BaseService<Dao extends IBaseDAO<Model>, Key, Model extends BaseModel> {
+public abstract class BaseService<Dao extends IBaseDAO<Model>, Key, Model extends BaseModel>
+        implements IBaseService<Model> {
     protected final Dao dao;
     protected final LoadingCache<Key, Model> cache;
 
