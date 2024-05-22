@@ -1,18 +1,18 @@
 package io.github.chitchat.client;
 
+import io.github.chitchat.client.view.SceneController;
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
-public class HelloApplication extends Application {
-    private static final Logger log = LogManager.getLogger(HelloApplication.class);
+public class App extends Application {
+    private static final Logger log = LogManager.getLogger(App.class);
 
     public static void main(String[] args) {
         launch();
@@ -22,12 +22,17 @@ public class HelloApplication extends Application {
     public void start(Stage primaryStage) throws IOException {
         log.info("Starting client...");
 
-        FXMLLoader fxmlLoader =
-                new FXMLLoader(HelloApplication.class.getResource("pages/main/main.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 800, 800);
+        var basePath = "pages/";
+        var pages =
+                List.of(
+                        basePath + "login/login.fxml",
+                        basePath + "main/main.fxml",
+                        basePath + "settings/settings.fxml");
+        SceneController sceneController = new SceneController(primaryStage, pages, 1400, 800);
+        sceneController.navigateTo(0);
+
         primaryStage.getIcons().addAll(getIcons());
         primaryStage.setTitle("Chat");
-        primaryStage.setScene(scene);
         primaryStage.show();
     }
 
@@ -40,7 +45,7 @@ public class HelloApplication extends Application {
             list[i] =
                     new Image(
                             Objects.requireNonNull(
-                                    HelloApplication.class.getResourceAsStream(
+                                    App.class.getResourceAsStream(
                                             "icons/logo/logo-" + sizes[i] + "x.png")));
 
         return list;
