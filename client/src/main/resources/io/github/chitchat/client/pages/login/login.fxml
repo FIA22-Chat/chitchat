@@ -5,6 +5,7 @@
 <?import javafx.scene.layout.*?>
 
 <VBox id="background" fx:id="background" alignment="TOP_CENTER" prefHeight="800.0" prefWidth="1000.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.chitchat.client.view.pages.login.LoginController">
+   <Label fx:id="labelHeader" text="Login into ChitChat" />
 
 	<GridPane fx:id="innerLoginBox" alignment="CENTER" hgap="15.0" vgap="15.0">
 		<columnConstraints>

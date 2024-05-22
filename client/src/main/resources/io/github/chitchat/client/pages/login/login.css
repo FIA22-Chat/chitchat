@@ -40,3 +40,8 @@
     -fx-border-radius: 3px;
     -fx-background-radius: 3px;
 }
+#labelHeader
+{
+    -fx-text-fill: white;
+    -fx-font-size: 70px;
+}
