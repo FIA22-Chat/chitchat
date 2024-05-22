@@ -1,4 +1,42 @@
 #innerLoginBox
 {
-    -fx-background-color: red;
+    -fx-background-color: #101011;
+    -fx-padding: 100px;
+    -fx-alignment: Center;
+}
+#background
+{
+    -fx-padding: 50px;
+    -fx-background-color: #1e1e1e;
+}
+#labelCreateAcc
+{
+    -fx-text-fill: blue;
+}
+#textFieldUser
+{
+    -fx-border-color: white;
+    -fx-text-fill: white;
+    -fx-background-color: #1e1e1e;
+    -fx-border-radius: 3px;
+    -fx-background-radius: 3px;
+
+}
+.text-input, .text-input:focused {
+    -fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);
+}
+#textFieldPassword
+{
+    -fx-border-color: white;
+    -fx-text-fill: white;
+    -fx-background-color: #1e1e1e;
+    -fx-border-radius: 3px;
+    -fx-background-radius: 3px;
+}
+#loginButton
+{
+    -fx-background-color: #390089;
+    -fx-text-fill: white;
+    -fx-border-radius: 3px;
+    -fx-background-radius: 3px;
 }
