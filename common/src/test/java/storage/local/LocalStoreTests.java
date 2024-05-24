@@ -16,22 +16,26 @@ public class LocalStoreTests {
     Path path = Path.of("src/test/resources").toAbsolutePath();
 
     @Test
-    void createLazyLocalStore() throws IOException, ClassNotFoundException {
+    void createLazyLocalStore() {
         var store =
                 new LocalStore<>(
                         "testLazyStore", Evaluation.LAZY, path, String.class, defaultValue);
         assertNotNull(store);
+
+        assertFalse(store.getFilePath().toAbsolutePath().toFile().exists());
+        assertFalse(path.resolve(store.getFilePath().getFileName()).toFile().exists());
+        store.drop();
     }
 
     @Test
-    void createEagerLocalStore() throws IOException, ClassNotFoundException {
+    void createEagerLocalStore() {
         var store =
                 new LocalStore<>(
                         "testEagerStore", Evaluation.EAGER, path, String.class, defaultValue);
         assertNotNull(store);
 
-        assertTrue(store.getFilePath().toAbsolutePath().toFile().exists());
-        assertTrue(path.resolve(store.getFilePath().getFileName()).toFile().exists());
+        assertFalse(store.getFilePath().toAbsolutePath().toFile().exists());
+        assertFalse(path.resolve(store.getFilePath().getFileName()).toFile().exists());
         store.drop();
     }
 

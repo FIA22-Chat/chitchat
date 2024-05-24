@@ -19,9 +19,8 @@ public class LocalStore<T extends Serializable> implements Flushable {
     private final Evaluation evaluationStrategy;
     private final File fileStore;
     private final IValue<T> defaultValue;
-
-    private boolean isLoaded;
     private final Class<T> type;
+    private boolean isLoaded;
     private T value;
 
     /**
@@ -36,8 +35,7 @@ public class LocalStore<T extends Serializable> implements Flushable {
      * @param defaultValue the default value to store, must implement {@link Serializable}. This
      *     will be used to generate the file name.
      */
-    public LocalStore(Evaluation evaluation, Class<T> type, IValue<T> defaultValue)
-            throws IOException, ClassNotFoundException {
+    public LocalStore(Evaluation evaluation, Class<T> type, IValue<T> defaultValue) {
         this(type.getSimpleName(), evaluation, null, type, defaultValue);
     }
 
@@ -53,8 +51,7 @@ public class LocalStore<T extends Serializable> implements Flushable {
      * @param type the type of the value to store which must implement {@link Serializable}.
      * @param defaultValue the default value to store, must implement {@link Serializable}.
      */
-    public LocalStore(String name, Evaluation evaluation, Class<T> type, IValue<T> defaultValue)
-            throws IOException, ClassNotFoundException {
+    public LocalStore(String name, Evaluation evaluation, Class<T> type, IValue<T> defaultValue) {
         this(name, evaluation, null, type, defaultValue);
     }
 
@@ -77,8 +74,7 @@ public class LocalStore<T extends Serializable> implements Flushable {
             Evaluation evaluation,
             Path storagePath,
             Class<T> type,
-            IValue<T> defaultValue)
-            throws IOException, ClassNotFoundException {
+            IValue<T> defaultValue) {
         this.evaluationStrategy = evaluation;
         this.defaultValue = defaultValue;
         this.type = type;
@@ -86,15 +82,14 @@ public class LocalStore<T extends Serializable> implements Flushable {
         // Use the provided storage path or the environment variable
         var pathEnv = System.getenv(STORE_HOME);
         var pathProp = System.getProperty(STORE_HOME);
-        // Check items in the following order, using the first one that is not null
-        // storagePath, environment variable, system property
+        // Check items in the following order, using the first one that is not a null
+        // storage path, system property, environment variable
         if (storagePath == null)
             storagePath = Path.of(pathEnv == null ? (pathProp == null ? "" : pathProp) : pathEnv);
         fileStore = storagePath.resolve(name + ".store").toFile();
         log.trace("Assigned {} store path {}", name, fileStore.getAbsolutePath());
 
-        if (evaluation == Evaluation.EAGER)
-            if (!load()) save(); // Try to load, saving the default value if loading fails
+        if (evaluationStrategy == Evaluation.EAGER) get(); // Ensure the value is loaded
     }
 
     /**
@@ -122,15 +117,16 @@ public class LocalStore<T extends Serializable> implements Flushable {
     public synchronized @NotNull T get() {
         if (!isLoaded) {
             try {
-                isLoaded = load();
-            } catch (ClassNotFoundException e) {
+                load();
+            } catch (ClassNotFoundException | IOException e) {
                 log.error("Failed to load the value from the disk, using default value", e);
-            } catch (IOException e) {
-                log.debug("Failed to load the value from the disk, using default value", e);
+            } finally {
+                if (value == null) value = defaultValue.computeDefaultValue();
+                isLoaded = true;
             }
         }
 
-        return value == null ? defaultValue.computeDefaultValue() : value;
+        return value;
     }
 
     /**
@@ -206,7 +202,6 @@ public class LocalStore<T extends Serializable> implements Flushable {
                             + obj.getClass().getName());
 
         value = (T) obj;
-        isLoaded = true;
         return true;
     }
 }
