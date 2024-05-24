@@ -19,7 +19,7 @@ public class App extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws IOException {
+    public void start(Stage primaryStage) {
         log.info("Starting client...");
 
         var basePath = "pages/";
@@ -28,8 +28,14 @@ public class App extends Application {
                         basePath + "login/login.fxml",
                         basePath + "main/main.fxml",
                         basePath + "settings/settings.fxml");
-        SceneController sceneController = new SceneController(primaryStage, pages, 1400, 800);
-        sceneController.navigateTo(0);
+        SceneController sceneController = new SceneController(primaryStage, pages);
+        try {
+            sceneController.navigateTo(0);
+        } catch (IOException e) {
+            // We can't recover from this, so we log the error and throw a runtime exception
+            log.fatal("Failed to load login page", e);
+            throw new RuntimeException(e);
+        }
 
         primaryStage.getIcons().addAll(getIcons());
         primaryStage.setTitle("Chat");
