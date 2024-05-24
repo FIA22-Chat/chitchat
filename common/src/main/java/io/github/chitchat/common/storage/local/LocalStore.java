@@ -13,13 +13,13 @@ import org.jetbrains.annotations.NotNull;
  * @param <T> the type of the value to store which must implement {@link Serializable}
  */
 public class LocalStore<T extends Serializable> implements Flushable {
-    public static final String STORE_HOME = "STORE_HOME";
     private static final Logger log = LogManager.getLogger(LocalStore.class);
+    private static final String STORE_HOME = "STORE_HOME";
 
     @NotNull private final File fileStore;
     private final Evaluation evaluationStrategy;
-    private T value;
     private boolean isLoaded;
+    private T value;
 
     /**
      * Creates a local store that persists the value to disk, reevaluating as specified by {@link
@@ -28,6 +28,39 @@ public class LocalStore<T extends Serializable> implements Flushable {
      *
      * @param defaultValue the default value to store, must implement {@link Serializable}. This
      *     will be used to generate the file name.
+     * @param evaluation the evaluation strategy to use when saving the value to disk. If {@link
+     *     Evaluation#LAZY} is used, the value will be saved to disk only when {@link #flush()} is
+     *     called.
+     */
+    public LocalStore(T defaultValue, Evaluation evaluation)
+            throws IOException, ClassNotFoundException {
+        this(defaultValue, defaultValue.getClass().getSimpleName(), null, evaluation);
+    }
+
+    /**
+     * Creates a local store that persists the value to disk, reevaluating as specified by {@link
+     * Evaluation}. Caution should be taken when the type or the name of the value changes, as the
+     * reference to the file stored on the disk will be lost.
+     *
+     * @param defaultValue the default value to store, must implement {@link Serializable}. This
+     *     will be used to generate the file name.
+     * @param storagePath the path to store the value. If null, the system property or finally
+     *     environment variable {@link #STORE_HOME} will be used.
+     * @param evaluation the evaluation strategy to use when saving the value to disk. If {@link
+     *     Evaluation#LAZY} is used, the value will be saved to disk only when {@link #flush()} is
+     *     called.
+     */
+    public LocalStore(T defaultValue, Path storagePath, Evaluation evaluation)
+            throws IOException, ClassNotFoundException {
+        this(defaultValue, defaultValue.getClass().getSimpleName(), storagePath, evaluation);
+    }
+
+    /**
+     * Creates a local store that persists the value to disk, reevaluating as specified by {@link
+     * Evaluation}. Caution should be taken when the type or the name of the value changes, as the
+     * reference to the file stored on the disk will be lost.
+     *
+     * @param defaultValue the default value to store, must implement {@link Serializable}.
      * @param name the name of the value to store. This will be used to generate the file name.
      * @param evaluation the evaluation strategy to use when saving the value to disk. If {@link
      *     Evaluation#LAZY} is used, the value will be saved to disk only when {@link #flush()} is
@@ -43,11 +76,10 @@ public class LocalStore<T extends Serializable> implements Flushable {
      * Evaluation}. Caution should be taken when the type or the name of the value changes, as the
      * reference to the file stored on the disk will be lost.
      *
-     * @param defaultValue the default value to store, must implement {@link Serializable}. This
-     *     will be used to generate the file name.
+     * @param defaultValue the default value to store, must implement {@link Serializable}.
      * @param name the name of the value to store. This will be used to generate the file name.
-     * @param storagePath the path to store the value. If null, the environment variable {@value
-     *     STORE_HOME} will be used.
+     * @param storagePath the path to store the value. If null, the system property or finally
+     *     environment variable {@link #STORE_HOME} will be used.
      * @param evaluation the evaluation strategy to use when saving the value to disk. If {@link
      *     Evaluation#LAZY} is used, the value will be saved to disk only when {@link #flush()} is
      *     called.
@@ -59,10 +91,13 @@ public class LocalStore<T extends Serializable> implements Flushable {
 
         // Use the provided storage path or the environment variable
         var pathEnv = System.getenv(STORE_HOME);
-        if (storagePath == null) storagePath = Path.of(pathEnv == null ? "" : pathEnv);
-        fileStore =
-                storagePath.resolve(value.getClass().getSimpleName() + name + ".store").toFile();
-        log.trace("File store path: {}", fileStore.getAbsolutePath());
+        var pathProp = System.getProperty(STORE_HOME);
+        // Check items in the following order, using the first one that is not null
+        // storagePath, environment variable, system property
+        if (storagePath == null)
+            storagePath = Path.of(pathEnv == null ? (pathProp == null ? "" : pathProp) : pathEnv);
+        fileStore = storagePath.resolve(name + ".store").toFile();
+        log.trace("Assigned {} store path {}", name, fileStore.getAbsolutePath());
 
         if (evaluation == Evaluation.EAGER)
             if (!load()) save(); // Try to load, saving the default value if loading fails
@@ -108,13 +143,13 @@ public class LocalStore<T extends Serializable> implements Flushable {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    public void flush() throws IOException {
+    public synchronized void flush() throws IOException {
         log.trace("Flushing the value to the disk.");
         save();
     }
 
     /** Drop the value from the disk. */
-    public void drop() {
+    public synchronized void drop() {
         var _ = fileStore.delete();
     }
 
@@ -133,7 +168,7 @@ public class LocalStore<T extends Serializable> implements Flushable {
      *
      * @throws IOException if an I/O error occurs
      */
-    private void save() throws IOException {
+    private synchronized void save() throws IOException {
         var parent = fileStore.getParentFile();
         if (parent != null) {
             var _ = parent.mkdirs();
@@ -157,7 +192,7 @@ public class LocalStore<T extends Serializable> implements Flushable {
      *     found
      */
     @SuppressWarnings("unchecked")
-    private boolean load() throws IOException, ClassNotFoundException {
+    private synchronized boolean load() throws IOException, ClassNotFoundException {
         if (!fileStore.exists()) return false;
 
         var inputStream = new FileInputStream(fileStore);
