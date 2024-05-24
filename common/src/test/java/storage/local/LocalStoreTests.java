@@ -2,6 +2,7 @@ package storage.local;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import io.github.chitchat.common.storage.local.IValue;
 import io.github.chitchat.common.storage.local.LocalStore;
 import io.github.chitchat.common.storage.local.config.Evaluation;
 import java.io.IOException;
@@ -10,18 +11,23 @@ import java.util.HashMap;
 import org.junit.jupiter.api.Test;
 
 public class LocalStoreTests {
+    static String defaultValueComputed = "default";
+    static IValue<String> defaultValue = () -> defaultValueComputed;
     Path path = Path.of("src/test/resources").toAbsolutePath();
-    String defaultValue = "defaultValueTest";
 
     @Test
     void createLazyLocalStore() throws IOException, ClassNotFoundException {
-        var store = new LocalStore<>(defaultValue, "testLazyStore", path, Evaluation.LAZY);
+        var store =
+                new LocalStore<>(
+                        "testLazyStore", Evaluation.LAZY, path, String.class, defaultValue);
         assertNotNull(store);
     }
 
     @Test
     void createEagerLocalStore() throws IOException, ClassNotFoundException {
-        var store = new LocalStore<>(defaultValue, "testEagerStore", path, Evaluation.EAGER);
+        var store =
+                new LocalStore<>(
+                        "testEagerStore", Evaluation.EAGER, path, String.class, defaultValue);
         assertNotNull(store);
 
         assertTrue(store.getFilePath().toAbsolutePath().toFile().exists());
@@ -31,16 +37,16 @@ public class LocalStoreTests {
 
     @Test
     void getLocalStoreValue() throws IOException, ClassNotFoundException {
-        var store = new LocalStore<>(defaultValue, "testGetStore", path, Evaluation.LAZY);
+        var store = new LocalStore<>("testGetStore", Evaluation.LAZY, String.class, defaultValue);
         assertNotNull(store);
-        assertEquals(defaultValue, store.get());
+        assertEquals(defaultValueComputed, store.get());
     }
 
     @Test
     void setLocalStoreValue() throws IOException, ClassNotFoundException {
-        var store = new LocalStore<>(defaultValue, "testSetStore", path, Evaluation.LAZY);
+        var store = new LocalStore<>("testSetStore", Evaluation.LAZY, String.class, defaultValue);
         assertNotNull(store);
-        assertEquals(defaultValue, store.get());
+        assertEquals(defaultValueComputed, store.get());
 
         store.set("newValue");
         assertEquals("newValue", store.get());
@@ -48,9 +54,9 @@ public class LocalStoreTests {
 
     @Test
     void dropLocalStore() throws IOException, ClassNotFoundException {
-        var store = new LocalStore<>(defaultValue, "testDropStore", path, Evaluation.LAZY);
+        var store = new LocalStore<>("testDropStore", Evaluation.LAZY, String.class, defaultValue);
         assertNotNull(store);
-        assertEquals(defaultValue, store.get());
+        assertEquals(defaultValueComputed, store.get());
 
         store.drop();
         assertFalse(store.getFilePath().toFile().exists());
@@ -58,16 +64,17 @@ public class LocalStoreTests {
 
     @Test
     void flushLocalStore() throws IOException, ClassNotFoundException {
-        var store = new LocalStore<>(defaultValue, "testFlushStore", path, Evaluation.LAZY);
+        var store = new LocalStore<>("testFlushStore", Evaluation.LAZY, String.class, defaultValue);
         assertNotNull(store);
-        assertEquals(defaultValue, store.get());
+        assertEquals(defaultValueComputed, store.get());
 
         store.flush();
-        assertEquals(defaultValue, store.get());
+        assertEquals(defaultValueComputed, store.get());
 
-        var store2 = new LocalStore<>(defaultValue, "testFlushStore", path, Evaluation.LAZY);
+        var store2 =
+                new LocalStore<>("testFlushStore", Evaluation.LAZY, String.class, defaultValue);
         assertNotNull(store);
-        assertEquals(defaultValue, store2.get());
+        assertEquals(defaultValueComputed, store2.get());
 
         store2.set("newValue");
         store2.flush();
@@ -76,13 +83,20 @@ public class LocalStoreTests {
         store2.drop();
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     void objectLocalStore() throws IOException, ClassNotFoundException {
         var map = new HashMap<String, Integer>();
+        IValue<HashMap<String, Integer>> defaultValue = () -> map;
         map.put("test1", 1);
         map.put("test2", 2);
 
-        var store = new LocalStore<>(map, "testObjectStore", path, Evaluation.LAZY);
+        var store =
+                new LocalStore<>(
+                        "testObjectStore",
+                        Evaluation.LAZY,
+                        (Class<HashMap<String, Integer>>) (Class<?>) HashMap.class,
+                        defaultValue);
         assertNotNull(store);
         store.flush();
 
