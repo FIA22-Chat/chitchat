@@ -29,6 +29,7 @@
               <entry key="LOG_LEVEL_CONSOLE" value="TRACE" />
               <entry key="LOG_LEVEL_FILE" value="TRACE" />
               <entry key="LOG_PATH" value="target/log" />
+              <entry key="STORE_HOME" value="target/store" />
             </map>
           </option>
           <option name="jreName" value="#USE_PROJECT_JDK" />
