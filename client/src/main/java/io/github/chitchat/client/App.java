@@ -1,26 +1,52 @@
 package io.github.chitchat.client;
 
+import io.github.chitchat.client.config.UserSettingsManager;
 import io.github.chitchat.client.view.SceneController;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Objects;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 import org.jetbrains.annotations.NotNull;
 
+@Log4j2
 public class App extends Application {
-    private static final Logger log = LogManager.getLogger(App.class);
+    private static final String APP_NAME = "ChitChat";
+    private static UserSettingsManager settings;
 
     public static void main(String[] args) {
+        log.info("Starting client preloader...");
+
+        // Sets the global default path for all local stores
+        System.setProperty(
+                "STORE_HOME",
+                Path.of(System.getenv("LOCALAPPDATA"), APP_NAME)
+                        .toString()); // todo use util impl instead
+        settings = new UserSettingsManager();
+
         launch();
     }
 
     @Override
-    public void start(Stage primaryStage) {
-        log.info("Starting client...");
+    public void start(@NotNull Stage primaryStage) {
+        log.info("Starting client GUI...");
+
+        // Save user settings on quit
+        primaryStage.setOnCloseRequest(
+                _ -> {
+                    settings.setStageX(primaryStage.getX());
+                    settings.setStageY(primaryStage.getY());
+                    settings.setSceneWidth(primaryStage.getWidth());
+                    settings.setSceneHeight(primaryStage.getHeight());
+                    settings.setMaximized(primaryStage.isMaximized());
+                    settings.setAlwaysOnTop(primaryStage.isAlwaysOnTop());
+                    settings.setFullscreen(primaryStage.isFullScreen());
+                    settings.save();
+                    log.debug("Saved user settings");
+                });
 
         var basePath = "pages/";
         var pages =
@@ -37,8 +63,17 @@ public class App extends Application {
             throw new RuntimeException(e);
         }
 
+        // Load user settings
+        primaryStage.setX(settings.getStageX());
+        primaryStage.setY(settings.getStageY());
+        primaryStage.setWidth(settings.getSceneWidth());
+        primaryStage.setHeight(settings.getSceneHeight());
+        primaryStage.setMaximized(settings.isMaximized());
+        primaryStage.setAlwaysOnTop(settings.isAlwaysOnTop());
+        primaryStage.setFullScreen(settings.isFullscreen());
+
         primaryStage.getIcons().addAll(getIcons());
-        primaryStage.setTitle("Chat");
+        primaryStage.setTitle(APP_NAME);
         primaryStage.show();
     }
 
