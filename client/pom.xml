@@ -13,7 +13,9 @@
     <name>client</name>
 
     <properties>
-        <maven.compiler.release>20</maven.compiler.release>
+        <!-- The config.executable variable should match the same Java version used to run this application -->
+        <!-- This might differ depending on if your IDE is using a bundled Java version -->
+        <config.executable>java</config.executable>
     </properties>
 
     <dependencies>
@@ -71,12 +73,14 @@
                                 <option>-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:8000</option>
                             </options>
                             <mainClass>io.github.chitchat.client/io.github.chitchat.client.HelloApplication</mainClass>
+                            <executable>${config.executable}</executable>
                         </configuration>
                     </execution>
                     <execution>
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>io.github.chitchat.client/io.github.chitchat.client.HelloApplication</mainClass>
+                            <executable>${config.executable}</executable>
                             <compress>2</compress>
                             <launcher>chitchat</launcher>
                             <jlinkZipName>chitchat</jlinkZipName>
