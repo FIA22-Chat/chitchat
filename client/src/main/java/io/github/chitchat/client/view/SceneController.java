@@ -19,7 +19,7 @@ public class SceneController {
 
     private final Stage primaryStage;
     private final FXMLLoader fxmlLoader;
-    private int currentIndex = 0;
+    private int currentIndex;
 
     /**
      * Constructs a new SceneController with the specified primary stage, pages, and dimensions.

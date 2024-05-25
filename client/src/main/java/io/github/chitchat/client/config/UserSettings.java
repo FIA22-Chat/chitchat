@@ -11,11 +11,14 @@ public class UserSettings implements Serializable {
     @Serial private static final long serialVersionUID = -8954655507956526824L;
     private transient Rectangle2D screenBounds = Screen.getPrimary().getBounds();
 
-    private double sceneWidth = Math.min(screenBounds.getMaxX(), 1400);
-    private double sceneHeight = Math.min(screenBounds.getMaxY(), 800);
+    private static final double DEFAULT_SCENE_WIDTH = 1400;
+    private static final double DEFAULT_SCENE_HEIGHT = 800;
+
+    private double sceneWidth = Math.min(screenBounds.getMaxX(), DEFAULT_SCENE_WIDTH);
+    private double sceneHeight = Math.min(screenBounds.getMaxY(), DEFAULT_SCENE_HEIGHT);
     private double stageX = screenBounds.getMaxX() / 2 - sceneWidth / 2;
     private double stageY = screenBounds.getMaxY() / 2 - sceneHeight / 2;
-    private boolean isMaximized = false;
-    private boolean alwaysOnTop = false;
-    private boolean isFullscreen = false;
+    private boolean isMaximized;
+    private boolean alwaysOnTop;
+    private boolean isFullscreen;
 }
