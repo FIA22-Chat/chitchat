@@ -14,7 +14,6 @@ include:
   - name: CheckDependencyLicenses
   - name: StringRepeatCanBeUsed
   - name: MagicNumber
-  - name: MissingJavadoc
   - name: UseOfObsoleteAssert
   - name: IgnoredJUnitTest
   - name: AssertEqualsMayBeAssertSame
@@ -38,7 +37,6 @@ include:
   - name: Java8MapApi
   - name: ReplaceNullCheck
   - name: SimplifyForEach
-  - name: TypeMayBeWeakened
   - name: IncorrectProcessCanceledExceptionHandling
   - name: SystemOutErr
   - name: ObsoleteCollection
