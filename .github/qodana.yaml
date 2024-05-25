@@ -13,7 +13,6 @@ plugins:
 include:
   - name: CheckDependencyLicenses
   - name: StringRepeatCanBeUsed
-  - name: MagicNumber
   - name: UseOfObsoleteAssert
   - name: IgnoredJUnitTest
   - name: AssertEqualsMayBeAssertSame
@@ -46,7 +45,6 @@ include:
   - name: OptionalContainsCollection
   - name: ArrayCanBeReplacedWithEnumValues
   - name: ArrayCreationWithoutNewKeyword
-  - name: ChainedMethodCall
   - name: ConstantExpression
   - name: MissortedModifiers
   - name: UnclearBinaryExpression
@@ -106,3 +104,5 @@ include:
   - name: EnhancedSwitchBackwardMigration
   - name: EnhancedSwitchMigration
   - name: EmptyDirectory
+exclude:
+  - name: FieldMayBeFinal # Has problems with Lombok
