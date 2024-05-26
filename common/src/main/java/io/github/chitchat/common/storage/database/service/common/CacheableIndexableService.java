@@ -36,6 +36,14 @@ public abstract class CacheableIndexableService<
         this.cache = Caffeine.newBuilder().maximumSize(cacheSize).build(loader);
     }
 
+    public void clearCache() {
+        cache.invalidateAll();
+    }
+
+    public void clearCache(UUID id) {
+        cache.invalidate(id);
+    }
+
     @Override
     public Optional<Model> get(UUID id) {
         return Optional.ofNullable(cache.get(id));
