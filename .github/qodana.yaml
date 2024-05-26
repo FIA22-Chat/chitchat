@@ -1,9 +1,108 @@
 version: "1.0"
 
+projectJDK: "22"
+linter: jetbrains/qodana-jvm-community:latest
+
+failThreshold: 0
 profile:
   name: qodana.recommended
 
-failThreshold: 0
+plugins:
+  - id: Lombook Plugin
 
-projectJDK: "22"
-linter: jetbrains/qodana-jvm-community:2024.1
+include:
+  - name: CheckDependencyLicenses
+  - name: StringRepeatCanBeUsed
+  - name: UseOfObsoleteAssert
+  - name: IgnoredJUnitTest
+  - name: AssertEqualsMayBeAssertSame
+  - name: AssertEqualsCalledOnArray
+  - name: JUnit5Converter
+  - name: JUnit5AssertionsConverter
+  - name: MigrateAssertToMatcherAssert
+  - name: Java9CollectionFactory
+  - name: Java8ListSort
+  - name: ComparatorCombinators
+  - name: Convert2Lambda
+  - name: Anonymous2MethodRef
+  - name: AnonymousHasLambdaAlternative
+  - name: FoldExpressionIntoStream
+  - name: LambdaCanBeMethodCall
+  - name: Convert2MethodRef
+  - name: Convert2streamapi
+  - name: Java8CollectionRemoveIf
+  - name: Java8ListReplaceAll
+  - name: Java8MapForEach
+  - name: Java8MapApi
+  - name: ReplaceNullCheck
+  - name: SimplifyForEach
+  - name: IncorrectProcessCanceledExceptionHandling
+  - name: SystemOutErr
+  - name: ObsoleteCollection
+  - name: EqualsCalledOnEnumConstant
+  - name: SimplifiableIfStatement
+  - name: ObjectsEqualsCanBeSimplified
+  - name: OptionalContainsCollection
+  - name: ArrayCanBeReplacedWithEnumValues
+  - name: ArrayCreationWithoutNewKeyword
+  - name: ConstantExpression
+  - name: MissortedModifiers
+  - name: UnclearBinaryExpression
+  - name: RedundantFieldInitialization
+  - name: SimplifiableAnnotation
+  - name: UnnecessaryFullyQualifiedName
+  - name: CastCanBeReplacedWithVariable
+  - name: SleepWhileHoldingLock
+  - name: ReplaceStringFormatWithLiteral
+  - name: ReplaceSubstringWithDropLast
+  - name: ReplaceSubstringWithSubstringAfter
+  - name: ReplaceSubstringWithSubstringBefore
+  - name: ReplaceSubstringWithTake
+  - name: ReplaceSubstringWithIndexingOperation
+  - name: ConvertLambdaToReference
+  - name: ConvertReferenceToLambda
+  - name: ReplaceCollectionCountWithSize
+  - name: LoopToCallChain
+  - name: RedundantElseInIf
+  - name: ChangeToOperator
+  - name: GrUnnecessarySemicolon
+  - name: GrUnnecessaryAlias
+  - name: ChangeToMethod
+  - name: PublicStaticArrayField
+  - name: InconsistentResourceBundle
+  - name: SuspiciousLocalesLanguages
+  - name: TrailingSpacesInProperty
+  - name: UnusedProperty
+  - name: ComparableImplementedButEqualsNotOverridden
+  - name: EqualsAndHashcode
+  - name: ArrayEquality
+  - name: UnreachableCode
+  - name: AssignmentToLambdaParameter
+  - name: DoubleLiteralMayBeFloatLiteral
+  - name: IntLiteralMayBeLongLiteral
+  - name: UnnecessaryExplicitNumericCast
+  - name: ExceptionNameDoesntEndWithException
+  - name: NonExceptionNameEndsWithException
+  - name: ClassNameDiffersFromFileName
+  - name: EmptyClass
+  - name: UseOfObsoleteDateTimeApi
+  - name: DeconstructionCanBeUsed
+  - name: ForCanBeForeach
+  - name: IndexOfReplaceableByContains
+  - name: StringBufferReplaceableByStringBuilder
+  - name: WhileCanBeForeach
+  - name: CollectionsFieldAccessReplaceableByMethodCall
+  - name: RawUseOfParameterizedType
+  - name: UnnecessaryBoxing
+  - name: UnnecessaryUnboxing
+  - name: TryFinallyCanBeTryWithResources
+  - name: Convert2Diamond
+  - name: TryWithIdenticalCatches
+  - name: PatternVariableCanBeUsed
+  - name: TextBlockBackwardMigration
+  - name: TextBlockMigration
+  - name: EnhancedSwitchBackwardMigration
+  - name: EnhancedSwitchMigration
+  - name: EmptyDirectory
+exclude:
+  - name: FieldMayBeFinal # Has problems with Lombok
