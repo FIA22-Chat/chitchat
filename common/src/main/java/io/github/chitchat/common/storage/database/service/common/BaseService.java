@@ -13,6 +13,10 @@ public abstract class BaseService<Dao extends IBaseDAO<Model>, Key, Model extend
         this.dao = dao;
     }
 
+    public int count() {
+        return dao.count();
+    }
+
     public abstract void create(@NotNull Model value) throws DuplicateItemException;
 
     public abstract void update(@NotNull Model value);
