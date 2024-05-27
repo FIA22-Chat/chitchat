@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public abstract class IndexableService<
                 Dao extends IIndexableDAO<UUID, Model>, Model extends IndexableModel>
-        extends BaseService<Dao, UUID, Model> implements IIndexableService<Model> {
+        extends BaseService<Dao, Model> implements IIndexableService<Model> {
 
     public IndexableService(@NotNull Dao dao) {
         super(dao);
