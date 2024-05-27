@@ -45,6 +45,11 @@ public abstract class CacheableIndexableService<
     }
 
     @Override
+    public boolean exists(UUID id) {
+        return cache.getIfPresent(id) != null || dao.existsById(id);
+    }
+
+    @Override
     public Optional<Model> get(UUID id) {
         return Optional.ofNullable(cache.get(id));
     }
