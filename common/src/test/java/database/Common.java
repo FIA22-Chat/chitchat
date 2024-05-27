@@ -1,4 +1,4 @@
-package database.dao;
+package database;
 
 import io.github.chitchat.common.storage.database.Database;
 import java.io.File;

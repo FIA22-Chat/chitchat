@@ -2,6 +2,7 @@ package database.dao;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import database.Common;
 import io.github.chitchat.common.storage.database.DbUtil;
 import io.github.chitchat.common.storage.database.dao.RoleDAOImpl;
 import io.github.chitchat.common.storage.database.models.Role;
