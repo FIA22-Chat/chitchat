@@ -1,4 +1,4 @@
-package io.github.chitchat.common.storage.database.models;
+package io.github.chitchat.server.database.models;
 
 import io.github.chitchat.common.storage.database.models.common.BaseModel;
 import java.time.Instant;
@@ -9,7 +9,7 @@ import lombok.*;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = false)
-public class UserSession extends BaseModel {
+public class ServerUserSession extends BaseModel {
     /** The user this session belongs to. */
     @NonNull private UUID userId;
 
@@ -19,7 +19,8 @@ public class UserSession extends BaseModel {
     /** The timestamp when the session is going to expire. */
     @NonNull private Instant expiresAt;
 
-    public UserSession(@NonNull UUID userId, @NonNull String token, @NonNull Instant expiresAt) {
+    public ServerUserSession(
+            @NonNull UUID userId, @NonNull String token, @NonNull Instant expiresAt) {
         this.userId = userId;
         this.token = token;
         this.expiresAt = expiresAt;
@@ -27,7 +28,7 @@ public class UserSession extends BaseModel {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", UserSession.class.getSimpleName() + "[", "]")
+        return new StringJoiner(", ", ServerUserSession.class.getSimpleName() + "[", "]")
                 .add("userId=" + userId)
                 .add("token='" + token + "'")
                 .add("expiresAt=" + expiresAt)
