@@ -6,6 +6,7 @@ import io.github.chitchat.common.storage.database.models.Group;
 import io.github.chitchat.common.storage.database.service.channel.ServiceChannel;
 import io.github.chitchat.common.storage.database.service.channel.ServiceChannelListener;
 import io.github.chitchat.common.storage.database.service.common.CacheableIndexableService;
+import java.util.Optional;
 import org.jdbi.v3.core.Jdbi;
 import org.jetbrains.annotations.NotNull;
 
@@ -20,6 +21,10 @@ public class GroupService extends CacheableIndexableService<GroupDAO, Group>
             Jdbi db, int cacheSize, @NotNull ServiceChannel<Group> groupServiceChannel) {
         this(db, cacheSize);
         groupServiceChannel.register(this);
+    }
+
+    public Optional<Group> get(String name) {
+        return dao.getByName(name);
     }
 
     @Override
