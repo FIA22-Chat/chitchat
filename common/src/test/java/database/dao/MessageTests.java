@@ -5,9 +5,14 @@ import static org.junit.jupiter.api.Assertions.*;
 import database.Common;
 import io.github.chitchat.common.storage.database.DbUtil;
 import io.github.chitchat.common.storage.database.dao.MessageDAOImpl;
+import io.github.chitchat.common.storage.database.models.Group;
 import io.github.chitchat.common.storage.database.models.Message;
+import io.github.chitchat.common.storage.database.models.User;
 import io.github.chitchat.common.storage.database.models.inner.MessageType;
+import io.github.chitchat.common.storage.database.models.inner.PermissionType;
+import io.github.chitchat.common.storage.database.models.inner.UserType;
 import java.time.Instant;
+import java.util.EnumSet;
 import java.util.List;
 import org.jdbi.v3.core.Jdbi;
 import org.jetbrains.annotations.Contract;
@@ -57,6 +62,56 @@ public class MessageTests {
 
         dao.delete(message);
         assertEquals(0, dao.count());
+    }
+
+    @Test
+    void testMessageUserCount() {
+        Jdbi dbCount = initDB("testMessageUserCount.db");
+        var dao = new MessageDAOImpl.OnDemand(dbCount);
+        var message = generateMessage();
+        var user =
+                new User(
+                        message.getUserId(),
+                        UserType.USER,
+                        EnumSet.of(PermissionType.SEND_MESSAGE),
+                        "TestUser");
+        dao.insert(message);
+        assertEquals(1, dao.count(user));
+
+        dao.delete(message);
+        assertEquals(0, dao.count(user));
+    }
+
+    @Test
+    void testMessageGroupCount() {
+        Jdbi dbCount = initDB("testMessageGroupCount.db");
+        var dao = new MessageDAOImpl.OnDemand(dbCount);
+        var message = generateMessage();
+        var group = new Group(message.getGroupId(), "TestGroup", "TestDescription", Instant.now());
+        dao.insert(message);
+        assertEquals(1, dao.count(group));
+
+        dao.delete(message);
+        assertEquals(0, dao.count(group));
+    }
+
+    @Test
+    void testMessageGroupUserCount() {
+        Jdbi dbCount = initDB("testMessageGroupUserCount.db");
+        var dao = new MessageDAOImpl.OnDemand(dbCount);
+        var message = generateMessage();
+        var user =
+                new User(
+                        message.getUserId(),
+                        UserType.USER,
+                        EnumSet.of(PermissionType.SEND_MESSAGE),
+                        "TestUser");
+        var group = new Group(message.getGroupId(), "TestGroup", "TestDescription", Instant.now());
+        dao.insert(message);
+        assertEquals(1, dao.count(group, user));
+
+        dao.delete(message);
+        assertEquals(0, dao.count(group, user));
     }
 
     @Test
@@ -118,25 +173,57 @@ public class MessageTests {
     }
 
     @Test
-    void testMessageGetByUserId() {
+    void testMessageGetByUser() {
         var dao = new MessageDAOImpl.OnDemand(db);
         var message = generateMessage();
+        var user =
+                new User(
+                        message.getUserId(),
+                        UserType.USER,
+                        EnumSet.of(PermissionType.SEND_MESSAGE),
+                        "TestUser");
         dao.insert(message);
-        assertTrue(dao.getByUserId(message.getUserId()).contains(message));
+        assertTrue(dao.getByUser(message.getUserId()).contains(message));
+        assertTrue(dao.getByUser(user).contains(message));
 
         dao.delete(message);
-        assertTrue(dao.getByUserId(message.getUserId()).isEmpty());
+        assertTrue(dao.getByUser(message.getUserId()).isEmpty());
+        assertTrue(dao.getByUser(user).isEmpty());
     }
 
     @Test
-    void testMessageGetByGroupId() {
+    void testMessageGetByGroupUser() {
         var dao = new MessageDAOImpl.OnDemand(db);
         var message = generateMessage();
+        var user =
+                new User(
+                        message.getUserId(),
+                        UserType.USER,
+                        EnumSet.of(PermissionType.SEND_MESSAGE),
+                        "TestUser");
+        var group = new Group(message.getGroupId(), "TestGroup", "TestDescription", Instant.now());
+
         dao.insert(message);
-        assertTrue(dao.getByGroupId(message.getGroupId()).contains(message));
+        assertTrue(dao.getByGroupUser(group.getId(), user.getId()).contains(message));
+        assertTrue(dao.getByGroupUser(group, user).contains(message));
 
         dao.delete(message);
-        assertTrue(dao.getByGroupId(message.getGroupId()).isEmpty());
+        assertTrue(dao.getByGroupUser(group.getId(), user.getId()).isEmpty());
+        assertTrue(dao.getByGroupUser(group, user).isEmpty());
+    }
+
+    @Test
+    void testMessageGetByGroup() {
+        var dao = new MessageDAOImpl.OnDemand(db);
+        var message = generateMessage();
+        var group = new Group(message.getGroupId(), "TestGroup", "TestDescription", Instant.now());
+        dao.insert(message);
+        assertTrue(dao.getByGroup(message.getGroupId()).contains(message));
+        assertTrue(dao.getByGroup(group).contains(message));
+
+        dao.delete(message);
+        assertTrue(dao.getByGroup(message.getGroupId()).isEmpty());
+        assertTrue(dao.getByGroup(group).isEmpty());
     }
 
     @Test

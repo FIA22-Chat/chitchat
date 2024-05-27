@@ -2,7 +2,9 @@ package io.github.chitchat.common.storage.database.dao;
 
 import io.github.chitchat.common.storage.database.dao.common.IIndexableDAO;
 import io.github.chitchat.common.storage.database.dao.mappers.MessageRowMapper;
+import io.github.chitchat.common.storage.database.models.Group;
 import io.github.chitchat.common.storage.database.models.Message;
+import io.github.chitchat.common.storage.database.models.User;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -21,11 +23,20 @@ public abstract class MessageDAO implements IIndexableDAO<UUID, Message> {
     @SqlQuery("select count(*) from message")
     public abstract int count();
 
+    @SqlQuery("select count(*) from message where user_id = :id")
+    public abstract int count(@BindBean User user);
+
+    @SqlQuery("select count(*) from message where group_id = :id")
+    public abstract int count(@BindBean Group group);
+
+    @SqlQuery("select count(*) from message where group_id = :group.id and user_id = :user.id")
+    public abstract int count(@BindBean("group") Group group, @BindBean("user") User user);
+
     @SqlQuery("select exists(select 1 from message where id = :id)")
     public abstract boolean existsById(UUID id);
 
     @SqlQuery("select exists(select 1 from message where id = :id)")
-    public abstract boolean exists(@BindBean Message group);
+    public abstract boolean exists(@BindBean Message message);
 
     @SqlQuery("select * from message")
     @RegisterRowMapper(MessageRowMapper.class)
@@ -41,11 +52,28 @@ public abstract class MessageDAO implements IIndexableDAO<UUID, Message> {
 
     @SqlQuery("select * from message where group_id = :id")
     @RegisterRowMapper(MessageRowMapper.class)
-    public abstract List<Message> getByGroupId(UUID id);
+    public abstract List<Message> getByGroup(UUID id);
+
+    @SqlQuery("select * from message where group_id = :id")
+    @RegisterRowMapper(MessageRowMapper.class)
+    public abstract List<Message> getByGroup(@BindBean Group group);
 
     @SqlQuery("select * from message where user_id = :id")
     @RegisterRowMapper(MessageRowMapper.class)
-    public abstract List<Message> getByUserId(UUID id);
+    public abstract List<Message> getByUser(UUID id);
+
+    @SqlQuery("select * from message where user_id = :id")
+    @RegisterRowMapper(MessageRowMapper.class)
+    public abstract List<Message> getByUser(@BindBean User user);
+
+    @SqlQuery("select * from message where group_id = :groupId and user_id = :userId")
+    @RegisterRowMapper(MessageRowMapper.class)
+    public abstract List<Message> getByGroupUser(UUID groupId, UUID userId);
+
+    @SqlQuery("select * from message where group_id = :group.id and user_id = :user.id")
+    @RegisterRowMapper(MessageRowMapper.class)
+    public abstract List<Message> getByGroupUser(
+            @BindBean("group") Group group, @BindBean("user") User user);
 
     @Transaction
     @SqlUpdate(
