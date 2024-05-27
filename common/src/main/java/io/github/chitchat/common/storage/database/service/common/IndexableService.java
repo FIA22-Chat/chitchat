@@ -26,6 +26,10 @@ public abstract class IndexableService<
         return dao.existsById(id);
     }
 
+    public boolean exists(@NotNull Model model) {
+        return exists(model.getId());
+    }
+
     @Override
     public Optional<Model> get(UUID id) {
         return dao.getById(id);

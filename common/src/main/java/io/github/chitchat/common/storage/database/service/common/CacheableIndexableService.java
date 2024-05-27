@@ -50,6 +50,11 @@ public abstract class CacheableIndexableService<
     }
 
     @Override
+    public boolean exists(@NotNull Model model) {
+        return exists(model.getId());
+    }
+
+    @Override
     public Optional<Model> get(UUID id) {
         return Optional.ofNullable(cache.get(id));
     }
