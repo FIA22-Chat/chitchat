@@ -5,6 +5,8 @@ import io.github.chitchat.common.storage.database.service.exceptions.DuplicateIt
 import org.jetbrains.annotations.NotNull;
 
 public interface IBaseService<Model extends BaseModel> {
+    int count();
+
     void create(@NotNull Model value) throws DuplicateItemException;
 
     void update(@NotNull Model value);

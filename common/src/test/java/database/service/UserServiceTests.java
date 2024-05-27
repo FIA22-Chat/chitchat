@@ -18,12 +18,11 @@ import org.junit.jupiter.api.Test;
 
 public class UserServiceTests extends IndexableServiceTests<UserService, User> {
     private static final int CACHE_SIZE = 10;
-    private final UserService userService = initService();
+    private final UserService userService = initService("userServiceTests.db");
 
     @Override
-    @Contract(" -> new")
-    protected @NotNull UserService initService() {
-        var db = Common.createDB("userServiceTests.db");
+    protected @NotNull UserService initService(String name) {
+        var db = Common.createDB(name);
         db.useHandle(
                 handle ->
                         handle.execute(

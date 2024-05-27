@@ -13,6 +13,7 @@ public abstract class BaseService<Dao extends IBaseDAO<Model>, Model extends Bas
         this.dao = dao;
     }
 
+    @Override
     public int count() {
         return dao.count();
     }
