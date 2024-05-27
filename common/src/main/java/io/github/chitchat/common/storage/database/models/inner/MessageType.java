@@ -1,6 +1,8 @@
 package io.github.chitchat.common.storage.database.models.inner;
 
-public enum MessageType {
+import java.io.Serializable;
+
+public enum MessageType implements Serializable {
     TEXT,
     MEDIA;
 
