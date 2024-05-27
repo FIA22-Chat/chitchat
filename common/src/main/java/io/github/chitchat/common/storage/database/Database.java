@@ -58,7 +58,8 @@ public class Database {
                         .registerRowMapper(Role.class, new RoleRowMapper())
                         .registerRowMapper(Group.class, new GroupRowMapper())
                         .registerRowMapper(Message.class, new MessageRowMapper())
-                        .registerRowMapper(UserGroup.class, new UserGroupRowMapper());
+                        .registerRowMapper(UserGroup.class, new UserGroupRowMapper())
+                        .registerRowMapper(UserRole.class, new UserRoleRowMapper());
         jdbi.getConfig(Enums.class).setEnumStrategy(EnumStrategy.BY_ORDINAL);
 
         log.trace("Installing Jdbi plugin: {}", SqlObjectPlugin.class.getName());
