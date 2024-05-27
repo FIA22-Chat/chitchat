@@ -27,12 +27,12 @@ public class UserService extends CacheableIndexableService<UserDAO, User>
     }
 
     @Override
-    public void ReceiveUpdate(User model) {
+    public void receiveUpdate(User model) {
         cache.put(model.getId(), model);
     }
 
     @Override
-    public void ReceiveRemove(@NotNull User model) {
+    public void receiveRemove(@NotNull User model) {
         cache.invalidate(model.getId());
     }
 }

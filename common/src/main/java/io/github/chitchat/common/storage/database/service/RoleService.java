@@ -22,12 +22,12 @@ public class RoleService extends CacheableIndexableService<RoleDAO, Role>
     }
 
     @Override
-    public void ReceiveUpdate(Role model) {
+    public void receiveUpdate(Role model) {
         cache.put(model.getId(), model);
     }
 
     @Override
-    public void ReceiveRemove(@NotNull Role model) {
+    public void receiveRemove(@NotNull Role model) {
         cache.invalidate(model.getId());
     }
 }

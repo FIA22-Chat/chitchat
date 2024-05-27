@@ -8,7 +8,7 @@ import io.github.chitchat.common.storage.database.models.common.IndexableModel;
  * @param <T> The channel type
  */
 public interface ServiceChannelListener<T extends IndexableModel> {
-    void ReceiveUpdate(T model);
+    void receiveUpdate(T model);
 
-    void ReceiveRemove(T model);
+    void receiveRemove(T model);
 }

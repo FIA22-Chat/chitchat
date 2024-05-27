@@ -21,11 +21,11 @@ public class ServiceChannel<T extends IndexableModel> implements ServiceChannelB
 
     @Override
     public void broadcastUpdate(T model) {
-        listeners.forEach(listener -> listener.ReceiveUpdate(model));
+        listeners.forEach(listener -> listener.receiveUpdate(model));
     }
 
     @Override
     public void broadcastRemove(T model) {
-        listeners.forEach(listener -> listener.ReceiveRemove(model));
+        listeners.forEach(listener -> listener.receiveRemove(model));
     }
 }

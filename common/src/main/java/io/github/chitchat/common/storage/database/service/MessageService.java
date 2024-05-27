@@ -23,12 +23,12 @@ public class MessageService extends CacheableIndexableService<MessageDAO, Messag
     }
 
     @Override
-    public void ReceiveUpdate(Message model) {
+    public void receiveUpdate(Message model) {
         cache.put(model.getId(), model);
     }
 
     @Override
-    public void ReceiveRemove(@NotNull Message model) {
+    public void receiveRemove(@NotNull Message model) {
         cache.invalidate(model.getId());
     }
 }

@@ -23,12 +23,12 @@ public class GroupService extends CacheableIndexableService<GroupDAO, Group>
     }
 
     @Override
-    public void ReceiveUpdate(Group model) {
+    public void receiveUpdate(Group model) {
         cache.put(model.getId(), model);
     }
 
     @Override
-    public void ReceiveRemove(@NotNull Group model) {
+    public void receiveRemove(@NotNull Group model) {
         cache.invalidate(model.getId());
     }
 }
