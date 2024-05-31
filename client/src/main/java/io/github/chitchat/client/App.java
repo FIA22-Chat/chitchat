@@ -16,6 +16,7 @@ import org.jetbrains.annotations.NotNull;
 public class App extends Application {
     private static final String APP_NAME = "ChitChat";
     private static UserSettingsManager settings;
+    private Stage primaryStage;
 
     public static void main(String[] args) {
         log.info("Starting client preloader...");
@@ -33,20 +34,7 @@ public class App extends Application {
     @Override
     public void start(@NotNull Stage primaryStage) {
         log.info("Starting client GUI...");
-
-        // Save user settings on quit
-        primaryStage.setOnCloseRequest(
-                _ -> {
-                    settings.setStageX(primaryStage.getX());
-                    settings.setStageY(primaryStage.getY());
-                    settings.setSceneWidth(primaryStage.getWidth());
-                    settings.setSceneHeight(primaryStage.getHeight());
-                    settings.setMaximized(primaryStage.isMaximized());
-                    settings.setAlwaysOnTop(primaryStage.isAlwaysOnTop());
-                    settings.setFullscreen(primaryStage.isFullScreen());
-                    settings.save();
-                    log.debug("Saved user settings");
-                });
+        this.primaryStage = primaryStage;
 
         var basePath = "pages/";
         var pages =
@@ -54,6 +42,7 @@ public class App extends Application {
                         basePath + "login/login.fxml",
                         basePath + "main/main.fxml",
                         basePath + "settings/settings.fxml");
+
         SceneController sceneController = new SceneController(primaryStage, pages);
         try {
             sceneController.navigateTo(0);
@@ -75,6 +64,20 @@ public class App extends Application {
         primaryStage.getIcons().addAll(getIcons());
         primaryStage.setTitle(APP_NAME);
         primaryStage.show();
+    }
+
+    @Override
+    public void stop() {
+        log.info("Stopping client...");
+
+        settings.setStageX(primaryStage.getX());
+        settings.setStageY(primaryStage.getY());
+        settings.setSceneWidth(primaryStage.getWidth());
+        settings.setSceneHeight(primaryStage.getHeight());
+        settings.setMaximized(primaryStage.isMaximized());
+        settings.setAlwaysOnTop(primaryStage.isAlwaysOnTop());
+        settings.setFullscreen(primaryStage.isFullScreen());
+        settings.save();
     }
 
     private Image @NotNull [] getIcons() {
