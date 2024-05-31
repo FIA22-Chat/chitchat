@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
+<?import java.net.URL?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 <GridPane prefHeight="600.0" prefWidth="881.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="io.github.chitchat.client.view.pages.main.MainController"
 >
@@ -21,7 +21,6 @@
 	</rowConstraints>
 
 
-
 	<GridPane GridPane.columnIndex="1" GridPane.rowIndex="0">
 
 		<columnConstraints>
@@ -31,13 +30,19 @@
 		</columnConstraints>
 
 
-
 		<Label alignment="CENTER" prefHeight="22.0" prefWidth="103.0" text="Zuletzt online: Now" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
 
 
-		<Button fx:id="callButton" prefHeight="57.0" prefWidth="57.0" GridPane.columnIndex="2" />
-		<Button fx:id="callVideoButton" prefHeight="57.0" prefWidth="57.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" />
-
+		<Button fx:id="callButton" prefHeight="57.0" prefWidth="57.0" GridPane.columnIndex="2">
+			<graphic>
+				<FontIcon iconLiteral="fth-phone" />
+			</graphic>
+		</Button>
+		<Button fx:id="callVideoButton" prefHeight="57.0" prefWidth="57.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
+			<graphic>
+				<FontIcon iconLiteral="fth-phone" />
+			</graphic>
+		</Button>
 
 
 		<rowConstraints>
