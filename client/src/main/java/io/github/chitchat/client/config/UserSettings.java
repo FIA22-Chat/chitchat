@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class UserSettings implements Serializable {
     @Serial private static final long serialVersionUID = -8954655507956526824L;
-    private transient Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+    private static final Rectangle2D screenBounds = Screen.getPrimary().getBounds();
 
     private static final double DEFAULT_SCENE_WIDTH = 1400;
     private static final double DEFAULT_SCENE_HEIGHT = 800;
@@ -19,6 +19,6 @@ public class UserSettings implements Serializable {
     private double stageX = screenBounds.getMaxX() / 2 - sceneWidth / 2;
     private double stageY = screenBounds.getMaxY() / 2 - sceneHeight / 2;
     private boolean isMaximized;
-    private boolean alwaysOnTop;
+    private boolean isAlwaysOnTop;
     private boolean isFullscreen;
 }
