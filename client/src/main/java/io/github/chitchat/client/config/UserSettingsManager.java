@@ -3,12 +3,10 @@ package io.github.chitchat.client.config;
 import io.github.chitchat.common.storage.local.LocalStore;
 import io.github.chitchat.common.storage.local.config.Evaluation;
 import lombok.experimental.Delegate;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 public class UserSettingsManager {
-    private static final Logger log = LogManager.getLogger(UserSettingsManager.class);
-
     private final transient LocalStore<UserSettings> store;
     @Delegate private final UserSettings instance;
 

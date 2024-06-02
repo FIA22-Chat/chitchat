@@ -7,11 +7,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 public class SceneController {
-    private static final Logger log = LogManager.getLogger(SceneController.class);
     private static final double SCENE_WIDTH = 1400;
     private static final double SCENE_HEIGHT = 800;
 
