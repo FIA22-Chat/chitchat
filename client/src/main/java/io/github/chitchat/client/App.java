@@ -90,7 +90,7 @@ public class App extends Application {
                     new Image(
                             Objects.requireNonNull(
                                     App.class.getResourceAsStream(
-                                            "icons/logo/logo-" + sizes[i] + "x.png")));
+                                            "assets/logo/logo-" + sizes[i] + "x.png")));
 
         return list;
     }
