@@ -1,4 +1,4 @@
-package io.github.chitchat.client.view;
+package io.github.chitchat.client.view.routing;
 
 import io.github.chitchat.client.App;
 import java.io.IOException;
@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
-public class SceneController {
+public class Router {
     private static final double SCENE_WIDTH = 1400;
     private static final double SCENE_HEIGHT = 800;
 
@@ -21,12 +21,12 @@ public class SceneController {
     private int currentIndex;
 
     /**
-     * Constructs a new SceneController with the specified primary stage, pages, and dimensions.
+     * Constructs a new Router with the specified primary stage, pages, and dimensions.
      *
      * @param primaryStage the primary stage
      * @param pages the list of pages that can be navigated to
      */
-    public SceneController(Stage primaryStage, List<String> pages) {
+    public Router(Stage primaryStage, List<String> pages) {
         this.primaryStage = primaryStage;
         this.pages = pages;
         this.fxmlLoader = new FXMLLoader();

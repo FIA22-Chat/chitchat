@@ -1,7 +1,7 @@
 package io.github.chitchat.client;
 
 import io.github.chitchat.client.config.UserSettingsManager;
-import io.github.chitchat.client.view.SceneController;
+import io.github.chitchat.client.view.routing.Router;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
@@ -43,9 +43,9 @@ public class App extends Application {
                         basePath + "main/main.fxml",
                         basePath + "settings/settings.fxml");
 
-        SceneController sceneController = new SceneController(primaryStage, pages);
+        Router router = new Router(primaryStage, pages);
         try {
-            sceneController.navigateTo(0);
+            router.navigateTo(0);
         } catch (IOException e) {
             // We can't recover from this, so we log the error and throw a runtime exception
             log.fatal("Failed to load login page", e);
