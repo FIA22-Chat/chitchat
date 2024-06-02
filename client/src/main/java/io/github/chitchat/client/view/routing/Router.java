@@ -21,15 +21,16 @@ public class Router {
     private int currentIndex;
 
     /**
-     * Constructs a new Router with the specified primary stage, pages, and dimensions.
+     * Constructs a new Router with the specified FXML loader, primary stage, and list of pages.
      *
+     * @param fxmlLoader the FXML loader
      * @param primaryStage the primary stage
      * @param pages the list of pages that can be navigated to
      */
-    public Router(Stage primaryStage, List<String> pages) {
+    public Router(FXMLLoader fxmlLoader, Stage primaryStage, List<String> pages) {
+        this.fxmlLoader = fxmlLoader;
         this.primaryStage = primaryStage;
         this.pages = pages;
-        this.fxmlLoader = new FXMLLoader();
     }
 
     /**

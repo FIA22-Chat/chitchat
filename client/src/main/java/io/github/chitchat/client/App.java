@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Objects;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import lombok.extern.log4j.Log4j2;
@@ -43,7 +44,7 @@ public class App extends Application {
                         basePath + "main/main.fxml",
                         basePath + "settings/settings.fxml");
 
-        Router router = new Router(primaryStage, pages);
+        Router router = new Router(new FXMLLoader(), primaryStage, pages);
         try {
             router.navigateTo(0);
         } catch (IOException e) {
