@@ -1,0 +1,14 @@
+.root {
+    -fx-bg1: #101011;
+    -fx-bg2: #161617;
+
+    -fx-txt1: #E0E1FF;
+    -fx-txt2: #CACAD4;
+    -fx-txt3: #515151;
+
+    -fx-outline1: #777777;
+    -fx-outline2: #383838;
+
+    -fx-accent1: #1617B6;
+    -fx-accent2: #390089;
+}
