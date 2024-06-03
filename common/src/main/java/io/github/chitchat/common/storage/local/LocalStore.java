@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * A storage that persists the value to disk, reevaluating as specified by {@link Evaluation}.
@@ -61,8 +62,8 @@ public class LocalStore<T extends Serializable> implements Flushable {
      * reference to the file stored on the disk will be lost.
      *
      * @param type the type of the value to store which must implement {@link Serializable}.
-     * @param storagePath the path to store the value. If null, the system property or finally
-     *     environment variable {@link #STORE_HOME} will be used.
+     * @param storeHome the base path to store the value. Will be overridden by the environment
+     *     variable {@value STORE_HOME} if set.
      * @param name the name of the value to store. This will be used to generate the file name.
      * @param evaluation the evaluation strategy to use when saving the value to disk. If {@link
      *     Evaluation#LAZY} is used, the value will be saved to disk only when {@link #flush()} is
@@ -72,21 +73,24 @@ public class LocalStore<T extends Serializable> implements Flushable {
     public LocalStore(
             String name,
             Evaluation evaluation,
-            Path storagePath,
+            @Nullable Path storeHome,
             Class<T> type,
             IValue<T> defaultValue) {
         this.evaluationStrategy = evaluation;
         this.defaultValue = defaultValue;
         this.type = type;
 
-        // Use the provided storage path or the environment variable
         var pathEnv = System.getenv(STORE_HOME);
-        var pathProp = System.getProperty(STORE_HOME);
-        // Check items in the following order, using the first one that is not a null
-        // storage path, system property, environment variable
-        if (storagePath == null)
-            storagePath = Path.of(pathEnv == null ? (pathProp == null ? "" : pathProp) : pathEnv);
-        fileStore = storagePath.resolve(name + ".store").toFile();
+        if (storeHome == null && pathEnv == null) {
+            log.warn(
+                    "The environment variable {} is not set, the store path will be the current"
+                            + " working directory.",
+                    STORE_HOME);
+            storeHome = Path.of("");
+        }
+        if (pathEnv != null) storeHome = Path.of(pathEnv);
+
+        fileStore = storeHome.resolve(name + ".store").toFile();
         log.trace("Assigned {} store path {}", name, fileStore.getAbsolutePath());
 
         if (evaluationStrategy == Evaluation.EAGER) get(); // Ensure the value is loaded
