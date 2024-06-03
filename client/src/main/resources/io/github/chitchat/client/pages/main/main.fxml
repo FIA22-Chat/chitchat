@@ -40,7 +40,7 @@
 		</Button>
 		<Button fx:id="callVideoButton" prefHeight="57.0" prefWidth="57.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
 			<graphic>
-				<FontIcon iconLiteral="fth-phone" />
+				<FontIcon iconLiteral="fth-video" />
 			</graphic>
 		</Button>
 
