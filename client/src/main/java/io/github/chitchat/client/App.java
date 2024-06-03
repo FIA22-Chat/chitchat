@@ -1,13 +1,15 @@
 package io.github.chitchat.client;
 
-import io.github.chitchat.client.config.UserSettingsManager;
+import com.google.inject.Guice;
+import io.github.chitchat.client.config.Settings;
+import io.github.chitchat.client.modules.AppModule;
+import io.github.chitchat.client.modules.FrontendModule;
+import io.github.chitchat.client.modules.SettingsModule;
 import io.github.chitchat.client.view.routing.Router;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.List;
 import java.util.Objects;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import lombok.extern.log4j.Log4j2;
@@ -16,18 +18,11 @@ import org.jetbrains.annotations.NotNull;
 @Log4j2
 public class App extends Application {
     private static final String APP_NAME = "ChitChat";
-    private static UserSettingsManager settings;
+    private static Settings settings;
     private Stage primaryStage;
 
     public static void main(String[] args) {
         log.info("Starting client preloader...");
-
-        // Sets the global default path for all local stores
-        System.setProperty(
-                "STORE_HOME",
-                Path.of(System.getenv("LOCALAPPDATA"), APP_NAME)
-                        .toString()); // todo use util impl instead
-        settings = new UserSettingsManager();
 
         launch();
     }
@@ -44,7 +39,14 @@ public class App extends Application {
                         basePath + "main/main.fxml",
                         basePath + "settings/settings.fxml");
 
-        Router router = new Router(new FXMLLoader(), primaryStage, pages);
+        var injector =
+                Guice.createInjector(
+                        new AppModule(APP_NAME),
+                        new FrontendModule(primaryStage, pages),
+                        new SettingsModule());
+
+        settings = injector.getInstance(Settings.class);
+        var router = injector.getInstance(Router.class);
         try {
             router.navigateTo(0);
         } catch (IOException e) {

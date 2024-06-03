@@ -2,17 +2,24 @@ package io.github.chitchat.client.config;
 
 import io.github.chitchat.common.storage.local.LocalStore;
 import io.github.chitchat.common.storage.local.config.Evaluation;
+import java.nio.file.Path;
 import lombok.experimental.Delegate;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
-public class UserSettingsManager {
-    private final transient LocalStore<UserSettings> store;
-    @Delegate private final UserSettings instance;
+public class Settings {
+    private final transient LocalStore<SettingsData> store;
+    @Delegate private final SettingsData instance;
 
-    public UserSettingsManager() {
+    public Settings(Path basePath) {
         log.debug("Loading user settings...");
-        this.store = new LocalStore<>(Evaluation.EAGER, UserSettings.class, UserSettings::new);
+        this.store =
+                new LocalStore<>(
+                        SettingsData.class.getSimpleName(),
+                        Evaluation.EAGER,
+                        basePath,
+                        SettingsData.class,
+                        SettingsData::new);
         this.instance = store.get();
 
         log.trace("Loaded {}", instance);

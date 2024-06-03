@@ -7,7 +7,7 @@ import javafx.stage.Screen;
 import lombok.Data;
 
 @Data
-public class UserSettings implements Serializable {
+public class SettingsData implements Serializable {
     @Serial private static final long serialVersionUID = -8954655507956526824L;
     private static final Rectangle2D screenBounds = Screen.getPrimary().getBounds();
 
