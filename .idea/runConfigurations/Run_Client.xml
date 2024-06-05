@@ -26,6 +26,7 @@
           <option name="delegateBuildToMaven" value="true" />
           <option name="environmentProperties">
             <map>
+              <entry key="DB_PATH" value="target/db" />
               <entry key="LOG_LEVEL_CONSOLE" value="TRACE" />
               <entry key="LOG_LEVEL_FILE" value="TRACE" />
               <entry key="LOG_PATH" value="target/log" />
@@ -38,7 +39,7 @@
           <option name="passParentEnv" value="true" />
           <option name="runMavenInBackground" value="true" />
           <option name="skipTests" value="false" />
-          <option name="vmOptions" value="" />
+          <option name="vmOptions" value="--add-opens=java.base/java.util=ALL-UNNAMED" />
         </MavenRunnerSettings>
       </option>
       <option name="myRunnerParameters">
@@ -50,6 +51,7 @@
           <option name="goals">
             <list>
               <option value="javafx:run" />
+              <option value="-Dconfig.executable=${user.home}/.jdks/temurin-22.0.1/bin/java" />
             </list>
           </option>
           <option name="multimoduleDir" />

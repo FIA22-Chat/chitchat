@@ -27,6 +27,11 @@ jobs:
           cache: "maven"
 
       - name: Verify
+        env:
+          DB_PATH: target/db
+          LOG_LEVEL_CONSOLE: TRACE
+          LOG_LEVEL_FILE: TRACE
+          LOG_PATH: target/log
         run: mvn -B verify -f pom.xml
 
   format:
