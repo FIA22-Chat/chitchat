@@ -3,6 +3,7 @@
   <component name="ExternalDependencies">
     <plugin id="com.github.lipiridi.spotless-applier" />
     <plugin id="com.intellij.grazie.pro" />
+    <plugin id="com.intellij.jdbi" />
     <plugin id="izhangzhihao.rainbow.brackets.lite" />
     <plugin id="zielu.gittoolbox" />
   </component>
