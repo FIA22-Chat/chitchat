@@ -43,6 +43,22 @@ public class UserGroupService extends BaseService<UserGroupDAO, UserGroup> {
         return dao.getByGroupId(group);
     }
 
+    public List<Group> getUserGroups(UUID userId) {
+        return dao.getUserGroups(userId);
+    }
+
+    public List<User> getGroupUsers(UUID groupId) {
+        return dao.getGroupUsers(groupId);
+    }
+
+    public List<Group> getUserGroups(User user) {
+        return dao.getUserGroups(user);
+    }
+
+    public List<User> getGroupUsers(Group group) {
+        return dao.getGroupUsers(group);
+    }
+
     @Override
     public void create(@NotNull UserGroup value) throws DuplicateItemException {
         dao.insert(value);
