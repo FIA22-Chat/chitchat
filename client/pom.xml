@@ -43,6 +43,24 @@
             <artifactId>log4j-core</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.jdbi</groupId>
+            <artifactId>jdbi3-testing</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jdbi</groupId>
+            <artifactId>jdbi3-sqlite</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>3.45.3.0</version>
+        </dependency>
+        <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <scope>compile</scope>
@@ -60,6 +78,11 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.13.0</version>
+                <configuration>
+                    <compilerArgs>
+                        <arg>-parameters</arg>
+                    </compilerArgs>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.openjfx</groupId>
@@ -72,14 +95,17 @@
                             <options>
                                 <option>-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:8000</option>
                             </options>
-                            <mainClass>io.github.chitchat.client/io.github.chitchat.client.HelloApplication</mainClass>
+                            <mainClass>io.github.chitchat.client.HelloApplication</mainClass>
                             <executable>${config.executable}</executable>
                         </configuration>
                     </execution>
                     <execution>
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>io.github.chitchat.client/io.github.chitchat.client.HelloApplication</mainClass>
+                            <options>
+                                <option>--add-opens=java.base/java.util=ALL-UNNAMED</option>
+                            </options>
+                            <mainClass>io.github.chitchat.client.HelloApplication</mainClass>
                             <executable>${config.executable}</executable>
                             <compress>2</compress>
                             <launcher>chitchat</launcher>
