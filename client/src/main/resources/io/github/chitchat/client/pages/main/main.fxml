@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import java.net.URL?>
-<?import org.kordamp.ikonli.javafx.FontIcon?>
-<GridPane id="background" fx:id="background" prefHeight="600.0" prefWidth="881.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+<?import org.kordamp.ikonli.javafx.*?>
+
+<GridPane fx:id="background" prefHeight="600.0" prefWidth="881.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="io.github.chitchat.client.view.pages.main.MainController"
 >
 
@@ -30,7 +31,8 @@
 		</columnConstraints>
 
 
-		<Label alignment="CENTER" prefHeight="22.0" prefWidth="103.0" text="Zuletzt online: Now" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
+		<Label alignment="CENTER" prefHeight="22.0" prefWidth="103.0" text="Zuletzt online: Now" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER"
+			GridPane.valignment="BOTTOM" />
 
 
 		<Button fx:id="callButton" prefHeight="57.0" prefWidth="57.0" GridPane.columnIndex="2">
@@ -57,8 +59,8 @@
 
 	<SplitPane GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="3">
 		<items>
-			<VBox>
-				<TextArea fx:id="chatArea" editable="false" prefHeight="450.0" prefWidth="600.0" wrapText="true" />
+			<VBox fx:id="chatArea">
+				<TextArea fx:id="chatinput" editable="false" prefHeight="450.0" prefWidth="600.0" wrapText="true" />
 			</VBox>
 		</items>
 	</SplitPane>

@@ -1,57 +1,61 @@
-/* Hintergrund schwarz */
+@import url("../../styles/global.css");
+
 #background {
-    -fx-background-color: #000000;
+    -fx-background-color: -fx-bg1;
 }
 
-/* Listenelemente */
+
 .list-cell {
     -fx-padding: 10px;
-    -fx-background-color: #000000; /* Hintergrund schwarz */
-    -fx-text-fill: #ffffff; /* Schriftfarbe weiß */
+
+    -fx-text-fill: #ffffff;
 }
 
 .list-cell:selected {
-    -fx-background-color: #000000; /* Hintergrund schwarz */
-    -fx-text-fill: #ffffff; /* Schriftfarbe weiß */
+
+    -fx-text-fill: #ffffff;
+
 }
 
-/* Chatbereich */
+
 #chatArea {
-    -fx-background-color: #000000; /* Hintergrund schwarz */
-    -fx-padding: 10px;
-    -fx-text-fill: #ffffff; /* Schriftfarbe weiß */
+    -fx-background-color: -fx-bg2;
 }
 
-/* Eingabebereich */
+#chatinput {
+
+    -fx-padding: 10px;
+    -fx-text-fill: #ffffff;
+}
+
+
 #inputArea {
-    -fx-background-color: #000000; /* Hintergrund schwarz */
     -fx-border-color: #d3d3d3;
     -fx-border-width: 1px;
     -fx-border-radius: 5px;
     -fx-padding: 5px;
-    -fx-text-fill: #ffffff; /* Schriftfarbe weiß */
+    -fx-text-fill: #ffffff;
 }
 
-/* Sende-Button */
 #sendButton {
-    -fx-background-color: #390089; /* Hintergrund lila */
-    -fx-text-fill: white; /* Schriftfarbe weiß */
+    -fx-background-color: #390089;
+    -fx-text-fill: white;
     -fx-padding: 5px 10px;
     -fx-border-radius: 5px;
 }
 
-/* Anruf-Button */
+
 #callButton {
-    -fx-background-color: #390089; /* Hintergrund lila */
+    -fx-background-color: #390089;
     -fx-padding: 10px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
     -fx-background-size: 20px 20px;
 }
 
-/* Videoanruf-Button */
+
 #callVideoButton {
-    -fx-background-color: #390089; /* Hintergrund lila */
+    -fx-background-color: #390089;
     -fx-padding: 10px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;

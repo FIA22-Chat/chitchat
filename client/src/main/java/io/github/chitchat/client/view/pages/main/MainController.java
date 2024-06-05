@@ -16,7 +16,7 @@ public class MainController {
     @FXML public Button callButton;
     @FXML private ListView<String> chatList;
 
-    @FXML private TextArea chatArea;
+    @FXML private TextArea chatinput;
 
     @FXML private TextArea inputArea;
 
@@ -24,21 +24,14 @@ public class MainController {
 
     @FXML private Label lastOnlineStatus;
 
-    public void initialize(URL url, ResourceBundle resourceBundle)
-    {
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
         sendButton.setOnAction(event -> sendMessage());
     }
 
     @FXML
-    private void sendMessage()
-    {
-
-    }
+    private void sendMessage() {}
 
     @FXML
-    private void loadChatMessages()
-    {
-
-    }
+    private void loadChatMessages() {}
 }
