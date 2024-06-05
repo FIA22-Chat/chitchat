@@ -19,8 +19,28 @@ public class UserGroupService extends BaseService<UserGroupDAO, UserGroup> {
         super(new UserGroupDAOImpl.OnDemand(db));
     }
 
-    public List<UserGroup> getByUserId(UUID userId) {
+    public int count(Group group) {
+        return dao.count(group);
+    }
+
+    public int count(User user) {
+        return dao.count(user);
+    }
+
+    public boolean exists(Group group, User user) {
+        return dao.exists(group, user);
+    }
+
+    public List<UserGroup> getByUser(List<UUID> userIds) {
+        return dao.getByUserId(userIds);
+    }
+
+    public List<UserGroup> getByUser(UUID userId) {
         return dao.getByUserId(userId);
+    }
+
+    public List<UserGroup> getByGroup(List<UUID> group) {
+        return dao.getByGroupId(group);
     }
 
     @Override

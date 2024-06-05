@@ -12,7 +12,6 @@ import org.jetbrains.annotations.NotNull;
 
 public class UserService extends CacheableIndexableService<UserDAO, User>
         implements ServiceChannelListener<User> {
-
     public UserService(Jdbi db, int cacheSize) {
         super(new UserDAOImpl.OnDemand(db), cacheSize);
     }
