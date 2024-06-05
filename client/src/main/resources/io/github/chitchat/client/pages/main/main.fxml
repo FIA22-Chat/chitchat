@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
-<GridPane prefHeight="600.0" prefWidth="881.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+<GridPane id="background" fx:id="background" prefHeight="600.0" prefWidth="881.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="io.github.chitchat.client.view.pages.main.MainController"
 >
 

@@ -1,41 +1,57 @@
+/* Hintergrund schwarz */
+#background {
+    -fx-background-color: #000000;
+}
 
+/* Listenelemente */
 .list-cell {
     -fx-padding: 10px;
+    -fx-background-color: #000000; /* Hintergrund schwarz */
+    -fx-text-fill: #ffffff; /* Schriftfarbe weiß */
 }
-
 
 .list-cell:selected {
-    -fx-background-color: #f0f0f0;
+    -fx-background-color: #000000; /* Hintergrund schwarz */
+    -fx-text-fill: #ffffff; /* Schriftfarbe weiß */
 }
 
-
+/* Chatbereich */
 #chatArea {
-    -fx-background-color: #ebebeb;
+    -fx-background-color: #000000; /* Hintergrund schwarz */
     -fx-padding: 10px;
-
+    -fx-text-fill: #ffffff; /* Schriftfarbe weiß */
 }
 
-
+/* Eingabebereich */
 #inputArea {
-    -fx-background-color: #ffffff;
+    -fx-background-color: #000000; /* Hintergrund schwarz */
     -fx-border-color: #d3d3d3;
     -fx-border-width: 1px;
     -fx-border-radius: 5px;
     -fx-padding: 5px;
-
+    -fx-text-fill: #ffffff; /* Schriftfarbe weiß */
 }
 
-
-#sendButton
-{
-    -fx-background-color: #007bff;
-    -fx-text-fill: white;
+/* Sende-Button */
+#sendButton {
+    -fx-background-color: #390089; /* Hintergrund lila */
+    -fx-text-fill: white; /* Schriftfarbe weiß */
     -fx-padding: 5px 10px;
     -fx-border-radius: 5px;
 }
 
-#callButton
-{
+/* Anruf-Button */
+#callButton {
+    -fx-background-color: #390089; /* Hintergrund lila */
+    -fx-padding: 10px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: 20px 20px;
+}
+
+/* Videoanruf-Button */
+#callVideoButton {
+    -fx-background-color: #390089; /* Hintergrund lila */
     -fx-padding: 10px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;

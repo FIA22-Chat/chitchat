@@ -24,16 +24,21 @@ public class MainController {
 
     @FXML private Label lastOnlineStatus;
 
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        chatList.getItems().addAll("Chat 1", "Chat 2", "Chat 3");
+    public void initialize(URL url, ResourceBundle resourceBundle)
+    {
 
         sendButton.setOnAction(event -> sendMessage());
     }
 
     @FXML
-    private void sendMessage() {}
+    private void sendMessage()
+    {
+
+    }
 
     @FXML
-    private void loadChatMessages() {}
+    private void loadChatMessages()
+    {
+
+    }
 }
