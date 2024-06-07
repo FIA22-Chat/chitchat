@@ -16,22 +16,24 @@ public class Authentication
 
     public Authentication()
     {
-        getSignUp(new User("Azlack", "azl@googlemail.com"), "1234", "1234");
     }
 
-    public static boolean getSignUp(@NotNull User user, @NotNull String password1, @NotNull String password2)
+    public static boolean getSignUp(@NotNull String username_useremail, @NotNull String password1, @NotNull String password2)
     {
         // Check if userNAME exists in database
-        //if()
+        if(userExists(username_useremail))
+        {
+            log.trace("User already exists");
+            return false;
+        }
 
         if(!(password1.matches(password2)))
         {
-            System.out.println("Password is not matching");
+            log.trace("Password is not matching");
             return false;
         }
 
         String springBouncyHash = hashSalt.encode(password2);
-
         System.out.println(springBouncyHash);
         log.debug(springBouncyHash);
 
@@ -55,65 +57,62 @@ public class Authentication
         boolean loginSuccess = false;
 
         // Checks if user already exists
-        if (!(user.userExists( )))
+        if (!(userExists(username, useremail)))
         {
-            System.out.println("User already exists");
+            log.trace("User {} or {} not exists", username, useremail);
+            return false;
         }
 
         do
         {
-            System.out.println("Enter your username: ");
-
-            user.setUsername(user.getUserInput("username"));
-
-            // Check if user exists
-            if (!(user.userExists()))
+            if (username.matches(u) && password.matches(p))
             {
-                System.out.println("User already exists");
+                loginSuccess = true;
             }
 
-        }
-        while (!(userExists(uname, uname)));
-
-
-        System.out.println("Enter your password: ");
-        user.setUsername(user.getUserInput("password"));
-
-        loginSuccess = user.loginUser();
-
-
-        try // Prevents BruteForce-Attacks
-        {
-            if (!loginSuccess)
+            try // Prevents BruteForce-Attacks
             {
-                failedAttempts++;
-
-                if (failedAttempts >= MAX_ATTEMPTS) // checks amount of failed attempts
+                if (!loginSuccess)
                 {
-                    System.out.println("\nToo many failed attempts. Please wait for " + DELAY_SECONDS + " seconds before trying again.");
-                    Thread.sleep(DELAY_SECONDS * 1000); // Waits 10 sec
-                    failedAttempts = 0;// Reset variable
+                    failedAttempts++;
+
+                    if (failedAttempts >= MAX_ATTEMPTS) // checks amount of failed attempts
+                    {
+                        System.out.println("\nToo many failed attempts. Please wait for " + DELAY_SECONDS + " seconds before trying again.");
+                        Thread.sleep(DELAY_SECONDS * 1000); // Waits 10 sec
+                        failedAttempts = 0;// Reset variable
+                    }
+                    else
+                    {
+                        System.out.println("\nThe username or password is incorrect! Please try this again.");
+                    }
                 }
                 else
                 {
-                    System.out.println("\nThe username or password is incorrect! Please try this again.");
+                    pt.printNewPage();
                 }
             }
-            else
+            catch (InterruptedException e)
             {
-                pt.printNewPage();
+                System.out.println(e.getMessage());
             }
         }
-        catch (InterruptedException e)
-        {
-            System.out.println(e.getMessage());
-        }
+        while (!loginSuccess);
 
         return true;
     }
 
 
+    public static boolean userExists(String username_useremail)
+    {
+        //boolean exist = true;
 
+        // search in database for username and email
+        // exist = false;
+
+        //return exist;
+        return false;
+    }
     public static boolean userExists(String name, String email)
     {
         //boolean exist = true;
@@ -125,12 +124,5 @@ public class Authentication
         return false;
     }
 
-    // ACTUAL PROGRAM
-    // ###################################################################################################
-    /*
-    public static void access()
-    {
-        // Access to the actual program
-    }
-    */
+    public static boolean
 }
