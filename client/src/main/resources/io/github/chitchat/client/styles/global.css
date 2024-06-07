@@ -1,4 +1,6 @@
 .root {
+    -fx-font-family: Inter;
+
     -fx-bg1: #101011;
     -fx-bg2: #161617;
 
@@ -11,4 +13,13 @@
 
     -fx-accent1: #1617B6;
     -fx-accent2: #390089;
+}
+
+.text {
+    -fx-font-smoothing-type: gray;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('../assets/fonts/Inter-VariableFont_slnt,wght.ttf');
 }
