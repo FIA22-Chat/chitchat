@@ -1,3 +1,5 @@
+@import "../../styles/global.css";
+
 #innerLoginBox
 {
     -fx-background-color: #101011;
