@@ -20,6 +20,7 @@
     -fx-icon-size: 24px;
 }
 
+/*noinspection ALL*/
 .text-field-primary:left-node-visible .left-pane {
     -fx-padding: 0 8 0 8;
 }
