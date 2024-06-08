@@ -20,7 +20,7 @@ public class App extends Application {
     private static final String APP_NAME = "ChitChat";
     private static final double STAGE_MIN_WIDTH = 300;
     private static final double STAGE_MIN_HEIGHT = 300;
-    
+
     private static Settings settings;
     private Stage stage;
 
@@ -34,7 +34,7 @@ public class App extends Application {
     public void start(@NotNull Stage stage) {
         log.info("Starting client GUI...");
         this.stage = stage;
-        
+
         stage.setMinWidth(STAGE_MIN_WIDTH);
         stage.setMinHeight(STAGE_MIN_HEIGHT);
 
@@ -61,31 +61,17 @@ public class App extends Application {
             throw new RuntimeException(e);
         }
 
-        // Load user settings
-        primaryStage.setX(settings.getStageX());
-        primaryStage.setY(settings.getStageY());
-        primaryStage.setWidth(settings.getSceneWidth());
-        primaryStage.setHeight(settings.getSceneHeight());
-        primaryStage.setMaximized(settings.isMaximized());
-        primaryStage.setAlwaysOnTop(settings.isAlwaysOnTop());
-        primaryStage.setFullScreen(settings.isFullscreen());
-
-        primaryStage.getIcons().addAll(getIcons());
-        primaryStage.setTitle(APP_NAME);
-        primaryStage.show();
+        settings.applyStageSettings(stage);
+        stage.getIcons().addAll(getIcons());
+        stage.setTitle(APP_NAME);
+        stage.show();
     }
 
     @Override
     public void stop() {
         log.info("Stopping client...");
 
-        settings.setStageX(primaryStage.getX());
-        settings.setStageY(primaryStage.getY());
-        settings.setSceneWidth(primaryStage.getWidth());
-        settings.setSceneHeight(primaryStage.getHeight());
-        settings.setMaximized(primaryStage.isMaximized());
-        settings.setAlwaysOnTop(primaryStage.isAlwaysOnTop());
-        settings.setFullscreen(primaryStage.isFullScreen());
+        settings.storeStageSettings(stage);
         settings.save();
     }
 

@@ -4,7 +4,9 @@ import java.io.Serial;
 import java.io.Serializable;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
+import javafx.stage.Stage;
 import lombok.Data;
+import org.jetbrains.annotations.NotNull;
 
 @Data
 public class SettingsData implements Serializable {
@@ -21,4 +23,24 @@ public class SettingsData implements Serializable {
     private boolean isMaximized;
     private boolean isAlwaysOnTop;
     private boolean isFullscreen;
+
+    public void applyStageSettings(@NotNull Stage stage) {
+        stage.setX(this.getStageX());
+        stage.setY(this.getStageY());
+        stage.setWidth(this.getSceneWidth());
+        stage.setHeight(this.getSceneHeight());
+        stage.setMaximized(this.isMaximized());
+        stage.setAlwaysOnTop(this.isAlwaysOnTop());
+        stage.setFullScreen(this.isFullscreen());
+    }
+
+    public void storeStageSettings(@NotNull Stage stage) {
+        this.setStageX(stage.getX());
+        this.setStageY(stage.getY());
+        this.setSceneWidth(stage.getWidth());
+        this.setSceneHeight(stage.getHeight());
+        this.setMaximized(stage.isMaximized());
+        this.setAlwaysOnTop(stage.isAlwaysOnTop());
+        this.setFullscreen(stage.isFullScreen());
+    }
 }
