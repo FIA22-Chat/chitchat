@@ -1,98 +1,89 @@
 package io.github.chitchat.client.view.routing;
 
 import io.github.chitchat.client.App;
-import java.io.IOException;
-import java.util.List;
+import java.util.HashMap;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
+import org.jetbrains.annotations.NotNull;
 
 @Log4j2
 public class Router {
     private static final double SCENE_WIDTH = 1400;
     private static final double SCENE_HEIGHT = 800;
 
-    private final List<String> pages;
-
-    private final Stage primaryStage;
+    private final HashMap<Page, Parent> pagesCache = new HashMap<>();
     private final FXMLLoader fxmlLoader;
-    private int currentIndex;
+    private final Stage primaryStage;
+    @Getter private Page currentPage;
 
     /**
-     * Constructs a new Router with the specified FXML loader, primary stage, and list of pages.
+     * Constructs a new Router with the specified FXML loader, primary stage.
      *
      * @param fxmlLoader the FXML loader
      * @param primaryStage the primary stage
-     * @param pages the list of pages that can be navigated to
      */
-    public Router(FXMLLoader fxmlLoader, Stage primaryStage, List<String> pages) {
+    public Router(FXMLLoader fxmlLoader, Stage primaryStage) {
         this.fxmlLoader = fxmlLoader;
         this.primaryStage = primaryStage;
-        this.pages = pages;
     }
 
     /**
-     * Navigates to the previous page in the list.
+     * Navigates to the page at the specified enum value.
      *
-     * @throws IndexOutOfBoundsException if the index is outside the bounds of the page list
-     * @throws IOException if the page cannot be loaded
-     */
-    public synchronized void navigateBack() throws IndexOutOfBoundsException, IOException {
-        navigateTo(--currentIndex);
-    }
-
-    /**
-     * Navigates to the next page in the list.
-     *
-     * @throws IndexOutOfBoundsException if the index is outside the bounds of the page list
-     * @throws IOException if the page cannot be loaded
-     */
-    public synchronized void navigateForward() throws IndexOutOfBoundsException, IOException {
-        navigateTo(++currentIndex);
-    }
-
-    /**
-     * Navigates to the page at the specified index.
-     *
-     * @param index the index of the page to navigate to
-     * @throws IndexOutOfBoundsException if the index is outside the bounds of the page list
-     * @throws IOException if the page cannot be loaded
+     * @param page the enum value of the page to navigate to
+     * @throws RuntimeException if the page cannot be loaded
      * @apiNote uses synchronized to prevent multiple navigations from occurring at the same time
      */
-    public synchronized void navigateTo(int index) throws IndexOutOfBoundsException, IOException {
-        if (index < 0)
-            throw new IndexOutOfBoundsException(
-                    "Unable to navigate backwards, would be outside of bounds: 0");
-        if (index > pages.size())
-            throw new IndexOutOfBoundsException(
-                    "Unable to navigate forwards, would be outside of bounds: " + pages.size());
-        String path = pages.get(index);
-        log.debug("Loading Page: {}", path);
+    public synchronized void navigateTo(@NotNull Page page) {
+        var rootScene = primaryStage.getScene();
+        if (rootScene != null) {
+            rootScene.setRoot(loadPage(page));
+        } else {
+            primaryStage.setScene(new Scene(loadPage(page), SCENE_WIDTH, SCENE_HEIGHT));
+        }
 
-        fxmlLoader.setLocation(App.class.getResource(path));
-        primaryStage.setScene(new Scene(fxmlLoader.load(), SCENE_WIDTH, SCENE_HEIGHT));
-        currentIndex = index;
+        currentPage = page;
     }
 
     /**
-     * Shows a popup with the specified path, width, and height. This will block any events from
-     * reaching the primary stage.
+     * Shows a popup with the page, width, and height. Due to {@link Modality#WINDOW_MODAL}, the
+     * popup will block any events from reaching the parent window.
      *
-     * @param path the path to the FXML file
+     * @param page the enum value of the page to show
      * @param width the width of the popup
      * @param height the height of the popup
-     * @throws IOException if the popup cannot be loaded
+     * @throws RuntimeException if the page cannot be loaded
      */
-    public synchronized void showPopup(String path, double width, double height)
-            throws IOException {
-        fxmlLoader.setLocation(App.class.getResource(path));
-        var scenePopup = new Scene(fxmlLoader.load(), width, height);
-
+    public void showPopup(@NotNull Page page, double width, double height) {
         var stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setScene(scenePopup);
+        stage.initOwner(primaryStage);
+
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.setScene(new Scene(loadPage(page), width, height));
         stage.show();
+    }
+
+    private synchronized Parent loadPage(Page page) {
+        return pagesCache.computeIfAbsent(
+                page,
+                k -> {
+                    try {
+                        log.trace("Cache miss on page: {}", k);
+                        fxmlLoader.setLocation(App.class.getResource(k.getPath()));
+
+                        // This is a foolish way to do this, but it works
+                        fxmlLoader.setRoot(null);
+                        fxmlLoader.setController(null);
+                        return fxmlLoader.load();
+                    } catch (Exception e) {
+                        log.error("Failed to load page: {}", page, e);
+                        throw new RuntimeException(e);
+                    }
+                });
     }
 }

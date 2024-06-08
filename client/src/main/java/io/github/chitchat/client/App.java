@@ -5,9 +5,8 @@ import io.github.chitchat.client.config.Settings;
 import io.github.chitchat.client.modules.AppModule;
 import io.github.chitchat.client.modules.FrontendModule;
 import io.github.chitchat.client.modules.SettingsModule;
+import io.github.chitchat.client.view.routing.Page;
 import io.github.chitchat.client.view.routing.Router;
-import java.io.IOException;
-import java.util.List;
 import java.util.Objects;
 import javafx.application.Application;
 import javafx.scene.image.Image;
@@ -21,7 +20,7 @@ public class App extends Application {
     private static final double STAGE_MIN_WIDTH = 300;
     private static final double STAGE_MIN_HEIGHT = 300;
 
-    private static Settings settings;
+    private Settings settings;
     private Stage stage;
 
     public static void main(String[] args) {
@@ -31,37 +30,20 @@ public class App extends Application {
     }
 
     @Override
-    public void start(@NotNull Stage stage) {
+    public void start(@NotNull Stage stage) throws InterruptedException {
         log.info("Starting client GUI...");
-        this.stage = stage;
-
-        stage.setMinWidth(STAGE_MIN_WIDTH);
-        stage.setMinHeight(STAGE_MIN_HEIGHT);
-
-        var basePath = "pages/";
-        var pages =
-                List.of(
-                        basePath + "login/login.fxml",
-                        basePath + "main/main.fxml",
-                        basePath + "settings/settings.fxml");
-
         var injector =
                 Guice.createInjector(
-                        new AppModule(APP_NAME),
-                        new FrontendModule(stage, pages),
-                        new SettingsModule());
+                        new AppModule(APP_NAME), new FrontendModule(stage), new SettingsModule());
+        this.stage = stage;
+        this.settings = injector.getInstance(Settings.class);
 
-        settings = injector.getInstance(Settings.class);
         var router = injector.getInstance(Router.class);
-        try {
-            router.navigateTo(0);
-        } catch (IOException e) {
-            // We can't recover from this, so we log the error and throw a runtime exception
-            log.fatal("Failed to load login page", e);
-            throw new RuntimeException(e);
-        }
+        router.navigateTo(Page.LOGIN);
 
         settings.applyStageSettings(stage);
+        stage.setMinWidth(STAGE_MIN_WIDTH);
+        stage.setMinHeight(STAGE_MIN_HEIGHT);
         stage.getIcons().addAll(getIcons());
         stage.setTitle(APP_NAME);
         stage.show();

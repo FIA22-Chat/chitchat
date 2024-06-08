@@ -6,23 +6,20 @@ import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 import io.github.chitchat.client.view.routing.Router;
-import java.util.List;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 
 public class FrontendModule extends AbstractModule {
     private final Stage primaryStage;
-    private final List<String> pages;
 
-    public FrontendModule(@NotNull Stage primaryStage, @NotNull List<String> pages) {
+    public FrontendModule(@NotNull Stage primaryStage) {
         this.primaryStage = primaryStage;
-        this.pages = pages;
     }
 
     @Provides
     @Singleton
-    public FXMLLoader provideFXMLLoader(Injector injector) {
+    public FXMLLoader provideFXMLLoader(@NotNull Injector injector) {
         var loader = new FXMLLoader();
         loader.setControllerFactory(injector::getInstance);
 
@@ -37,16 +34,7 @@ public class FrontendModule extends AbstractModule {
 
     @Provides
     @Singleton
-    public @Named("Pages") List<String> providePages() {
-        return pages;
-    }
-
-    @Provides
-    @Singleton
-    public Router provideRouter(
-            FXMLLoader loader,
-            @Named("PrimaryStage") Stage stage,
-            @Named("Pages") List<String> pages) {
-        return new Router(loader, stage, pages);
+    public Router provideRouter(FXMLLoader loader, @Named("PrimaryStage") Stage stage) {
+        return new Router(loader, stage);
     }
 }
