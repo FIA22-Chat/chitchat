@@ -25,10 +25,19 @@
     -fx-padding: 0 8 0 8;
 }
 
+/*noinspection ALL*/
+.text-field-primary:right-node-visible .right-pane {
+    -fx-padding: 0 8 0 8;
+}
+
+/*noinspection ALL*/
+.text-field-primary:right-node-visible .right-pane:pressed .ikonli-font-icon {
+    -fx-icon-color: derive(-color-outline1, 50%);
+}
+
 .text-field-primary:focused {
     -fx-border-color: -color-outline1;
 }
-
 
 .button-primary {
     -fx-background-color: -color-accent1;

@@ -40,9 +40,12 @@
 			<left>
 				<FontIcon iconLiteral="fth-lock" />
 			</left>
+			<right>
+				<FontIcon iconLiteral="fth-eye" />
+			</right>
 		</CustomPasswordField>
-		<Button id="loginButton" fx:id="loginButton" alignment="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="500.0" styleClass="button-primary" text="Login"
-			textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+		<Button fx:id="buttonLogin" alignment="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="500.0" styleClass="button-primary" text="Login" textAlignment="CENTER"
+			GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
 	</GridPane>
 
 	<HBox id="createAccount" GridPane.rowIndex="3" alignment="CENTER">
