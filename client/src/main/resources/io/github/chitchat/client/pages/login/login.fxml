@@ -7,7 +7,6 @@
 <?import org.controlsfx.control.textfield.CustomTextField?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 <?import java.net.URL?>
-
 <GridPane alignment="CENTER" vgap="25.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="io.github.chitchat.client.view.pages.login.LoginController"
 >
@@ -15,6 +14,7 @@
 		<ColumnConstraints />
 	</columnConstraints>
 	<rowConstraints>
+		<RowConstraints />
 		<RowConstraints />
 		<RowConstraints />
 		<RowConstraints />
@@ -44,11 +44,11 @@
 				<FontIcon iconLiteral="fth-eye" />
 			</right>
 		</CustomPasswordField>
-		<Button fx:id="buttonLogin" alignment="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="500.0" styleClass="button-primary" text="Login" textAlignment="CENTER"
-			GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+		<Button fx:id="buttonLogin" alignment="CENTER" mnemonicParsing="false" onAction="#login" prefHeight="60.0" prefWidth="500.0" styleClass="button-primary" text="Login"
+			textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
 	</GridPane>
 
-	<HBox id="createAccount" GridPane.rowIndex="3" alignment="CENTER">
+	<HBox id="createAccount" alignment="CENTER" GridPane.rowIndex="3">
 		<Label text="Don't have a Account? Signup" />
 		<FontIcon iconLiteral="fth-arrow-right" />
 	</HBox>

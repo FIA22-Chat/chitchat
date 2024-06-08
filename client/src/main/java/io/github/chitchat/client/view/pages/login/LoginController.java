@@ -1,5 +1,7 @@
 package io.github.chitchat.client.view.pages.login;
 
+import com.google.inject.Inject;
+import io.github.chitchat.client.config.Settings;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -14,6 +16,8 @@ import org.controlsfx.control.textfield.CustomTextField;
 @Log4j2
 @NoArgsConstructor
 public class LoginController implements Initializable {
+    @Inject private Settings settings;
+
     @FXML private CustomTextField textFieldUser;
     @FXML private CustomPasswordField textFieldPassword;
     @FXML private Button buttonLogin;
@@ -49,7 +53,16 @@ public class LoginController implements Initializable {
                             textFieldPassword.setText(ephemeralPassword);
                             textFieldPassword.setPromptText("Password");
                         });
+
+        // Login on Enter key press
+        textFieldPassword.setOnAction(
+                _ -> {
+                    if (!buttonLogin.isDisabled()) login();
+                });
     }
 
-    public void login() {}
+    public void login() {
+        log.info("Logging in as {}", textFieldUser.getText());
+        settings.setUsername(textFieldUser.getText());
+    }
 }
