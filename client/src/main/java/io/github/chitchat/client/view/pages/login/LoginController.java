@@ -26,7 +26,11 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Platform.runLater(() -> textFieldUser.requestFocus());
+        Platform.runLater(
+                () -> {
+                    textFieldUser.requestFocus();
+                    textFieldUser.setText(settings.getUsername());
+                });
 
         // Require non-empty username and password
         buttonLogin
