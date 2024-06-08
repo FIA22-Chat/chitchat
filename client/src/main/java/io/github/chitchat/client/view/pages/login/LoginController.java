@@ -2,6 +2,10 @@ package io.github.chitchat.client.view.pages.login;
 
 import com.google.inject.Inject;
 import io.github.chitchat.client.config.Settings;
+import io.github.chitchat.client.view.components.ChitPasswordField;
+import io.github.chitchat.client.view.components.ChitTextField;
+import io.github.chitchat.client.view.routing.Page;
+import io.github.chitchat.client.view.routing.Router;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -10,19 +14,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.controlsfx.control.textfield.CustomPasswordField;
-import org.controlsfx.control.textfield.CustomTextField;
 
 @Log4j2
 @NoArgsConstructor
 public class LoginController implements Initializable {
     @Inject private Settings settings;
+    @Inject private Router router;
 
-    @FXML private CustomTextField textFieldUser;
-    @FXML private CustomPasswordField textFieldPassword;
+    @FXML private ChitTextField textFieldUser;
+    @FXML private ChitPasswordField textFieldPassword;
     @FXML private Button buttonLogin;
-
-    private String ephemeralPassword;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -41,23 +42,6 @@ public class LoginController implements Initializable {
                                 .isEmpty()
                                 .or(textFieldPassword.textProperty().isEmpty()));
 
-        // Show password on mouse press and hide on mouse release
-        textFieldPassword
-                .getRight()
-                .setOnMousePressed(
-                        _ -> {
-                            ephemeralPassword = textFieldPassword.getText();
-                            textFieldPassword.setPromptText(ephemeralPassword);
-                            textFieldPassword.clear();
-                        });
-        textFieldPassword
-                .getRight()
-                .setOnMouseReleased(
-                        _ -> {
-                            textFieldPassword.setText(ephemeralPassword);
-                            textFieldPassword.setPromptText("Password");
-                        });
-
         // Login on Enter key press
         textFieldPassword.setOnAction(
                 _ -> {
@@ -65,8 +49,24 @@ public class LoginController implements Initializable {
                 });
     }
 
-    public void login() {
+    @FXML
+    private void login() {
         log.info("Logging in as {}", textFieldUser.getText());
+
+        // todo auth user
+        // todo on failure
+        if (false) {
+            textFieldUser.setError(true);
+            textFieldPassword.setError(true);
+            return;
+        }
+
         settings.setUsername(textFieldUser.getText());
+        router.navigateTo(Page.MAIN);
+    }
+
+    @FXML
+    private void register() {
+        router.navigateTo(Page.REGISTER);
     }
 }

@@ -35,6 +35,16 @@
     -fx-icon-color: derive(-color-outline1, 50%);
 }
 
+/*noinspection ALL*/
+.chit-text-field:error {
+    -fx-border-color: -color-error1;
+}
+
+/*noinspection ALL*/
+.chit-password-field:password-visible {
+    -fx-prompt-text-fill: -color-text1;
+}
+
 .text-field-primary:focused {
     -fx-border-color: -color-outline1;
 }
