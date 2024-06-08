@@ -24,6 +24,16 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Platform.runLater(() -> textFieldUser.requestFocus());
 
+        // Require non-empty username and password
+        buttonLogin
+                .disableProperty()
+                .bind(
+                        textFieldUser
+                                .textProperty()
+                                .isEmpty()
+                                .or(textFieldPassword.textProperty().isEmpty()));
+
+        // Show password on mouse press and hide on mouse release
         textFieldPassword
                 .getRight()
                 .setOnMousePressed(
