@@ -1,0 +1,9 @@
+.text {
+    -fx-font-family: Inter;
+    -fx-font-smoothing-type: gray;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('/io/github/chitchat/client/assets/fonts/Inter-VariableFont_slnt,wght.ttf');
+}
