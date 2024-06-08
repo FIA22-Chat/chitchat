@@ -18,8 +18,11 @@ import org.jetbrains.annotations.NotNull;
 @Log4j2
 public class App extends Application {
     private static final String APP_NAME = "ChitChat";
+    private static final double STAGE_MIN_WIDTH = 300;
+    private static final double STAGE_MIN_HEIGHT = 300;
+    
     private static Settings settings;
-    private Stage primaryStage;
+    private Stage stage;
 
     public static void main(String[] args) {
         log.info("Starting client preloader...");
@@ -28,9 +31,12 @@ public class App extends Application {
     }
 
     @Override
-    public void start(@NotNull Stage primaryStage) {
+    public void start(@NotNull Stage stage) {
         log.info("Starting client GUI...");
-        this.primaryStage = primaryStage;
+        this.stage = stage;
+        
+        stage.setMinWidth(STAGE_MIN_WIDTH);
+        stage.setMinHeight(STAGE_MIN_HEIGHT);
 
         var basePath = "pages/";
         var pages =
@@ -42,7 +48,7 @@ public class App extends Application {
         var injector =
                 Guice.createInjector(
                         new AppModule(APP_NAME),
-                        new FrontendModule(primaryStage, pages),
+                        new FrontendModule(stage, pages),
                         new SettingsModule());
 
         settings = injector.getInstance(Settings.class);
