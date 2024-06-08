@@ -1,35 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.*?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
+<?import org.controlsfx.control.textfield.CustomPasswordField?>
+<?import org.controlsfx.control.textfield.CustomTextField?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import java.net.URL?>
 
-<VBox id="background" fx:id="background" alignment="TOP_CENTER" prefHeight="800.0" prefWidth="1000.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
-	xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.chitchat.client.view.pages.login.LoginController"
+<GridPane alignment="CENTER" vgap="25.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="io.github.chitchat.client.view.pages.login.LoginController"
 >
-	<Label fx:id="labelHeader" text="Login into ChitChat" />
+	<columnConstraints>
+		<ColumnConstraints />
+	</columnConstraints>
+	<rowConstraints>
+		<RowConstraints />
+		<RowConstraints />
+		<RowConstraints />
+	</rowConstraints>
+	<Label styleClass="h1" text="Login into ChitChat" GridPane.halignment="CENTER" />
 
-	<GridPane fx:id="innerLoginBox" alignment="CENTER" hgap="15.0" vgap="15.0">
+	<GridPane id="wrapper" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" vgap="25.0" GridPane.halignment="CENTER" GridPane.rowIndex="1">
 		<columnConstraints>
-			<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+			<ColumnConstraints />
 		</columnConstraints>
 		<rowConstraints>
-			<RowConstraints maxHeight="640.0" minHeight="10.0" prefHeight="100.0" vgrow="ALWAYS" />
-			<RowConstraints maxHeight="251.0" prefHeight="100.0" />
-			<RowConstraints maxHeight="251.0" prefHeight="100.0" />
-
+			<RowConstraints />
+			<RowConstraints />
+			<RowConstraints />
 		</rowConstraints>
-		<children>
-			<TextField fx:id="textFieldUser" promptText="Username" GridPane.rowIndex="0" />
 
-			<PasswordField fx:id="textFieldPassword" promptText="Password" GridPane.rowIndex="1" />
-			<Button id="loginButton" fx:id="loginButton" alignment="CENTER" maxHeight="80.0" maxWidth="150.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false"
-				prefHeight="50.0" prefWidth="150.0" text="Login" textAlignment="CENTER" textOverrun="CLIP" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-
-		</children>
+		<CustomTextField fx:id="textFieldUser" prefHeight="60.0" prefWidth="500.0" promptText="Username" styleClass="text-field-primary" GridPane.rowIndex="0">
+			<left>
+				<FontIcon iconLiteral="fth-user" />
+			</left>
+		</CustomTextField>
+		<CustomPasswordField fx:id="textFieldPassword" prefHeight="60.0" prefWidth="500.0" promptText="Password" styleClass="text-field-primary" GridPane.rowIndex="1">
+			<left>
+				<FontIcon iconLiteral="fth-lock" />
+			</left>
+		</CustomPasswordField>
+		<Button id="loginButton" fx:id="loginButton" alignment="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="500.0" styleClass="button-primary" text="Login"
+			textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
 	</GridPane>
-	<Label fx:id="labelCreateAcc" text="Dont have a Account yet? Click here to create one" />
+
+	<HBox id="createAccount" GridPane.rowIndex="3" alignment="CENTER">
+		<Label text="Don't have a Account? Signup" />
+		<FontIcon iconLiteral="fth-arrow-right" />
+	</HBox>
+
 	<stylesheets>
 		<URL value="@login.css" />
 	</stylesheets>
-</VBox>
+</GridPane>
