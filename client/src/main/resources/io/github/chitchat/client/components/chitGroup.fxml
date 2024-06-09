@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<fx:root type="javafx.scene.layout.GridPane" alignment="CENTER_LEFT" hgap="5" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+	<columnConstraints>
+		<ColumnConstraints />
+		<ColumnConstraints />
+	</columnConstraints>
+	<rowConstraints>
+		<RowConstraints />
+		<RowConstraints />
+	</rowConstraints>
+
+	<ImageView fx:id="imageView" fitWidth="25" fitHeight="25" GridPane.columnIndex="0" GridPane.rowSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+	<Label fx:id="name" GridPane.columnIndex="1" />
+	<Label fx:id="message" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+	<stylesheets>
+		<URL value="@chitGroup.css" />
+	</stylesheets>
+</fx:root>
