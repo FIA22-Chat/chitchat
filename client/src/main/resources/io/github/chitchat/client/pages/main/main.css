@@ -20,40 +20,46 @@
     -fx-text-fill: -color-text3;
 }
 
-#chatinput {
+#headerWrapper {
     -fx-padding: 10px;
-    -fx-text-fill: #ffffff;
+}
+
+#selectedGroupImage {
+    -fx-background-radius: 100;
+    -fx-border-radius: 100;
+}
+
+#inputWrapper {
+    -fx-padding: 15px;
 }
 
 #inputArea {
-    -fx-border-color: #d3d3d3;
-    -fx-border-width: 1px;
+    -fx-background-color: -color-background2;
+    -fx-text-fill: -color-text1;
+
+    -fx-background-radius: 8px;
     -fx-border-radius: 5px;
     -fx-padding: 5px;
-    -fx-text-fill: #ffffff;
+}
+
+#inputArea .content {
+    -fx-background-color: -color-background2;
+    -fx-background-radius: 5px;
+}
+
+#messageList {
+    -fx-background-color: -color-background2;
+}
+
+#messageList .list-cell {
+    -fx-background-color: -color-background2;
 }
 
 #sendButton {
-    -fx-background-color: #390089;
-    -fx-text-fill: white;
-    -fx-padding: 5px 10px;
-    -fx-border-radius: 5px;
 }
-
 
 #callButton {
-    -fx-background-color: #390089;
-    -fx-padding: 10px;
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-background-size: 20px 20px;
 }
 
-
 #callVideoButton {
-    -fx-background-color: #390089;
-    -fx-padding: 10px;
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-background-size: 20px 20px;
 }
