@@ -1,33 +1,29 @@
-@import url("../../styles/global.css");
+@import url("/io/github/chitchat/client/styles/all.css");
 
-#background {
-    -fx-background-color: -fx-bg1;
+#groupList .list-cell {
+    -fx-background-color: -color-background2;
 }
 
-
-.list-cell {
-    -fx-padding: 10px;
-
-    -fx-text-fill: #ffffff;
+#groupList .list-cell:selected {
+    -fx-background-color: -color-outline2;
 }
 
-.list-cell:selected {
-
-    -fx-text-fill: #ffffff;
-
+#groupList .list-cell:hover {
+    -fx-background-color: -color-outline3;
 }
 
+#groupList .list-cell #name {
+    -fx-text-fill: -color-text2;
+}
 
-#chatArea {
-    -fx-background-color: -fx-bg2;
+#groupList .list-cell #message {
+    -fx-text-fill: -color-text3;
 }
 
 #chatinput {
-
     -fx-padding: 10px;
     -fx-text-fill: #ffffff;
 }
-
 
 #inputArea {
     -fx-border-color: #d3d3d3;
