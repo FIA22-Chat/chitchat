@@ -32,15 +32,15 @@
 				<Label text="Profile Settings" />
 				<HBox spacing="10">
 					<Label text="Username:" />
-					<TextField fx:id="usernameField" promptText="Enter your username" />
+					<TextField fx:id="usernameField" promptText="Enter your username" styleClass="text-field-primary" />
 				</HBox>
 				<HBox spacing="10">
 					<Label text="Status:" />
-					<TextField fx:id="statusField" promptText="Enter your status" />
+					<TextField fx:id="statusField" promptText="Enter your status" styleClass="text-field-primary"/>
 				</HBox>
 				<HBox spacing="10">
 					<Label text="Profile Image:" />
-					<TextField fx:id="imagePathField" promptText="Enter image path" />
+					<TextField fx:id="imagePathField" promptText="Enter image path" styleClass="text-field-primary"/>
 					<Button text="Browse" onAction="#browseImage" />
 				</HBox>
 				<HBox spacing="10">
