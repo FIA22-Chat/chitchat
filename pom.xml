@@ -28,6 +28,13 @@
                 <version>1.0-SNAPSHOT</version>
             </dependency>
             <dependency>
+                <groupId>com.linecorp.armeria</groupId>
+                <artifactId>armeria-bom</artifactId>
+                <version>1.28.4</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
                 <groupId>org.jdbi</groupId>
                 <artifactId>jdbi3-bom</artifactId>
                 <version>3.45.1</version>
