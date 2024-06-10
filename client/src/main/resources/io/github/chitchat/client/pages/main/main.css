@@ -9,12 +9,15 @@
 #groupList .list-cell {
     -fx-background-color: -color-background2;
 }
+#groupList .list-cell:empty {
+    -fx-background-color: -color-background2;
+}
 
 #groupList .list-cell:selected {
     -fx-background-color: -color-outline2;
 }
 
-#groupList .list-cell:hover {
+#groupList .list-cell:hover:filled {
     -fx-background-color: -color-outline3;
 }
 
@@ -56,6 +59,7 @@
     -fx-background-radius: 8px;
     -fx-border-radius: 5px;
     -fx-padding: 5px;
+
 }
 
 #inputArea .content {
@@ -80,4 +84,14 @@
 }
 
 #callVideoButton {
+}
+#profileButton, #settingsButton, #logoutButton
+{
+    -fx-background-color: -color-background2;
+    -fx-border-color: -color-outline2;
+    -fx-border-width: 1 0 0 0;
+}
+#userWrapper {
+    -fx-border-color: -color-outline2;
+    -fx-border-width: 1 1 0 0;
 }
