@@ -9,7 +9,8 @@ public enum Page {
     LOGIN("login/login.fxml"),
     REGISTER("login/register/register.fxml"),
     MAIN("main/main.fxml"),
-    SETTINGS("settings/settings.fxml");
+    SETTINGS("settings/settings.fxml"),
+    PROFILE("profile/profile.fxml");
 
     private static final String BASE_PATH = "pages/";
     private final String path;
