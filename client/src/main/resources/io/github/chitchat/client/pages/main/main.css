@@ -1,5 +1,11 @@
 @import url("/io/github/chitchat/client/styles/all.css");
 
+#groupList {
+    -fx-background-color: -color-outline2;
+    -fx-background-insets: 0;
+    -fx-padding: 0 1 0 0;
+}
+
 #groupList .list-cell {
     -fx-background-color: -color-background2;
 }
@@ -18,6 +24,16 @@
 
 #groupList .list-cell #message {
     -fx-text-fill: -color-text3;
+}
+
+#groupList .scroll-bar * {
+    -fx-min-width: 0;
+    -fx-pref-width: 0;
+    -fx-max-width: 0;
+
+    -fx-min-height: 0;
+    -fx-pref-height: 0;
+    -fx-max-height: 0;
 }
 
 #headerWrapper {
@@ -48,7 +64,9 @@
 }
 
 #messageList {
-    -fx-background-color: -color-background2;
+    -fx-background-color: -color-outline2;
+    -fx-background-insets: 0;
+    -fx-padding: 0 0 1 0;
 }
 
 #messageList .list-cell {

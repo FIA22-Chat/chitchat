@@ -2,38 +2,37 @@
 
 <?import java.net.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import org.kordamp.ikonli.javafx.*?>
-<?import javafx.scene.image.ImageView?>
 
 <GridPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.chitchat.client.view.pages.main.MainController">
 	<columnConstraints>
-		<ColumnConstraints />
-		<ColumnConstraints />
+		<ColumnConstraints hgrow="ALWAYS" maxWidth="350" />
+		<ColumnConstraints hgrow="ALWAYS" />
 	</columnConstraints>
 	<rowConstraints>
-		<RowConstraints />
-		<RowConstraints />
-		<RowConstraints />
-		<RowConstraints />
-		<RowConstraints />
+		<RowConstraints vgrow="ALWAYS" maxHeight="80" />
+		<RowConstraints vgrow="ALWAYS" />
+		<RowConstraints vgrow="ALWAYS" />
+		<RowConstraints vgrow="ALWAYS" />
 	</rowConstraints>
 
 	<HBox id="headerWrapper" GridPane.columnIndex="1">
-		<GridPane HBox.hgrow="ALWAYS" alignment="CENTER_LEFT" vgap="10">
+		<GridPane alignment="CENTER_LEFT" vgap="10" HBox.hgrow="ALWAYS">
 			<columnConstraints>
-				<ColumnConstraints />
-				<ColumnConstraints />
+				<ColumnConstraints hgrow="ALWAYS" />
+				<ColumnConstraints hgrow="ALWAYS" />
 			</columnConstraints>
 			<rowConstraints>
 				<RowConstraints />
 				<RowConstraints />
 			</rowConstraints>
 
-			<ImageView fx:id="selectedGroupImage" fitWidth="40" fitHeight="40" GridPane.columnIndex="0" GridPane.rowSpan="2" GridPane.halignment="CENTER"
+			<ImageView fx:id="selectedGroupImage" fitHeight="40" fitWidth="40" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowSpan="2"
 				GridPane.valignment="CENTER" />
-			<Label GridPane.columnIndex="1" text="Group Name" textFill="WHITE" />
-			<Label GridPane.columnIndex="1" GridPane.rowIndex="1" text="Zuletzt online: Now" textFill="WHITE" />
+			<Label text="Group Name" textFill="WHITE" GridPane.columnIndex="1" />
+			<Label text="Zuletzt online: Now" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 		</GridPane>
 
 		<HBox alignment="CENTER_RIGHT" spacing="15">
@@ -50,15 +49,15 @@
 		</HBox>
 	</HBox>
 
-	<ListView fx:id="groupList" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.rowSpan="3" />
+	<ListView fx:id="groupList" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.rowSpan="3" />
 
 	<GridPane GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="3">
 		<columnConstraints>
-			<ColumnConstraints />
+			<ColumnConstraints hgrow="ALWAYS" />
 		</columnConstraints>
 		<rowConstraints>
-			<RowConstraints />
-			<RowConstraints />
+			<RowConstraints vgrow="ALWAYS" />
+			<RowConstraints vgrow="ALWAYS" maxHeight="80" />
 		</rowConstraints>
 
 		<ListView fx:id="messageList" prefHeight="450.0" prefWidth="600.0" />
