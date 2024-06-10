@@ -1,6 +1,6 @@
 package io.github.chitchat.client;
 
-import io.github.chitchat.common.PathUtil;
+import io.github.chitchat.common.CommonUtil;
 import io.github.chitchat.common.storage.database.Database;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -30,7 +30,8 @@ public class HelloApplication extends Application {
     @SuppressWarnings("ResultOfMethodCallIgnored")
     private static @NotNull DataSource createDataSource() {
         var dbPathStr =
-                PathUtil.getEnvOrDefault("DB_PATH", PathUtil.getUserAppDir(APP_NAME).toString());
+                CommonUtil.getEnvOrDefault(
+                        "DB_PATH", CommonUtil.getUserAppDir(APP_NAME).toString());
         var dbPath = Path.of(dbPathStr, DB_NAME);
         dbPath.toFile().getParentFile().mkdirs();
 
