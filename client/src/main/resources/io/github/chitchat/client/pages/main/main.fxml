@@ -14,7 +14,7 @@
 	<rowConstraints>
 		<RowConstraints vgrow="ALWAYS" maxHeight="80" />
 		<RowConstraints vgrow="ALWAYS" />
-		<RowConstraints maxHeight="81"/>
+		<RowConstraints maxHeight="81" />
 	</rowConstraints>
 
 	<HBox id="headerWrapper" GridPane.columnIndex="1">
@@ -48,8 +48,8 @@
 		</HBox>
 	</HBox>
 
-	<ListView fx:id="groupList" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.rowSpan="1"/>
-	<VBox fx:id="userWrapper" GridPane.rowIndex="2" alignment="CENTER" >
+	<ListView fx:id="groupList" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.rowSpan="1" />
+	<VBox fx:id="userWrapper" GridPane.rowIndex="2" alignment="CENTER">
 		<Button fx:id="profileButton" text="Profile" prefWidth="2000" prefHeight="2000" />
 		<Button fx:id="settingsButton" text="Settings" prefWidth="2000" prefHeight="2000" />
 		<Button fx:id="logoutButton" text="Logout" prefWidth="2000" prefHeight="2000" />
@@ -64,9 +64,9 @@
 		</rowConstraints>
 
 		<ListView fx:id="messageList" prefHeight="450.0" prefWidth="600.0" />
-		<HBox fx:id="inputWrapper" alignment="CENTER" spacing="15" GridPane.rowIndex="1" >
-			<TextField fx:id="inputArea"  promptText="Type a message..."  styleClass="text-field-primary" HBox.hgrow="ALWAYS"/>
-			<Button fx:id="sendButton"  onAction="#sendMessage" styleClass="button-primary" text="Send" />
+		<HBox fx:id="inputWrapper" alignment="CENTER" spacing="15" GridPane.rowIndex="1">
+			<TextField fx:id="inputArea" promptText="Type a message..." styleClass="text-field-primary" HBox.hgrow="ALWAYS" />
+			<Button fx:id="sendButton" onAction="#sendMessage" styleClass="button-primary" text="Send" />
 		</HBox>
 	</GridPane>
 

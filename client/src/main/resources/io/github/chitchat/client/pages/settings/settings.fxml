@@ -36,11 +36,11 @@
 				</HBox>
 				<HBox spacing="10">
 					<Label text="Status:" />
-					<TextField fx:id="statusField" promptText="Enter your status" styleClass="text-field-primary"/>
+					<TextField fx:id="statusField" promptText="Enter your status" styleClass="text-field-primary" />
 				</HBox>
 				<HBox spacing="10">
 					<Label text="Profile Image:" />
-					<TextField fx:id="imagePathField" promptText="Enter image path" styleClass="text-field-primary"/>
+					<TextField fx:id="imagePathField" promptText="Enter image path" styleClass="text-field-primary" />
 					<Button text="Browse" onAction="#browseImage" />
 				</HBox>
 				<HBox spacing="10">
