@@ -1,9 +1,12 @@
 package io.github.chitchat.client.view.pages.main;
 
+import com.google.inject.Inject;
 import io.github.chitchat.client.view.components.ChitGroup;
 import io.github.chitchat.client.view.components.ChitGroupCell;
 import io.github.chitchat.client.view.components.ChitMessageBox;
 import io.github.chitchat.client.view.components.ChitMessageBoxCell;
+import io.github.chitchat.client.view.routing.Page;
+import io.github.chitchat.client.view.routing.Router;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -18,7 +21,8 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @NoArgsConstructor
 public class MainController implements Initializable {
-    @FXML public Button callButton;
+    @Inject private Router router;
+
     @FXML private ListView<ChitGroup> groupList;
     @FXML private ImageView selectedGroupImage;
     @FXML private Label selectedGroupName;
@@ -28,6 +32,9 @@ public class MainController implements Initializable {
     @FXML private ListView<ChitMessageBox> messageList;
     @FXML private TextField inputArea;
     @FXML private Button sendButton;
+    @FXML private Button profileButton;
+    @FXML private Button settingsButton;
+    @FXML private Button logoutButton;
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         groupList.setCellFactory(_ -> new ChitGroupCell());
@@ -45,6 +52,21 @@ public class MainController implements Initializable {
 
         inputArea.setOnAction(_ -> sendMessage());
         sendButton.setOnAction(_ -> sendMessage());
+    }
+
+    @FXML
+    private void profile() {
+        router.navigateTo(Page.PROFILE);
+    }
+
+    @FXML
+    private void settings() {
+        router.navigateTo(Page.SETTINGS);
+    }
+
+    @FXML
+    private void logout() {
+        router.navigateTo(Page.LOGIN);
     }
 
     @FXML

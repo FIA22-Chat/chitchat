@@ -50,9 +50,9 @@
 
 	<ListView fx:id="groupList" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.rowSpan="1" />
 	<VBox fx:id="userWrapper" GridPane.rowIndex="2" alignment="CENTER">
-		<Button fx:id="profileButton" text="Profile" prefWidth="2000" prefHeight="2000" />
-		<Button fx:id="settingsButton" text="Settings" prefWidth="2000" prefHeight="2000" />
-		<Button fx:id="logoutButton" text="Logout" prefWidth="2000" prefHeight="2000" />
+		<Button fx:id="profileButton" text="Profile" prefWidth="2000" prefHeight="2000" onAction="#profile" />
+		<Button fx:id="settingsButton" text="Settings" prefWidth="2000" prefHeight="2000" onAction="#settings" />
+		<Button fx:id="logoutButton" text="Logout" prefWidth="2000" prefHeight="2000" onAction="#logout" />
 	</VBox>
 	<GridPane GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="3">
 		<columnConstraints>
