@@ -1,13 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="io.github.chitchat.client.view.pages.settings.SettingsController"
-	prefHeight="400.0" prefWidth="600.0"
+<?import java.net.URL?>
+<BorderPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="io.github.chitchat.client.view.pages.settings.SettingsController"
 >
 
-</AnchorPane>
+	<left>
+		<VBox id="navBar" spacing="10" BorderPane.alignment="CENTER">
+			<padding>
+				<Insets top="10" right="10" bottom="10" left="10" />
+			</padding>
+			<Label fx:id="headlineSettings" text="Settings" />
+			<Button text="Profile" onAction="#showProfile" />
+			<Button text="Account" />
+			<Button text="Privacy" />
+			<Button text="Notifications" />
+		</VBox>
+	</left>
+
+	<center>
+		<StackPane id="contentArea">
+			<VBox fx:id="profilePane" spacing="10" visible="false">
+				<padding>
+					<Insets top="10" right="10" bottom="10" left="10" />
+				</padding>
+				<Label text="Profile Settings" />
+				<HBox spacing="10">
+					<Label text="Username:" />
+					<TextField fx:id="usernameField" promptText="Enter your username" />
+				</HBox>
+				<HBox spacing="10">
+					<Label text="Status:" />
+					<TextField fx:id="statusField" promptText="Enter your status" />
+				</HBox>
+				<HBox spacing="10">
+					<Label text="Profile Image:" />
+					<TextField fx:id="imagePathField" promptText="Enter image path" />
+					<Button text="Browse" onAction="#browseImage" />
+				</HBox>
+				<HBox spacing="10">
+					<Button text="Save" onAction="#saveSettings" />
+					<Button text="Cancel" onAction="#cancelSettings" />
+				</HBox>
+			</VBox>
+		</StackPane>
+	</center>
+
+	<stylesheets>
+		<URL value="@settings.css" />
+	</stylesheets>
+</BorderPane>
