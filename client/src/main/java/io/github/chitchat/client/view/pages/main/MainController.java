@@ -18,12 +18,11 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @NoArgsConstructor
 public class MainController implements Initializable {
+    @FXML public Button callButton;
     @FXML private ListView<ChitGroup> groupList;
     @FXML private ImageView selectedGroupImage;
     @FXML private Label selectedGroupName;
     @FXML private Label selectedGroupLastOnline;
-
-    @FXML public Button callButton;
     @FXML private Button callVideoButton;
 
     @FXML private ListView<ChitMessageBox> messageList;
@@ -42,40 +41,23 @@ public class MainController implements Initializable {
                         new ChitGroup(
                                 "aaaa",
                                 "aaaa",
-                                "/io/github/chitchat/client/assets/logo/logo-256x.png"),
-                        new ChitGroup(
-                                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                                "aaaaaaaaaaaa",
-                                "/io/github/chitchat/client/assets/logo/logo-24x.png"),
-                        new ChitGroup(
-                                "aaaa",
-                                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                                "/io/github/chitchat/client/assets/logo/logo-60x.png"));
+                                "/io/github/chitchat/client/assets/logo/logo-256x.png"));
 
-        messageList
-                .getItems()
-                .addAll(
-                        new ChitMessageBox(
-                                "aaaa",
-                                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                                "/io/github/chitchat/client/assets/logo/logo-256x.png",
-                                Pos.CENTER_LEFT),
-                        new ChitMessageBox(
-                                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                                "aaaa",
-                                "/io/github/chitchat/client/assets/logo/logo-256x.png",
-                                Pos.CENTER_RIGHT),
-                        new ChitMessageBox(
-                                "aaaa",
-                                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                                "/io/github/chitchat/client/assets/logo/logo-256x.png",
-                                Pos.CENTER_RIGHT));
-
+        inputArea.setOnAction(_ -> sendMessage());
         sendButton.setOnAction(_ -> sendMessage());
     }
 
     @FXML
-    private void sendMessage() {}
+    private void sendMessage() {
+        String message = inputArea.getText();
+        if (message.isEmpty()) return;
+
+        var box = new ChitMessageBox(message, Pos.CENTER_RIGHT);
+        messageList.getItems().add(box);
+
+        messageList.scrollTo(box);
+        inputArea.clear();
+    }
 
     @FXML
     private void loadChatMessages() {}

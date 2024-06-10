@@ -16,7 +16,7 @@
 		<RowConstraints maxHeight="81" />
 	</rowConstraints>
 
-	<Label GridPane.halignment="CENTER" text="ChitChat" styleClass="h2" />
+	<Label GridPane.halignment="CENTER" text="ChitChat" textOverrun="CLIP" styleClass="h2" />
 
 	<HBox id="headerWrapper" GridPane.columnIndex="1">
 		<GridPane alignment="CENTER_LEFT" vgap="5" hgap="10" HBox.hgrow="ALWAYS">

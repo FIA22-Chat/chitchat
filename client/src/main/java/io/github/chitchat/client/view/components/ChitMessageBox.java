@@ -21,15 +21,24 @@ public class ChitMessageBox extends VBox {
     @Getter private final BooleanPropertyBase positionRight;
     @Getter private final BooleanPropertyBase positionLeft;
 
-    @FXML private VBox wrapper;
     @FXML private GridPane grid;
+    @FXML private VBox messageImageWrapper;
+    @FXML private VBox messageContentWrapper;
 
     @FXML private ImageView userImage;
     @FXML private Label userName;
     @FXML private Label messageContent;
 
+    public ChitMessageBox(String userName, String content, Pos pos) {
+        this(userName, content, null, pos);
+    }
+
+    public ChitMessageBox(String content, Pos pos) {
+        this(null, content, null, pos);
+    }
+
     public ChitMessageBox(
-            String username, String content, @Nullable String userImagePath, Pos pos) {
+            @Nullable String userName, String content, @Nullable String userImagePath, Pos pos) {
         super();
         getStyleClass().addAll("chit-message-box");
         load(this);
@@ -69,18 +78,37 @@ public class ChitMessageBox extends VBox {
                     }
                 };
 
-        if (pos == Pos.CENTER_RIGHT) {
+        if (pos == Pos.CENTER_RIGHT || pos == Pos.BOTTOM_RIGHT || pos == Pos.TOP_RIGHT) {
             positionRight.set(true);
             positionLeft.set(false);
+
+            grid.setAlignment(Pos.CENTER_RIGHT);
+            GridPane.setColumnIndex(messageImageWrapper, 1);
+            GridPane.setColumnIndex(messageContentWrapper, 0);
         } else {
             positionLeft.set(true);
             positionRight.set(false);
+
+            grid.setAlignment(Pos.CENTER_LEFT);
+            GridPane.setColumnIndex(messageImageWrapper, 0);
+            GridPane.setColumnIndex(messageContentWrapper, 1);
         }
 
-        wrapper.setAlignment(pos);
-        this.userName.setText(username);
+        // Remove userName if not provided
+        if (userName == null) {
+            messageContentWrapper.getChildren().remove(this.userName);
+        } else {
+            this.userName.setText(userName);
+        }
+
+        // Remove userImage if not provided
+        if (userImagePath == null) {
+            this.userImage.setVisible(false);
+        } else {
+            this.userImage.setImage(new Image(userImagePath));
+        }
+
         this.messageContent.setText(content);
-        if (userImagePath != null) this.userImage.setImage(new Image(userImagePath));
     }
 
     protected static void load(ChitMessageBox chitGroup) {

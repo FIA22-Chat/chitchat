@@ -1,12 +1,24 @@
-/*noinspection CssInvalidPseudoSelector*/
-.chit-message-box:right-pos #messageContentWrapper {
-   /* -fx-background-color: #DCF8C6;*/
-    -fx-background-color: red;
-    -fx-text-fill: red;
+@import url("/io/github/chitchat/client/styles/all.css");
+
+#messageContentWrapper {
+    -fx-background-color: -color-outline3;
+    
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    
+    -fx-padding: 10px;
 }
 
-/*noinspection CssInvalidPseudoSelector*/
-.chit-message-box:left-pos #messageContentWrapper {
-    -fx-background-color: blue;
-    -fx-text-fill: blue;
+#messageImageWrapper {
+    -fx-padding: 5px 10px 5px 5px;
+}
+
+#userName {
+    -fx-text-fill: -color-text3;
+    -fx-font-size: 15px;
+}
+
+#messageContent {
+    -fx-text-fill: -color-text1;    
+    -fx-font-size: 18px;
 }
