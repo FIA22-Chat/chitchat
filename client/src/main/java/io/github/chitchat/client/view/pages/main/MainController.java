@@ -18,19 +18,17 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @NoArgsConstructor
 public class MainController implements Initializable {
+    @FXML private ListView<ChitGroup> groupList;
     @FXML private ImageView selectedGroupImage;
+    @FXML private Label selectedGroupName;
+    @FXML private Label selectedGroupLastOnline;
+
     @FXML public Button callButton;
     @FXML private Button callVideoButton;
 
-    @FXML private ListView<ChitGroup> groupList;
-
     @FXML private ListView<ChitMessageBox> messageList;
-
     @FXML private TextField inputArea;
-
     @FXML private Button sendButton;
-
-    @FXML private Label lastOnlineStatus;
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         groupList.setCellFactory(_ -> new ChitGroupCell());

@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<?import org.kordamp.ikonli.javafx.*?>
-
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import java.net.URL?>
 <GridPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.chitchat.client.view.pages.main.MainController">
 	<columnConstraints>
 		<ColumnConstraints hgrow="ALWAYS" maxWidth="350" />
@@ -18,23 +17,22 @@
 	</rowConstraints>
 
 	<HBox id="headerWrapper" GridPane.columnIndex="1">
-		<GridPane alignment="CENTER_LEFT" vgap="10" HBox.hgrow="ALWAYS">
+		<GridPane alignment="CENTER_LEFT" vgap="5" hgap="10" HBox.hgrow="ALWAYS">
 			<columnConstraints>
-				<ColumnConstraints hgrow="ALWAYS" />
-				<ColumnConstraints hgrow="ALWAYS" />
+				<ColumnConstraints halignment="LEFT" />
+				<ColumnConstraints halignment="LEFT" />
 			</columnConstraints>
 			<rowConstraints>
 				<RowConstraints />
 				<RowConstraints />
 			</rowConstraints>
 
-			<ImageView fx:id="selectedGroupImage" fitHeight="40" fitWidth="40" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowSpan="2"
-				GridPane.valignment="CENTER" />
-			<Label text="Group Name" textFill="WHITE" GridPane.columnIndex="1" />
-			<Label text="Zuletzt online: Now" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+			<ImageView fx:id="selectedGroupImage" fitHeight="40" fitWidth="40" GridPane.columnIndex="0" GridPane.rowSpan="2" />
+			<Label fx:id="selectedGroupName" text="Group Name" GridPane.columnIndex="1" />
+			<Label fx:id="selectedGroupLastOnline" text="Zuletzt online: Now" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 		</GridPane>
 
-		<HBox alignment="CENTER_RIGHT" spacing="15">
+		<HBox alignment="CENTER_RIGHT" spacing="20">
 			<Button fx:id="callButton" styleClass="button-primary">
 				<graphic>
 					<FontIcon iconLiteral="fth-phone" />

@@ -48,6 +48,17 @@
     -fx-border-radius: 100;
 }
 
+#selectedGroupName {
+    -fx-text-fill: -color-text1;
+    -fx-font-size: 20px;
+    -fx-font-weight: 800;
+}
+
+#selectedGroupLastOnline {
+    -fx-text-fill: -color-text3;
+    -fx-font-size: 15px;
+}
+
 #inputWrapper {
     -fx-padding: 15px;
 }
@@ -77,13 +88,13 @@
     -fx-background-color: -color-background2;
 }
 
-#sendButton {
+#callButton, #callVideoButton {
+    -fx-padding: 8px;
 }
 
-#callButton {
-}
-
-#callVideoButton {
+#callButton .ikonli-font-icon, #callVideoButton .ikonli-font-icon {
+    -fx-icon-color: -color-text1;
+    -fx-icon-size: 24px;
 }
 #profileButton, #settingsButton, #logoutButton
 {
