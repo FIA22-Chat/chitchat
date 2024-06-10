@@ -9,10 +9,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import lombok.NoArgsConstructor;
@@ -29,7 +26,7 @@ public class MainController implements Initializable {
 
     @FXML private ListView<ChitMessageBox> messageList;
 
-    @FXML private TextArea inputArea;
+    @FXML private TextField inputArea;
 
     @FXML private Button sendButton;
 
