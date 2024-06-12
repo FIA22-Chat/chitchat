@@ -1,10 +1,15 @@
 package io.github.chitchat.server;
 
 import io.github.chitchat.common.CommonUtil;
+import io.github.chitchat.common.filter.ProfanityFilter;
 import io.github.chitchat.common.storage.database.Database;
 import io.github.chitchat.server.database.dao.mappers.ServerUserRowMapper;
+import io.github.chitchat.server.database.dao.mappers.ServerUserSessionRowMapper;
 import io.github.chitchat.server.database.models.ServerUser;
+import io.github.chitchat.server.database.models.ServerUserSession;
 import java.nio.file.Path;
+import java.util.List;
+import java.util.Objects;
 import javax.sql.DataSource;
 import lombok.extern.log4j.Log4j2;
 import org.jdbi.v3.sqlite3.SQLitePlugin;
@@ -21,7 +26,8 @@ public class Main {
 
         var db = Database.create(createDataSource(), true, new SQLitePlugin());
         db.registerRowMapper(ServerUser.class, new ServerUserRowMapper());
-
+        db.registerRowMapper(ServerUserSession.class, new ServerUserSessionRowMapper());
+        
         var port = Integer.parseInt(CommonUtil.getEnvOrDefault("PORT", "8080"));
 
         var app = new App(port, db);
@@ -37,7 +43,7 @@ public class Main {
                                 }));
 
         appThread.start();
-    }
+  }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     private static @NotNull DataSource createDataSource() {
@@ -49,5 +55,15 @@ public class Main {
         datasource.setUrl("jdbc:sqlite:" + dbPath.toAbsolutePath());
 
         return datasource;
+    }
+
+    private static @NotNull ProfanityFilter loadProfanityFilter() {
+        try (var list = Main.class.getResourceAsStream("list/defaultProfanityList")) {
+            var profanities =
+                    List.of(new String(Objects.requireNonNull(list).readAllBytes()).split(","));
+            return new ProfanityFilter(profanities);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to load profanity list", e);
+        }
     }
 }
