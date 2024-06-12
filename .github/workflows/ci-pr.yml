@@ -32,7 +32,9 @@ jobs:
           LOG_LEVEL_CONSOLE: TRACE
           LOG_LEVEL_FILE: TRACE
           LOG_PATH: target/log
-        run: mvn -B verify -f pom.xml
+        run: |
+          mvn -B protobuf:compile -f server/pom.xml
+          mvn -B verify -f pom.xml
 
   format:
     name: Check Formatting
