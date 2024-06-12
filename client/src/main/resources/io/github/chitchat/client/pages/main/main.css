@@ -98,11 +98,16 @@
     -fx-icon-size: 24px;
 }
 
-#profileButton, #settingsButton, #logoutButton {
+ #settingsButton, #logoutButton {
     -fx-background-color: -color-background2;
     -fx-border-color: -color-outline2;
     -fx-border-width: 1 0 0 0;
 }
+ #settingsButton:hover, #logoutButton:hover {
+    -fx-text-fill: #ffffff;
+    -fx-background-color: -color-outline3;
+}
+
 
 #userWrapper {
     -fx-border-color: -color-outline2;
