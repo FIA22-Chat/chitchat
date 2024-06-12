@@ -24,8 +24,6 @@ public class SettingsData implements Serializable {
     private boolean isAlwaysOnTop;
     private boolean isFullscreen;
 
-    private String username;
-
     public void applyStageSettings(@NotNull Stage stage) {
         stage.setX(this.getStageX());
         stage.setY(this.getStageY());
