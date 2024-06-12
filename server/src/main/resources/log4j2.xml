@@ -13,9 +13,9 @@
 			</Policies>
 			<DefaultRolloverStrategy max="30" />
 		</RollingFile>
-		<RollingFile name="Access_File_Appender"
-			fileName="${env:LOG_PATH:-.}/chitchat-server-access.log"
-			filePattern="${env:LOG_PATH:-.}/chitchat-server-access-%d{yyyy-MM-dd}-%i.log.gz">
+		<RollingFile name="Access_File_Appender" fileName="${env:LOG_PATH:-.}/chitchat-server-access.log"
+			filePattern="${env:LOG_PATH:-.}/chitchat-server-access-%d{yyyy-MM-dd}-%i.log.gz"
+		>
 			<PatternLayout>
 				<Pattern>%m%n</Pattern>
 			</PatternLayout>
@@ -27,8 +27,7 @@
 		</RollingFile>
 	</Appenders>
 	<Loggers>
-		<Logger name="com.linecorp.armeria.logging.access" level="INFO"
-			additivity="false">
+		<Logger name="com.linecorp.armeria.logging.access" level="INFO" additivity="false">
 			<AppenderRef ref="Access_File_Appender" />
 		</Logger>
 		<Root level="${env:LOG_LEVEL_CONSOLE:-INFO}">
