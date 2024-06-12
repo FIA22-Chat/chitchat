@@ -135,6 +135,9 @@
                             </includes>
                             <eclipseWtp>
                                 <type>XML</type>
+                                <files>
+                                    <file>.pref/xml.prefs</file>
+                                </files>
                             </eclipseWtp>
                         </format>
                     </formats>

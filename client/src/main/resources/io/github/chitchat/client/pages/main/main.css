@@ -1,0 +1,110 @@
+@import url("/io/github/chitchat/client/styles/all.css");
+
+#groupList {
+    -fx-background-color: -color-background2;
+    -fx-background-insets: 0;
+    -fx-padding: 0 1 0 0;
+}
+
+#groupList .list-cell {
+    -fx-background-color: -color-background2;
+}
+
+#groupList .list-cell:empty {
+    -fx-background-color: -color-background2;
+}
+
+#groupList .list-cell:selected {
+    -fx-background-color: -color-outline2;
+}
+
+#groupList .list-cell:hover:filled {
+    -fx-background-color: -color-outline3;
+}
+
+#groupList .list-cell #name {
+    -fx-text-fill: -color-text2;
+}
+
+#groupList .list-cell #message {
+    -fx-text-fill: -color-text3;
+}
+
+#groupList .scroll-bar *, #messageList .scroll-bar * {
+    -fx-min-width: 0;
+    -fx-pref-width: 0;
+    -fx-max-width: 0;
+
+    -fx-min-height: 0;
+    -fx-pref-height: 0;
+    -fx-max-height: 0;
+}
+
+#headerWrapper {
+    -fx-padding: 10px;
+}
+
+#selectedGroupImage {
+    -fx-background-radius: 100;
+    -fx-border-radius: 100;
+}
+
+#selectedGroupName {
+    -fx-text-fill: -color-text1;
+    -fx-font-size: 20px;
+    -fx-font-weight: 800;
+}
+
+#selectedGroupLastOnline {
+    -fx-text-fill: -color-text3;
+    -fx-font-size: 15px;
+}
+
+#inputWrapper {
+    -fx-padding: 15px;
+}
+
+#inputArea {
+    -fx-background-color: -color-background2;
+    -fx-text-fill: -color-text1;
+
+    -fx-background-radius: 8px;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+
+}
+
+#inputArea .content {
+    -fx-background-color: -color-background2;
+    -fx-background-radius: 5px;
+}
+
+#messageList {
+    -fx-background-color: -color-background2;
+    -fx-background-insets: 0;
+    -fx-padding: 0 0 1 0;
+}
+
+#messageList .list-cell {
+    -fx-background-color: -color-background2;
+}
+
+#callButton, #callVideoButton {
+    -fx-padding: 8px;
+}
+
+#callButton .ikonli-font-icon, #callVideoButton .ikonli-font-icon {
+    -fx-icon-color: -color-text1;
+    -fx-icon-size: 24px;
+}
+
+#profileButton, #settingsButton, #logoutButton {
+    -fx-background-color: -color-background2;
+    -fx-border-color: -color-outline2;
+    -fx-border-width: 1 0 0 0;
+}
+
+#userWrapper {
+    -fx-border-color: -color-outline2;
+    -fx-border-width: 1 1 0 0;
+}

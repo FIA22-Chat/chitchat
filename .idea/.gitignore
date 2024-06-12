@@ -9,3 +9,5 @@
 dataSources.xml
 sqldialects.xml
 sqlDataSources.xml
+# Other
+/codeStyles
