@@ -45,8 +45,7 @@ public class ProfanityFilter {
      * @see ProfanityFilter#withCensor(String)
      */
     public boolean containsProfanities(@NotNull String message) {
-        var words = message.split(" ");
-
+        var words = message.toLowerCase().split(" ");
         for (var word : words)
             if (profanityBloomFilter.mightContain(word) && profanityList.contains(word))
                 return true;
@@ -66,7 +65,9 @@ public class ProfanityFilter {
 
         var finalMessage = new StringBuilder();
         for (var word : words) {
-            if (profanityBloomFilter.mightContain(word) && profanityList.contains(word)) {
+            var lowerCaseWord = word.toLowerCase();
+            if (profanityBloomFilter.mightContain(lowerCaseWord)
+                    && profanityList.contains(lowerCaseWord)) {
                 log.trace("Censoring profanity {}", word);
 
                 var size = word.length();
