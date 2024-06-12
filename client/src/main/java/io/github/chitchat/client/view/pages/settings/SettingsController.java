@@ -1,7 +1,10 @@
 package io.github.chitchat.client.view.pages.settings;
 
+import io.github.chitchat.client.config.UserContext;
+import jakarta.inject.Inject;
 import java.io.File;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -12,10 +15,12 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @NoArgsConstructor
 public class SettingsController {
+    @Inject private UserContext userContext;
     public Label headlineSettings;
     @FXML private TextField usernameField;
     @FXML private TextField statusField;
     @FXML private TextField imagePathField;
+    @FXML private Button changeUsername;
 
     @FXML private VBox profilePane;
     @FXML private VBox accountPane;
@@ -23,11 +28,12 @@ public class SettingsController {
     @FXML private VBox notificationsPane;
 
     @FXML
-    private void saveSettings() {
-        String username = usernameField.getText();
-        String status = statusField.getText();
-        String imagePath = imagePathField.getText();
+    private void initialize() {
+        usernameField.setText(userContext.getUsername());
     }
+
+    @FXML
+    private void saveSettings() {}
 
     @FXML
     private void cancelSettings() {}
