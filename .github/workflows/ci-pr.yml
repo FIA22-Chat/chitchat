@@ -33,7 +33,10 @@ jobs:
           LOG_LEVEL_FILE: TRACE
           LOG_PATH: target/log
         run: |
+          mvn -B compile -f common/pom.xml
+          mvn -B compile -f client/pom.xml
           mvn -B protobuf:compile -f server/pom.xml
+          mvn -B compile -f server/pom.xml
           mvn -B verify -f pom.xml
 
   format:
