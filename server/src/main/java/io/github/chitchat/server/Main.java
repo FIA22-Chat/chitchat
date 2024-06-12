@@ -27,7 +27,7 @@ public class Main {
         var db = Database.create(createDataSource(), true, new SQLitePlugin());
         db.registerRowMapper(ServerUser.class, new ServerUserRowMapper());
         db.registerRowMapper(ServerUserSession.class, new ServerUserSessionRowMapper());
-        
+
         var port = Integer.parseInt(CommonUtil.getEnvOrDefault("PORT", "8080"));
 
         var app = new App(port, db);
@@ -43,7 +43,7 @@ public class Main {
                                 }));
 
         appThread.start();
-  }
+    }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     private static @NotNull DataSource createDataSource() {
@@ -57,7 +57,7 @@ public class Main {
         return datasource;
     }
 
-    private static @NotNull ProfanityFilter loadProfanityFilter() {
+    public static @NotNull ProfanityFilter loadProfanityFilter() {
         try (var list = Main.class.getResourceAsStream("list/defaultProfanityList")) {
             var profanities =
                     List.of(new String(Objects.requireNonNull(list).readAllBytes()).split(","));

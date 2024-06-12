@@ -9,6 +9,7 @@ import io.github.chitchat.common.storage.database.service.channel.ServiceChannel
 import io.github.chitchat.common.storage.database.service.channel.ServiceChannelListener;
 import io.github.chitchat.common.storage.database.service.common.CacheableIndexableService;
 import java.util.List;
+import java.util.UUID;
 import org.jdbi.v3.core.Jdbi;
 import org.jetbrains.annotations.NotNull;
 
@@ -41,12 +42,24 @@ public class MessageService extends CacheableIndexableService<MessageDAO, Messag
         return dao.getByUser(user);
     }
 
+    public List<Message> getByUser(UUID userId) {
+        return dao.getByUser(userId);
+    }
+
     public List<Message> getByGroup(Group group) {
         return dao.getByGroup(group);
     }
 
+    public List<Message> getByGroup(UUID groupId) {
+        return dao.getByGroup(groupId);
+    }
+
     public List<Message> getByGroupUser(Group group, User user) {
         return dao.getByGroupUser(group, user);
+    }
+
+    public List<Message> getByGroupUser(UUID groupId, UUID userId) {
+        return dao.getByGroupUser(groupId, userId);
     }
 
     @Override
