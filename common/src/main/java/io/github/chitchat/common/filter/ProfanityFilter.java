@@ -16,7 +16,11 @@ public class ProfanityFilter {
     }
 
     public boolean isSpam(String message) {
-        return bloomFilter.mightContain(message);
+        for (var word : message.split(" ")) {
+            if (bloomFilter.mightContain(word)) return true;
+        }
+
+        return false;
     }
 
     public static String censor(String str) {
