@@ -1,0 +1,100 @@
+@import "/io/github/chitchat/client/styles/global.css";
+
+.text-field-primary {
+    -fx-background-color: -color-background2;
+    -fx-border-color: -color-outline2;
+
+    -fx-prompt-text-fill: -color-text4;
+    -fx-text-fill: -color-text1;
+
+    -fx-font-size: 24px;
+
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+
+    -fx-padding: 4px;
+}
+
+.text-field-primary .ikonli-font-icon {
+    -fx-icon-color: -color-outline1;
+    -fx-icon-size: 24px;
+}
+
+/*noinspection ALL*/
+.text-field-primary:left-node-visible .left-pane {
+    -fx-padding: 0 8 0 8;
+}
+
+/*noinspection ALL*/
+.text-field-primary:right-node-visible .right-pane {
+    -fx-padding: 0 8 0 8;
+}
+
+/*noinspection ALL*/
+.text-field-primary:right-node-visible .right-pane:pressed .ikonli-font-icon {
+    -fx-icon-color: derive(-color-outline1, 50%);
+}
+
+/*noinspection ALL*/
+.chit-text-field:error {
+    -fx-border-color: -color-error1;
+}
+
+/*noinspection ALL*/
+.chit-password-field:password-visible {
+    -fx-prompt-text-fill: -color-text1;
+}
+
+.text-field-primary:focused {
+    -fx-border-color: -color-outline1;
+}
+
+.button-primary {
+    -fx-background-color: -color-accent1;
+    -fx-text-fill: -color-text1;
+
+    -fx-font-size: 24px;
+
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+
+    -fx-padding: 4px;
+}
+
+.button-primary:hover {
+    -fx-background-color: derive(-color-accent1, 15%);
+}
+
+.button-secondary {
+    -fx-background-color: -color-accent2;
+    -fx-text-fill: -color-text1;
+
+    -fx-font-size: 24px;
+
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+
+    -fx-padding: 4px;
+}
+
+.button-secondary:hover {
+    -fx-background-color: derive(-color-accent1, 15%);
+}
+
+.h1 {
+    -fx-font-size: 80px;
+    -fx-font-weight: 800;
+    -fx-text-fill: -color-text1;
+}
+
+.h2 {
+    -fx-font-size: 48px;
+    -fx-font-weight: 800;
+    -fx-text-fill: -color-text1;
+}
+
+.h3 {
+    -fx-font-size: 36px;
+    -fx-font-weight: 800;
+    -fx-text-fill: -color-text1;
+}

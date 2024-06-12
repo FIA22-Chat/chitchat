@@ -1,0 +1,25 @@
+.root {
+    -fx-background-color: -color-background1;
+
+    /* Background colors */
+    -color-background1: #101011;
+    -color-background2: #161617;
+
+    /* Text colors */
+    -color-text1: #E0E1FF;
+    -color-text2: #CACAD4;
+    -color-text3: #818181;
+    -color-text4: #515151;
+
+    /* Outline colors */
+    -color-outline1: #777777;
+    -color-outline2: #383838;
+    -color-outline3: #252525;
+
+    /* Accent colors */
+    -color-accent1: #1617B6;
+    -color-accent2: #390089;
+
+    /* Feedback colors */
+    -color-error1: #BE2932;
+}

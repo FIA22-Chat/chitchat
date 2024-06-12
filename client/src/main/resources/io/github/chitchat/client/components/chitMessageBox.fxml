@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<fx:root type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+	<GridPane fx:id="grid" hgap="5.0" VBox.vgrow="NEVER">
+		<padding>
+			<Insets bottom="5" left="5" right="5" top="5" />
+		</padding>
+		<columnConstraints>
+			<ColumnConstraints />
+			<ColumnConstraints />
+		</columnConstraints>
+		<rowConstraints>
+			<RowConstraints />
+		</rowConstraints>
+
+		<VBox fx:id="messageImageWrapper">
+			<ImageView fx:id="userImage" fitWidth="30" fitHeight="30" />
+		</VBox>
+		<VBox fx:id="messageContentWrapper" spacing="5">
+			<Label fx:id="userName" textOverrun="CLIP" />
+			<Label fx:id="messageContent" wrapText="true" />
+		</VBox>
+
+		<stylesheets>
+			<URL value="@chitMessageBox.css" />
+		</stylesheets>
+	</GridPane>
+</fx:root>
