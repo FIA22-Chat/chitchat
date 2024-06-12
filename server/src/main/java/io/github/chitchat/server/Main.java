@@ -4,7 +4,9 @@ import io.github.chitchat.common.PathUtil;
 import io.github.chitchat.common.filter.ProfanityFilter;
 import io.github.chitchat.common.storage.database.Database;
 import io.github.chitchat.server.database.dao.mappers.ServerUserRowMapper;
+import io.github.chitchat.server.database.dao.mappers.ServerUserSessionRowMapper;
 import io.github.chitchat.server.database.models.ServerUser;
+import io.github.chitchat.server.database.models.ServerUserSession;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Objects;
@@ -24,6 +26,7 @@ public class Main {
         log.info("Starting server...");
         var db = Database.create(createDataSource(), true, new SQLitePlugin());
         db.registerRowMapper(ServerUser.class, new ServerUserRowMapper());
+        db.registerRowMapper(ServerUserSession.class, new ServerUserSessionRowMapper());
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
