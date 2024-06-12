@@ -53,14 +53,6 @@ public class LoginController implements Initializable {
     private void login() {
         log.info("Logging in as {}", textFieldUser.getText());
 
-        // todo auth user
-        // todo on failure
-        if (false) {
-            textFieldUser.setError(true);
-            textFieldPassword.setError(true);
-            return;
-        }
-
         settings.setUsername(textFieldUser.getText());
         router.navigateTo(Page.MAIN);
     }
