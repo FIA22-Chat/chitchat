@@ -106,3 +106,4 @@ include:
   - name: EmptyDirectory
 exclude:
   - name: FieldMayBeFinal # Has problems with Lombok
+  - name: FieldCanBeLocal

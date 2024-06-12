@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="client/src/main/resources/io/github/chitchat/client/icons/logo/logo-256x.png" alt="Logo" width="150" height="150" />
+    <img src="client/src/main/resources/io/github/chitchat/client/assets/logo/logo-256x.png" alt="Logo" width="150" height="150" />
 
 # ChitChat
 
@@ -17,7 +17,7 @@ This project uses Maven as its build tool and requires Java 22 to build and run.
 Currently, the project is split into these modules:
 - `client` - The client module, the front-end of the chat application
 - `server` - The server module, used to host the chat server
-- `common` - The common module, containing shared classes between the client and server
+- `common` - The common module, containing shared classes, used by the client and server
 
 ## License
 
