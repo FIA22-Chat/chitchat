@@ -2,38 +2,81 @@ package io.github.chitchat.common.filter;
 
 import com.google.common.hash.BloomFilter;
 import com.google.common.hash.Funnels;
+import java.nio.charset.StandardCharsets;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import lombok.extern.log4j.Log4j2;
+import org.jetbrains.annotations.NotNull;
 
+@Log4j2
+@SuppressWarnings("UnstableApiUsage")
 public class ProfanityFilter {
+    private final BloomFilter<String> profanityBloomFilter;
+    private final Set<String> profanityList;
 
-    private final BloomFilter<CharSequence> bloomFilter;
+    /**
+     * Create a new profanity filter with the given list of profanities.
+     *
+     * @param profanities the list of profanities
+     */
+    public ProfanityFilter(@NotNull List<String> profanities) {
+        var initialCapacity = profanities.size();
+        log.trace("Creating profanity filters with initial capacity {}", initialCapacity);
 
-    public ProfanityFilter(int expectedInsertions, double falsePositiveRate) {
-        bloomFilter = BloomFilter.create(Funnels.stringFunnel(null), expectedInsertions);
+        this.profanityBloomFilter =
+                BloomFilter.create(
+                        Funnels.stringFunnel(StandardCharsets.UTF_8), initialCapacity, 0.01);
+        this.profanityList = Collections.synchronizedSet(new HashSet<>(initialCapacity));
+
+        profanities.forEach(
+                profanity -> {
+                    profanityBloomFilter.put(profanity);
+                    profanityList.add(profanity);
+                });
     }
 
-    public void addMsg(String message) {
-        bloomFilter.put(message);
-    }
+    /**
+     * Check if any of the words in the message contains profanities where space splits words.
+     *
+     * @param message the message to check
+     * @return true if the message contains profanities, false otherwise
+     * @see ProfanityFilter#withCensor(String)
+     */
+    public boolean containsProfanities(@NotNull String message) {
+        var words = message.split(" ");
 
-    public boolean isSpam(String message) {
-        for (var word : message.split(" ")) {
-            if (bloomFilter.mightContain(word)) return true;
-        }
+        for (var word : words)
+            if (profanityBloomFilter.mightContain(word) && profanityList.contains(word))
+                return true;
 
         return false;
     }
 
-    public static String censor(String str) {
-        if (str.length() <= 2) {
-            return str;
-        }
-        char firstLetter = str.charAt(0);
-        char lastLetter = str.charAt(str.length() - 1);
-        StringBuilder censor = new StringBuilder();
+    /**
+     * Replace any profanities in the message with asterisks where space splits words.
+     *
+     * @param message the message to censor
+     * @return the censored message
+     * @see ProfanityFilter#containsProfanities(String)
+     */
+    public String withCensor(@NotNull String message) {
+        var words = message.split(" ");
 
-        for (int i = 1; i < str.length() - 1; i++) {
-            censor.append('*');
+        var finalMessage = new StringBuilder();
+        for (var word : words) {
+            if (profanityBloomFilter.mightContain(word) && profanityList.contains(word)) {
+                log.trace("Censoring profanity {}", word);
+
+                var size = word.length();
+                var replacement = "*".repeat(size);
+                word = word.replaceAll(word, replacement);
+            }
+
+            finalMessage.append(word).append(" ");
         }
-        return firstLetter + censor.toString() + lastLetter;
+
+        return finalMessage.toString();
     }
 }
