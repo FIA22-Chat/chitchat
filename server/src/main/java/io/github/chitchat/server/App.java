@@ -13,6 +13,7 @@ import io.github.chitchat.common.storage.database.service.channel.ServiceChannel
 import io.github.chitchat.server.database.service.ServerUserService;
 import io.github.chitchat.server.database.service.ServerUserSessionService;
 import io.github.chitchat.server.services.MessageServiceImpl;
+import io.grpc.protobuf.services.ProtoReflectionService;
 import lombok.extern.log4j.Log4j2;
 import org.jdbi.v3.core.Jdbi;
 import org.jetbrains.annotations.NotNull;
@@ -77,6 +78,7 @@ public class App implements Runnable {
                                         userGroupService,
                                         profanityFilter,
                                         spamFilter))
+                        .addService(ProtoReflectionService.newInstance())
                         .build();
 
         return Server.builder()
