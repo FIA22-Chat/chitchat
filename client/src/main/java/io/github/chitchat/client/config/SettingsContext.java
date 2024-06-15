@@ -1,5 +1,6 @@
 package io.github.chitchat.client.config;
 
+import io.github.chitchat.client.config.common.IDelegatedStore;
 import io.github.chitchat.common.storage.local.LocalStore;
 import io.github.chitchat.common.storage.local.config.Evaluation;
 import java.nio.file.Path;
@@ -7,11 +8,11 @@ import lombok.experimental.Delegate;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
-public class Settings {
+public class SettingsContext implements IDelegatedStore {
     private final transient LocalStore<SettingsData> store;
     @Delegate private final SettingsData instance;
 
-    public Settings(Path basePath) {
+    public SettingsContext(Path basePath) {
         log.debug("Loading user settings...");
         this.store =
                 new LocalStore<>(

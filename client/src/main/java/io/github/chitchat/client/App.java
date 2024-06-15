@@ -1,7 +1,7 @@
 package io.github.chitchat.client;
 
 import com.google.inject.Guice;
-import io.github.chitchat.client.config.Settings;
+import io.github.chitchat.client.config.SettingsContext;
 import io.github.chitchat.client.config.UserContext;
 import io.github.chitchat.client.modules.AppModule;
 import io.github.chitchat.client.modules.FrontendModule;
@@ -22,7 +22,7 @@ public class App extends Application {
     private static final double STAGE_MIN_WIDTH = 300;
     private static final double STAGE_MIN_HEIGHT = 300;
 
-    private Settings settings;
+    private SettingsContext settingsContext;
     private UserContext userContext;
     private Stage stage;
 
@@ -42,13 +42,13 @@ public class App extends Application {
                         new SettingsModule(),
                         new UserModule());
         this.stage = stage;
-        this.settings = injector.getInstance(Settings.class);
+        this.settingsContext = injector.getInstance(SettingsContext.class);
         this.userContext = injector.getInstance(UserContext.class);
 
         var router = injector.getInstance(Router.class);
         router.navigateTo(Page.LOGIN);
 
-        settings.applyStageSettings(stage);
+        settingsContext.applyStageSettings(stage);
         stage.setMinWidth(STAGE_MIN_WIDTH);
         stage.setMinHeight(STAGE_MIN_HEIGHT);
         stage.getIcons().addAll(getIcons());
@@ -60,8 +60,8 @@ public class App extends Application {
     public void stop() {
         log.info("Stopping client...");
 
-        settings.storeStageSettings(stage);
-        settings.save();
+        settingsContext.storeStageSettings(stage);
+        settingsContext.save();
         userContext.save();
     }
 
