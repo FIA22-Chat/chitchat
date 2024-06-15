@@ -79,6 +79,7 @@ public class App implements Runnable {
                                         profanityFilter,
                                         spamFilter))
                         .addService(ProtoReflectionService.newInstance())
+                        .enableHealthCheckService(true)
                         .build();
 
         return Server.builder()
