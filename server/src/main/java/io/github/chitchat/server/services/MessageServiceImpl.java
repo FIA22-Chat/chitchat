@@ -16,8 +16,10 @@ import io.github.chitchat.service.*;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import java.time.Instant;
+import lombok.extern.log4j.Log4j2;
 import org.jetbrains.annotations.NotNull;
 
+@Log4j2
 public class MessageServiceImpl extends MessageServiceGrpc.MessageServiceImplBase {
     private final MessageService messageService;
     private final ServerUserService userService;
@@ -171,20 +173,24 @@ public class MessageServiceImpl extends MessageServiceGrpc.MessageServiceImplBas
             return;
         }
 
+        var msg =
+                new io.github.chitchat.common.storage.database.models.Message(
+                        DbUtil.newId(),
+                        UUIDUtil.uuid(request.getUserId()),
+                        UUIDUtil.uuid(request.getGroupId()),
+                        convertMessageType(request.getType()),
+                        request.getContent().toByteArray(),
+                        Instant.now());
         try {
-            messageService.create(
-                    new io.github.chitchat.common.storage.database.models.Message(
-                            DbUtil.newId(),
-                            UUIDUtil.uuid(request.getUserId()),
-                            UUIDUtil.uuid(request.getGroupId()),
-                            convertMessageType(request.getType()),
-                            request.getContent().toByteArray(),
-                            Instant.now()));
+            messageService.create(msg);
         } catch (DuplicateItemException e) {
             responseObserver.onError(
                     Status.ALREADY_EXISTS.withDescription("Message already exists").asException());
             return;
         }
+
+        responseObserver.onNext(convertMessage(msg));
+        responseObserver.onCompleted();
     }
 
     @Override
