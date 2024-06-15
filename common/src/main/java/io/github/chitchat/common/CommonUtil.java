@@ -3,12 +3,12 @@ package io.github.chitchat.common;
 import java.nio.file.Path;
 import org.jetbrains.annotations.NotNull;
 
-public class PathUtil {
+public class CommonUtil {
     private static final String os = System.getProperty("os.name").toLowerCase();
 
     /**
      * Returns the value of the environment variable with the specified key or the default value if
-     * the environment variable is not set ({@code null}).
+     * the environment variable is not set (is {@code null}).
      *
      * @param key the name of the environment variable
      * @param defaultValue the default value
