@@ -33,7 +33,7 @@ public class App extends Application {
     }
 
     @Override
-    public void start(@NotNull Stage stage) throws InterruptedException {
+    public void start(@NotNull Stage stage) {
         log.info("Starting client GUI...");
         var injector =
                 Guice.createInjector(
@@ -46,7 +46,7 @@ public class App extends Application {
         this.userContext = injector.getInstance(UserContext.class);
 
         var router = injector.getInstance(Router.class);
-        router.navigateTo(Page.MAIN);
+        router.navigateTo(Page.LOGIN);
 
         settings.applyStageSettings(stage);
         stage.setMinWidth(STAGE_MIN_WIDTH);
