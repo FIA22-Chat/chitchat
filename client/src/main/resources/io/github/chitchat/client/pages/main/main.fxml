@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 <?import java.net.URL?>
-<GridPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.chitchat.client.view.pages.main.MainController">
+<GridPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea" fx:controller="io.github.chitchat.client.view.pages.main.MainController">
 	<columnConstraints>
 		<ColumnConstraints hgrow="ALWAYS" maxWidth="350" />
 		<ColumnConstraints hgrow="ALWAYS" />

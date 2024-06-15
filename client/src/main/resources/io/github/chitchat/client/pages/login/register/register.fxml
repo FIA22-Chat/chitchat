@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.*?>
 <?import org.kordamp.ikonli.javafx.*?>
 <?import java.net.URL?>
-<GridPane alignment="CENTER" vgap="25.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+<GridPane xmlns:fx="http://javafx.com/fxml" alignment="CENTER" vgap="25.0" xmlns="http://javafx.com/javafx"
 	fx:controller="io.github.chitchat.client.view.pages.login.register.RegisterController"
 >
 	<columnConstraints>

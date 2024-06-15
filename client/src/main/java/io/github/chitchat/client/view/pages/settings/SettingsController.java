@@ -16,7 +16,8 @@ import lombok.extern.log4j.Log4j2;
 @NoArgsConstructor
 public class SettingsController {
     @Inject private UserContext userContext;
-    public Label headlineSettings;
+
+    @FXML private Label headlineSettings;
     @FXML private TextField usernameField;
     @FXML private TextField statusField;
     @FXML private TextField imagePathField;
