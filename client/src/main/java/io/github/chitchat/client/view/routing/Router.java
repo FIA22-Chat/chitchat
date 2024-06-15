@@ -76,7 +76,6 @@ public class Router {
                         log.trace("Cache miss on page: {}", k);
                         fxmlLoader.setLocation(App.class.getResource(k.getPath()));
 
-                        // This is a foolish way to do this, but it works
                         fxmlLoader.setRoot(null);
                         fxmlLoader.setController(null);
                         return fxmlLoader.load();
