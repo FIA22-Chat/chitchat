@@ -13,6 +13,7 @@
         <module>common</module>
         <module>server</module>
         <module>webrtc-client</module>
+        <module>webrtc-server</module>
     </modules>
 
     <properties>
