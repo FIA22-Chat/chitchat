@@ -1,3 +1,9 @@
+[submodule "server/src/main/proto"]
+	path = server/src/main/proto
+	url = https://github.com/FIA22-Chat/chitchat-protobuf
+[submodule "client/src/main/proto"]
+	path = client/src/main/proto
+	url = https://github.com/FIA22-Chat/chitchat-protobuf
 [submodule "webrtc"]
 	path = webrtc
 	url = https://github.com/SFX123456/webrptcJava
