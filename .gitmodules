@@ -7,3 +7,6 @@
 [submodule "webrtc"]
 	path = webrtc
 	url = https://github.com/SFX123456/webrptcJava
+[submodule "websocket"]
+	path = websocket
+	url = https://github.com/SFX123456/websocketserver
