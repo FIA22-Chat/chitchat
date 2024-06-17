@@ -37,6 +37,8 @@ public class SettingsController {
     @FXML private VBox privacyPane;
     @FXML private VBox notificationsPane;
 
+
+
     @FXML
     private void initialize() {
         profileCircle = new Circle(50, 50, 50);
@@ -44,6 +46,7 @@ public class SettingsController {
 
         profileImageView.setImage(new Image("io/github/chitchat/client/assets/logo/logo-256x.png"));
         usernameField.setText(userContext.getUsername());
+
     }
 
     @FXML
@@ -78,5 +81,11 @@ public class SettingsController {
 
     public void backToMain() {
         router.navigateTo(Page.MAIN);
+    }
+
+    @FXML
+    private void changeLanguage()
+    {
+
     }
 }
