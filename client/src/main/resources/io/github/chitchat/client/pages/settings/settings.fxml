@@ -13,9 +13,9 @@
 			<padding>
 				<Insets bottom="10" left="10" right="10" top="10" />
 			</padding>
-			<Label fx:id="headlineSettings" text="Settings" />
-			<Button onAction="#showProfile" text="Profile" />
-			<Button text="Account" />
+			<Label fx:id="headlineSettings" text="%settings" />
+			<Button onAction="#showProfile" text="%profile" />
+			<Button text="%account" />
 		</VBox>
 	</left>
 

@@ -16,7 +16,7 @@
 		<RowConstraints maxHeight="81" />
 	</rowConstraints>
 
-	<Label GridPane.halignment="CENTER" text="ChitChat" textOverrun="CLIP" styleClass="h2" />
+	<Label GridPane.halignment="CENTER" text="%chitChat" textOverrun="CLIP" styleClass="h2" />
 
 	<HBox id="headerWrapper" GridPane.columnIndex="1">
 		<GridPane alignment="CENTER_LEFT" vgap="5" hgap="10" HBox.hgrow="ALWAYS">
@@ -30,8 +30,8 @@
 			</rowConstraints>
 
 			<ImageView fx:id="selectedGroupImage" fitHeight="40" fitWidth="40" GridPane.columnIndex="0" GridPane.rowSpan="2" />
-			<Label fx:id="selectedGroupName" text="Group Name" GridPane.columnIndex="1" />
-			<Label fx:id="selectedGroupLastOnline" text="Zuletzt online: Now" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+			<Label fx:id="selectedGroupName"  GridPane.columnIndex="1" />
+			<Label fx:id="selectedGroupLastOnline" text="%lastOnline" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 		</GridPane>
 
 		<HBox alignment="CENTER_RIGHT" spacing="20">
@@ -50,8 +50,8 @@
 
 	<ListView fx:id="groupList" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.rowSpan="1" />
 	<VBox fx:id="userWrapper" GridPane.rowIndex="2" alignment="CENTER">
-		<Button fx:id="settingsButton" text="Settings" prefWidth="2000" prefHeight="2000" onAction="#settings" />
-		<Button fx:id="logoutButton" text="Logout" prefWidth="2000" prefHeight="2000" onAction="#logout" />
+		<Button fx:id="settingsButton" text="%settings" prefWidth="2000" prefHeight="2000" onAction="#settings" />
+		<Button fx:id="logoutButton" text="%logout" prefWidth="2000" prefHeight="2000" onAction="#logout" />
 	</VBox>
 	<GridPane GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="3">
 		<columnConstraints>
@@ -64,8 +64,8 @@
 
 		<ListView fx:id="messageList" prefHeight="450.0" prefWidth="600.0" />
 		<HBox fx:id="inputWrapper" alignment="CENTER" spacing="15" GridPane.rowIndex="1">
-			<TextField fx:id="inputArea" promptText="Type a message..." styleClass="text-field-primary" HBox.hgrow="ALWAYS" />
-			<Button fx:id="sendButton" onAction="#sendMessage" styleClass="button-primary" text="Send" />
+			<TextField fx:id="inputArea" promptText="%typeMsg" styleClass="text-field-primary" HBox.hgrow="ALWAYS" />
+			<Button fx:id="sendButton" onAction="#sendMessage" styleClass="button-primary" text="%send" />
 		</HBox>
 	</GridPane>
 

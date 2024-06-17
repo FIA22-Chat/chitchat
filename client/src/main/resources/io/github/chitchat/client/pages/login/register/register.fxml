@@ -21,7 +21,7 @@
 		<RowConstraints />
 		<RowConstraints />
 	</rowConstraints>
-	<Label styleClass="h1" text="Register" GridPane.halignment="CENTER" />
+	<Label styleClass="h1" text="%registerTitle" GridPane.halignment="CENTER" />
 
 	<GridPane id="wrapper" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" vgap="25.0" GridPane.halignment="CENTER" GridPane.rowIndex="1">
 		<columnConstraints>
@@ -48,7 +48,7 @@
 				<FontIcon iconLiteral="fth-eye" />
 			</right>
 		</ChitPasswordField>
-		<ChitPasswordField fx:id="textFieldPasswordConfirm" prefHeight="60.0" prefWidth="500.0" promptText="Confirm Password" styleClass="text-field-primary"
+		<ChitPasswordField fx:id="textFieldPasswordConfirm" prefHeight="60.0" prefWidth="500.0" promptText="%confirmPassword" styleClass="text-field-primary"
 			GridPane.rowIndex="2"
 		>
 			<left>
@@ -58,7 +58,7 @@
 				<FontIcon iconLiteral="fth-eye" />
 			</right>
 		</ChitPasswordField>
-		<Button fx:id="buttonRegister" alignment="CENTER" mnemonicParsing="false" onAction="#register" prefHeight="60.0" prefWidth="500.0" styleClass="button-primary" text="Login"
+		<Button fx:id="buttonRegister" alignment="CENTER" mnemonicParsing="false" onAction="#register" prefHeight="60.0" prefWidth="500.0" styleClass="button-primary" text="%registerAction"
 			textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
 	</GridPane>
 
