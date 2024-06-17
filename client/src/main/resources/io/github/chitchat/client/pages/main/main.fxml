@@ -35,11 +35,6 @@
 		</GridPane>
 
 		<HBox alignment="CENTER_RIGHT" spacing="20">
-			<Button fx:id="callButton" styleClass="button-primary">
-				<graphic>
-					<FontIcon iconLiteral="fth-phone" />
-				</graphic>
-			</Button>
 			<Button fx:id="callVideoButton" styleClass="button-primary">
 				<graphic>
 					<FontIcon iconLiteral="fth-video" />
