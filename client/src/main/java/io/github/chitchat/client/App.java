@@ -55,6 +55,8 @@ public class App extends Application {
 
         settings.storeStageSettings(stage);
         settings.save();
+
+        System.exit(0);
     }
 
     private Image @NotNull [] getIcons() {
