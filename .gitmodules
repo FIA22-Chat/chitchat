@@ -5,8 +5,8 @@
 	path = client/src/main/proto
 	url = https://github.com/FIA22-Chat/chitchat-protobuf
 [submodule "webrtc"]
-	path = webrtc
+	path = webrtc-client
 	url = https://github.com/SFX123456/webrptcJava
 [submodule "websocket"]
-	path = websocket
+	path = webrtc-server
 	url = https://github.com/SFX123456/websocketserver
