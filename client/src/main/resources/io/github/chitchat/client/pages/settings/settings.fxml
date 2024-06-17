@@ -4,6 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
+<?import javafx.scene.image.ImageView?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea"
 	fx:controller="io.github.chitchat.client.view.pages.settings.SettingsController"
 >
@@ -16,6 +17,7 @@
 			<Label fx:id="headlineSettings" text="Settings" />
 			<Button onAction="#showProfile" text="Profile" />
 			<Button text="Account" />
+			<Button fx:id="backButton" onAction="#backToMain" text="Back" />
 		</VBox>
 	</left>
 
@@ -27,18 +29,20 @@
 				</padding>
 				<Label text="Profile Settings" fx:id="headlineProfileSettings" />
 				<HBox spacing="10">
+
+					<ImageView fx:id="profileImageView" fitHeight="100" fitWidth="100" onMouseClicked="#browseImage" />
+				</HBox>
+
+				<HBox spacing="10">
 					<Label text="Username:" />
 					<TextField fx:id="usernameField" editable="false" styleClass="text-field-primary" />
 
 				</HBox>
-				<HBox spacing="10">
-					<Label text="Profile Image:" />
-					<TextField fx:id="imagePathField" promptText="Enter image path" styleClass="text-field-primary" />
-					<Button onAction="#browseImage" text="Browse" />
-				</HBox>
+
 				<HBox spacing="10">
 					<Button onAction="#saveSettings" text="Save" />
 					<Button onAction="#cancelSettings" text="Cancel" />
+
 				</HBox>
 			</VBox>
 		</StackPane>
