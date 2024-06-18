@@ -23,10 +23,10 @@ CREATE TABLE IF NOT EXISTS user
 -- Multiple sessions can be created for a user (e.g multiple devices)
 CREATE TABLE IF NOT EXISTS user_session
 (
-    user_id    blob    NOT NULL REFERENCES user (id),
+    user_id    blob NOT NULL REFERENCES user (id),
     -- A temporary token that is used to authenticate the user
-    token      text    NOT NULL,
-    expires_at integer NOT NULL
+    token      text NOT NULL,
+    expires_at text NOT NULL
 );
 CREATE INDEX IF NOT EXISTS user_session_user_id_index ON user_session (user_id);
 

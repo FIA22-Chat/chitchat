@@ -37,6 +37,10 @@
             <artifactId>caffeine</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
@@ -100,17 +104,6 @@
                 <version>3.2.5</version>
                 <configuration>
                     <argLine>--add-opens=java.base/java.util=ALL-UNNAMED</argLine>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.flywaydb</groupId>
-                <artifactId>flyway-maven-plugin</artifactId>
-                <version>10.15.0</version>
-                <configuration>
-                    <url>jdbc:sqlite:./target/chitchat.db</url>
-                    <locations>
-                        <location>filesystem:./src/main/resources/io/github/chitchat/common/migration</location>
-                    </locations>
                 </configuration>
             </plugin>
         </plugins>
