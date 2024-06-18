@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 <?import java.net.URL?>
+<?import javafx.scene.image.ImageView?>
 <GridPane xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" vgap="25.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
 	fx:controller="io.github.chitchat.client.view.pages.login.LoginController"
 >
@@ -30,14 +31,16 @@
 			<RowConstraints />
 			<RowConstraints />
 			<RowConstraints />
+			<RowConstraints />
 		</rowConstraints>
 
-		<ChitTextField fx:id="textFieldUser" prefHeight="60.0" prefWidth="500.0" promptText="%username" styleClass="text-field-primary" GridPane.rowIndex="0">
+		<ImageView fx:id="profileImageView" fitHeight="100" fitWidth="100" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+		<ChitTextField fx:id="textFieldUser" prefHeight="60.0" prefWidth="500.0" promptText="%username" styleClass="text-field-primary" GridPane.rowIndex="1">
 			<left>
 				<FontIcon iconLiteral="fth-user" />
 			</left>
 		</ChitTextField>
-		<ChitPasswordField fx:id="textFieldPassword" prefHeight="60.0" prefWidth="500.0" promptText="%password" styleClass="text-field-primary" GridPane.rowIndex="1">
+		<ChitPasswordField fx:id="textFieldPassword" prefHeight="60.0" prefWidth="500.0" promptText="%password" styleClass="text-field-primary" GridPane.rowIndex="2">
 			<left>
 				<FontIcon iconLiteral="fth-lock" />
 			</left>
@@ -46,7 +49,7 @@
 			</right>
 		</ChitPasswordField>
 		<Button fx:id="buttonLogin" alignment="CENTER" mnemonicParsing="false" onAction="#login" prefHeight="60.0" prefWidth="500.0" styleClass="button-primary"
-			text="%loginAction" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+			text="%loginAction" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
 	</GridPane>
 
 	<Hyperlink id="createAccount" GridPane.rowIndex="3" GridPane.halignment="CENTER" text="%callToRegister" onAction="#register">

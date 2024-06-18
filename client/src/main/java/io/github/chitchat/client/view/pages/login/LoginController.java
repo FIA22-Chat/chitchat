@@ -12,6 +12,9 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.shape.Circle;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
@@ -24,6 +27,8 @@ public class LoginController implements Initializable {
     @FXML private ChitTextField textFieldUser;
     @FXML private ChitPasswordField textFieldPassword;
     @FXML private Button buttonLogin;
+    @FXML private ImageView profileImageView;
+    @FXML private Circle profileCircle;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -47,6 +52,10 @@ public class LoginController implements Initializable {
                 _ -> {
                     if (!buttonLogin.isDisabled()) login();
                 });
+        profileCircle = new Circle(50, 50, 50);
+        profileImageView.setClip(profileCircle);
+
+        profileImageView.setImage(new Image("io/github/chitchat/client/assets/logo/logo-256x.png"));
     }
 
     @FXML
