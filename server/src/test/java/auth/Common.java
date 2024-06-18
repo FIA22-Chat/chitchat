@@ -1,16 +1,14 @@
 package auth;
 
 import io.github.chitchat.common.storage.database.Database;
+import java.io.File;
+import java.nio.file.Path;
 import org.jdbi.v3.core.Jdbi;
 import org.jdbi.v3.sqlite3.SQLitePlugin;
 import org.jetbrains.annotations.NotNull;
 import org.sqlite.SQLiteDataSource;
 
-import java.io.File;
-import java.nio.file.Path;
-
-public class Common
-{
+public class Common {
     static final Path PATH = Path.of("src/test/resources").toAbsolutePath();
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
