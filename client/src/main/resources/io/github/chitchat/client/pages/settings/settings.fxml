@@ -18,7 +18,6 @@
 			<Button onAction="#showProfile" text="%profile" />
 			<Button text="%account" />
 			<Button fx:id="backButton" onAction="#backToMain" text="%back" />
-			<ComboBox fx:id="languageBox" />
 		</VBox>
 	</left>
 
@@ -30,20 +29,20 @@
 				</padding>
 				<Label text="%profileSettings" fx:id="headlineProfileSettings" />
 				<HBox spacing="10">
-
 					<ImageView fx:id="profileImageView" fitHeight="100" fitWidth="100" onMouseClicked="#browseImage" />
 				</HBox>
 
 				<HBox spacing="10">
 					<Label text="%username" />
 					<TextField fx:id="usernameField" editable="false" styleClass="text-field-primary" />
-
+				</HBox>
+				<HBox>
+					<ComboBox fx:id="languageBox" />
 				</HBox>
 
 				<HBox spacing="10">
 					<Button onAction="#saveSettings" text="%save" />
 					<Button onAction="#cancelSettings" text="%cancel" />
-
 				</HBox>
 			</VBox>
 		</StackPane>

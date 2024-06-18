@@ -6,8 +6,10 @@ import io.github.chitchat.client.view.routing.Router;
 import jakarta.inject.Inject;
 import java.io.File;
 import java.io.IOException;
+import java.util.Locale;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -23,11 +25,13 @@ import lombok.extern.log4j.Log4j2;
 public class SettingsController {
     @Inject private UserContext userContext;
     @Inject private Router router;
+
     @FXML private Label headlineSettings;
     @FXML private TextField usernameField;
     @FXML private TextField statusField;
     @FXML private TextField imagePathField;
     @FXML private Button changeUsername;
+    @FXML private ComboBox<Locale> languageBox;
 
     @FXML private ImageView profileImageView;
     @FXML private Circle profileCircle;
