@@ -1,128 +1,153 @@
 package io.github.chitchat.server.auth;
 
+import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.benmanes.caffeine.cache.LoadingCache;
 import io.github.chitchat.common.storage.database.DbUtil;
 import io.github.chitchat.common.storage.database.models.inner.PermissionType;
 import io.github.chitchat.common.storage.database.models.inner.UserType;
+import io.github.chitchat.common.storage.database.service.exceptions.DuplicateItemException;
+import io.github.chitchat.server.auth.exceptions.AuthenticationFailedException;
+import io.github.chitchat.server.auth.exceptions.TemporarilyBlockedException;
 import io.github.chitchat.server.database.models.ServerUser;
 import io.github.chitchat.server.database.models.ServerUserSession;
 import io.github.chitchat.server.database.service.ServerUserService;
+import io.github.chitchat.server.database.service.ServerUserSessionService;
+import java.security.SecureRandom;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.Optional;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import java.util.*;
+import lombok.extern.log4j.Log4j2;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 
+@Log4j2
 public class Authentication {
-    private static final Logger log = LogManager.getLogger(Authentication.class);
-    private static Argon2PasswordEncoder encoder = new Argon2PasswordEncoder(16, 32, 1, 60000, 10);
-    private final ServerUserService sus;
-    private ArrayList<Optional<ServerUser>> list_badUser = new ArrayList<>();
+    private static final int TOKEN_LENGTH = 256;
+    private static final int FAILED_ATTEMPTS_THRESHOLD = 3;
+    private static final Duration BLOCK_DURATION = Duration.ofMinutes(5);
 
-    // #################################################################################################################
-    public Authentication(ServerUserService sus) {
-        this.sus = sus;
-    }
-    // #################################################################################################################
+    private static final ThreadLocal<SecureRandom> RANDOM =
+            ThreadLocal.withInitial(SecureRandom::new);
+    private static final EnumSet<PermissionType> DEFAULT_PERMISSIONS =
+            EnumSet.of(
+                    PermissionType.DELETE_MESSAGE,
+                    PermissionType.EDIT_MESSAGE,
+                    PermissionType.SEND_MESSAGE);
 
-    // SIGN UP
-    // -----------------------------------------------------------------------------------------------------------------
+    private final Argon2PasswordEncoder encoder;
+    private final ServerUserService serverUserService;
+    private final ServerUserSessionService serverUserSessionService;
 
+    private final LoadingCache<ServerUser, Integer> temporarilyBlockedUsers;
 
-    public @Nullable ServerUser getSignUp(
-            @NotNull String username,
-            @NotNull String useremail,
-            @NotNull String password,
-            @NotNull String rePassword) {
-        if (!(password.matches(rePassword))) {
-            log.trace("Password is not matching, retype password...");
-            return null;
-        }
+    public Authentication(
+            ServerUserService serverUserService,
+            ServerUserSessionService serverUserSessionService) {
+        this.serverUserService = serverUserService;
+        this.serverUserSessionService = serverUserSessionService;
+        this.encoder = Argon2PasswordEncoder.defaultsForSpringSecurity_v5_8();
 
-        if (sus.getByName(username).isPresent() || sus.getByEmail(useremail).isPresent()) {
-            log.trace("User already exists");
-            return null;
-        }
-
-        String springBouncyHash = encoder.encode(password);
-        return new ServerUser(
-                DbUtil.newId(),
-                UserType.USER,
-                EnumSet.of(
-                        PermissionType.DELETE_MESSAGE,
-                        PermissionType.EDIT_MESSAGE,
-                        PermissionType.SEND_MESSAGE),
-                username,
-                useremail,
-                springBouncyHash,
-                Instant.now());
+        this.temporarilyBlockedUsers =
+                Caffeine.newBuilder().expireAfterWrite(Duration.ofMinutes(5)).build(_ -> 0);
     }
 
-    // SIGN IN
-    // -----------------------------------------------------------------------------------------------------------------
-    public @Nullable ServerUserSession getSignIn(
-            @NotNull String username, @NotNull String useremail, @NotNull String password) {
-        int failedAttempts = 0;
-        final int MAX_ATTEMPTS = 3;
-        final int DELAY_SECONDS = 10; // against dos
-        boolean loginSuccess = false;
-
-        do {
-            if (validateCredentials_ByName(username, password)
-                    || validateCredentials_ByEmail(useremail, password)) {
-                loginSuccess = true;
-            } else {
-                failedAttempts++;
-
-                if (failedAttempts >= MAX_ATTEMPTS) // checks amount of failed attempts
-                {
-                    badUserTreatment(sus.getByName(username));
-                } else {
-                    log.trace("The username or password is incorrect! Please try this again.");
-                }
-            }
-        } while (!loginSuccess);
-
-        if (sus.getByName(username).isEmpty()) {
-            return null;
+    public ServerUser registerUser(String name, String email, String password)
+            throws DuplicateItemException {
+        if (serverUserService.getByName(name).isPresent()) {
+            log.trace("User with name: {} already exists", name);
+            throw new DuplicateItemException("User with name: " + name + " already exists");
+        }
+        if (serverUserService.getByEmail(email).isPresent()) {
+            log.trace("User with email: {} already exists", email);
+            throw new DuplicateItemException("User with email: " + email + " already exists");
         }
 
-        return new ServerUserSession(
-                sus.getByName(username).get().getId(),
-                DbUtil.newId().toString(),
-                Instant.now().plus(Duration.ofDays(1)));
+        var user =
+                new ServerUser(
+                        DbUtil.newId(),
+                        UserType.USER,
+                        DEFAULT_PERMISSIONS,
+                        name,
+                        email,
+                        encoder.encode(password),
+                        Instant.now());
+        serverUserService.create(user);
+        return user;
     }
 
-    // #################################################################################################################
-
-    private boolean validateCredentials_ByName(String username, String password) {
-        Optional<ServerUser> user = sus.getByName(username);
-
+    public ServerUserSession createSessionWithName(
+            @NotNull String name, @NotNull String email, @NotNull String password)
+            throws DuplicateItemException,
+                    TemporarilyBlockedException,
+                    AuthenticationFailedException {
+        var user = serverUserService.getByName(name);
         if (user.isEmpty()) {
-            log.trace("User by username: {} does not exist", username);
-            return false;
+            log.trace("User with name: {} does not exist", name);
+            throw new NullPointerException("User with name: " + name + " does not exist");
         }
 
-        return encoder.matches(password, user.get().getPassword());
+        return createSession(user.get(), password);
     }
 
-    private boolean validateCredentials_ByEmail(String email, String password) {
-        Optional<ServerUser> user = sus.getByEmail(email);
-
+    public ServerUserSession createSessionWithEmail(@NotNull String email, @NotNull String password)
+            throws DuplicateItemException,
+                    TemporarilyBlockedException,
+                    AuthenticationFailedException {
+        var user = serverUserService.getByEmail(email);
         if (user.isEmpty()) {
-            log.trace("User by email: {} does not exist", email);
-            return false;
+            log.trace("User with email: {} does not exist", email);
+            throw new NullPointerException("User with email: " + email + " does not exist");
         }
 
-        return encoder.matches(password, user.get().getPassword());
+        return createSession(user.get(), password);
     }
 
-    private void badUserTreatment(Optional<ServerUser> user) {
-        user.get().getPermission().clear();
-        list_badUser.add(user);
+    public ServerUserSession createSessionWithId(@NotNull UUID id, @NotNull String password)
+            throws DuplicateItemException,
+                    TemporarilyBlockedException,
+                    AuthenticationFailedException {
+        var user = serverUserService.get(id);
+        if (user.isEmpty()) {
+            log.trace("User with id: {} does not exist", id);
+            throw new NullPointerException("User with id: " + id + " does not exist");
+        }
+
+        return createSession(user.get(), password);
+    }
+
+    public @Nullable ServerUserSession createSession(
+            @NotNull ServerUser user, @NotNull String password)
+            throws DuplicateItemException,
+                    TemporarilyBlockedException,
+                    AuthenticationFailedException {
+        var currentUserBlockedCount = temporarilyBlockedUsers.get(user);
+        if (currentUserBlockedCount >= FAILED_ATTEMPTS_THRESHOLD) {
+            log.trace("User with id: {} has been previously temporarily blocked", user.getId());
+            throw new TemporarilyBlockedException("User has been previously temporarily blocked");
+        }
+
+        if (!encoder.matches(password, user.getPassword())) {
+            log.trace("User with id: {} failed to authenticate", user.getId());
+            temporarilyBlockedUsers.put(user, currentUserBlockedCount + 1);
+            throw new AuthenticationFailedException("Invalid password");
+        }
+
+        return createSession(user);
+    }
+
+    private @NotNull ServerUserSession createSession(@NotNull ServerUser user)
+            throws DuplicateItemException {
+        // Fill a byte array with random bytes
+        var randBytes = new byte[TOKEN_LENGTH];
+        RANDOM.get().nextBytes(randBytes);
+
+        // Encode the random bytes to a base64 string
+        var token = Base64.getEncoder().encodeToString(randBytes);
+        var session =
+                new ServerUserSession(user.getId(), token, Instant.now().plus(BLOCK_DURATION));
+
+        serverUserSessionService.create(session);
+        return session;
     }
 }
