@@ -60,7 +60,6 @@ public class Authentication {
                 useremail,
                 springBouncyHash,
                 Instant.now());
-        ;
     }
 
     // SIGN IN
