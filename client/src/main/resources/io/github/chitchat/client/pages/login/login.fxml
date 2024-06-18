@@ -45,8 +45,8 @@
 				<FontIcon iconLiteral="fth-eye" />
 			</right>
 		</ChitPasswordField>
-		<Button fx:id="buttonLogin" alignment="CENTER" mnemonicParsing="false" onAction="#login" prefHeight="60.0" prefWidth="500.0" styleClass="button-primary" text="%loginAction"
-			textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+		<Button fx:id="buttonLogin" alignment="CENTER" mnemonicParsing="false" onAction="#login" prefHeight="60.0" prefWidth="500.0" styleClass="button-primary"
+			text="%loginAction" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
 	</GridPane>
 
 	<Hyperlink id="createAccount" GridPane.rowIndex="3" GridPane.halignment="CENTER" text="%callToRegister" onAction="#register">

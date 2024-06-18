@@ -3,7 +3,6 @@ package io.github.chitchat.client.config;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Locale;
-
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -47,6 +46,4 @@ public class SettingsData implements Serializable {
         this.setAlwaysOnTop(stage.isAlwaysOnTop());
         this.setFullscreen(stage.isFullScreen());
     }
-
-
 }

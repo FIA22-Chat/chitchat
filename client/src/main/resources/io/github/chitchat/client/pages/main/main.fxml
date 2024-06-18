@@ -30,7 +30,7 @@
 			</rowConstraints>
 
 			<ImageView fx:id="selectedGroupImage" fitHeight="40" fitWidth="40" GridPane.columnIndex="0" GridPane.rowSpan="2" />
-			<Label fx:id="selectedGroupName"  GridPane.columnIndex="1" />
+			<Label fx:id="selectedGroupName" GridPane.columnIndex="1" />
 			<Label fx:id="selectedGroupLastOnline" text="%lastOnline" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 		</GridPane>
 

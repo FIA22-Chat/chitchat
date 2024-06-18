@@ -14,11 +14,11 @@
 			<padding>
 				<Insets bottom="10" left="10" right="10" top="10" />
 			</padding>
-            <Label fx:id="headlineSettings" text="%settings" />
-            <Button onAction="#showProfile" text="%profile" />
+			<Label fx:id="headlineSettings" text="%settings" />
+			<Button onAction="#showProfile" text="%profile" />
 			<Button text="%account" />
 			<Button fx:id="backButton" onAction="#backToMain" text="%back" />
-			<ComboBox fx:id="languageBox"/>
+			<ComboBox fx:id="languageBox" />
 		</VBox>
 	</left>
 

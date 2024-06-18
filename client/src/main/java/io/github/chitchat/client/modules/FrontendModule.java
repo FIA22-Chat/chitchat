@@ -11,8 +11,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Locale;
-
 public class FrontendModule extends AbstractModule {
     private final Stage primaryStage;
 
@@ -37,7 +35,10 @@ public class FrontendModule extends AbstractModule {
 
     @Provides
     @Singleton
-    public Router provideRouter(FXMLLoader loader, @Named("PrimaryStage") Stage stage, SettingsContext settingsContext) {
+    public Router provideRouter(
+            FXMLLoader loader,
+            @Named("PrimaryStage") Stage stage,
+            SettingsContext settingsContext) {
         return new Router(loader, stage, settingsContext);
     }
 }

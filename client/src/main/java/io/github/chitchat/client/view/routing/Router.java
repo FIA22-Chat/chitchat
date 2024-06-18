@@ -1,10 +1,9 @@
 package io.github.chitchat.client.view.routing;
 
 import io.github.chitchat.client.App;
+import io.github.chitchat.client.config.SettingsContext;
 import java.util.HashMap;
 import java.util.ResourceBundle;
-
-import io.github.chitchat.client.config.SettingsContext;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -82,7 +81,10 @@ public class Router {
                         log.trace("Cache miss on page: {}", k);
                         fxmlLoader.setLocation(App.class.getResource(k.getPath()));
                         log.warn(settingsContext.getLocale());
-                        fxmlLoader.setResources(ResourceBundle.getBundle("io/github/chitchat/client/bundles/language", settingsContext.getLocale()));
+                        fxmlLoader.setResources(
+                                ResourceBundle.getBundle(
+                                        "io/github/chitchat/client/bundles/language",
+                                        settingsContext.getLocale()));
 
                         fxmlLoader.setRoot(null);
                         fxmlLoader.setController(null);
