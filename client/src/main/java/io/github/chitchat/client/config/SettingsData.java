@@ -26,7 +26,7 @@ public class SettingsData implements Serializable {
     private boolean isAlwaysOnTop;
     private boolean isFullscreen;
 
-    private Locale lang = Locale.getDefault();
+    private Locale locale = Locale.getDefault();
 
     public void applyStageSettings(@NotNull Stage stage) {
         stage.setX(this.getStageX());

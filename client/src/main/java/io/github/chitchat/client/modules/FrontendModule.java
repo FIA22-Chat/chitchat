@@ -5,10 +5,13 @@ import com.google.inject.Injector;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
+import io.github.chitchat.client.config.SettingsContext;
 import io.github.chitchat.client.view.routing.Router;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Locale;
 
 public class FrontendModule extends AbstractModule {
     private final Stage primaryStage;
@@ -34,7 +37,7 @@ public class FrontendModule extends AbstractModule {
 
     @Provides
     @Singleton
-    public Router provideRouter(FXMLLoader loader, @Named("PrimaryStage") Stage stage) {
-        return new Router(loader, stage);
+    public Router provideRouter(FXMLLoader loader, @Named("PrimaryStage") Stage stage, SettingsContext settingsContext) {
+        return new Router(loader, stage, settingsContext);
     }
 }

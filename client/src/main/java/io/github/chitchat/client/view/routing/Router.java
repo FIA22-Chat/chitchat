@@ -2,6 +2,9 @@ package io.github.chitchat.client.view.routing;
 
 import io.github.chitchat.client.App;
 import java.util.HashMap;
+import java.util.ResourceBundle;
+
+import io.github.chitchat.client.config.SettingsContext;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,15 +24,18 @@ public class Router {
     private final Stage primaryStage;
     @Getter private Page currentPage;
 
+    private final SettingsContext settingsContext;
+
     /**
      * Constructs a new Router with the specified FXML loader, primary stage.
      *
      * @param fxmlLoader the FXML loader
      * @param primaryStage the primary stage
      */
-    public Router(FXMLLoader fxmlLoader, Stage primaryStage) {
+    public Router(FXMLLoader fxmlLoader, Stage primaryStage, SettingsContext settingsContext) {
         this.fxmlLoader = fxmlLoader;
         this.primaryStage = primaryStage;
+        this.settingsContext = settingsContext;
     }
 
     /**
@@ -75,6 +81,8 @@ public class Router {
                     try {
                         log.trace("Cache miss on page: {}", k);
                         fxmlLoader.setLocation(App.class.getResource(k.getPath()));
+                        log.warn(settingsContext.getLocale());
+                        fxmlLoader.setResources(ResourceBundle.getBundle("io/github/chitchat/client/bundles/language", settingsContext.getLocale()));
 
                         fxmlLoader.setRoot(null);
                         fxmlLoader.setController(null);
