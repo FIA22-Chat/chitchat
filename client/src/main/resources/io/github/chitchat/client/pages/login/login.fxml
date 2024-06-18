@@ -10,7 +10,7 @@
 <?import java.net.URL?>
 <?import javafx.scene.image.ImageView?>
 <GridPane xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" vgap="25.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
-		  fx:controller="io.github.chitchat.client.view.pages.login.LoginController"
+	fx:controller="io.github.chitchat.client.view.pages.login.LoginController"
 >
 	<columnConstraints>
 		<ColumnConstraints />
@@ -36,7 +36,7 @@
 			<RowConstraints />
 		</rowConstraints>
 
-		<ImageView fx:id="profileImageView" fitHeight="100" fitWidth="100" GridPane.halignment="CENTER" GridPane.rowIndex="0"/>
+		<ImageView fx:id="profileImageView" fitHeight="100" fitWidth="100" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
 
 		<ChitTextField fx:id="textFieldUser" prefHeight="60.0" prefWidth="500.0" promptText="Username" styleClass="text-field-primary" GridPane.rowIndex="1">
 			<left>
