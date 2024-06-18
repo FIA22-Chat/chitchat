@@ -21,17 +21,17 @@ public class Authentication {
     private static final Logger log = LogManager.getLogger(Authentication.class);
     private static Argon2PasswordEncoder encoder = new Argon2PasswordEncoder(16, 32, 1, 60000, 10);
     private final ServerUserService sus;
-    private ArrayList<Optional<ServerUser>> list_badUser = new ArrayList<Optional<ServerUser>>();
+    private ArrayList<Optional<ServerUser>> list_badUser = new ArrayList<>();
 
-    // ##################################################################################################################
-
+    // #################################################################################################################
     public Authentication(ServerUserService sus) {
         this.sus = sus;
     }
+    // #################################################################################################################
 
     // SIGN UP
-    // ---------------------------------------------------------------------------------------------------------
-    // ##################################################################################################################
+    // -----------------------------------------------------------------------------------------------------------------
+
 
     public @Nullable ServerUser getSignUp(
             @NotNull String username,
@@ -63,7 +63,7 @@ public class Authentication {
     }
 
     // SIGN IN
-    // ---------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------------
     public @Nullable ServerUserSession getSignIn(
             @NotNull String username, @NotNull String useremail, @NotNull String password) {
         int failedAttempts = 0;
@@ -97,7 +97,7 @@ public class Authentication {
                 Instant.now().plus(Duration.ofDays(1)));
     }
 
-    // ##################################################################################################################
+    // #################################################################################################################
 
     private boolean validateCredentials_ByName(String username, String password) {
         Optional<ServerUser> user = sus.getByName(username);
