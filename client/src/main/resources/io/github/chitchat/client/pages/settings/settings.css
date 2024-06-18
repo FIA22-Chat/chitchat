@@ -46,7 +46,41 @@
 #contentArea .button:hover {
     -fx-background-color: -color-outline3;
 }
-#headlineSettings{
+
+#headlineSettings {
     -fx-font-size: 18px;
     -fx-font-weight: bold;
+}
+
+#headlineProfileSettings {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+#languageBox {
+    -fx-background-color: -color-background2;
+    -fx-border-color: -color-outline3;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: -color-text1;
+}
+
+#languageBox .list-view .list-cell {
+    -fx-text-fill: -color-text1;
+    -fx-background-color: -color-background2;
+    -fx-border-color: -color-outline1;
+}
+
+#languageBox .list-view .list-cell:hover {
+    -fx-background-color: -color-background1;
+}
+
+#languageBox .scroll-bar,
+.scroll-bar vertical {
+    -fx-background-color: null;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-shape: null;
 }

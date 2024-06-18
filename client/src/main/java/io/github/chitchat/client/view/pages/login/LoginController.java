@@ -1,7 +1,7 @@
 package io.github.chitchat.client.view.pages.login;
 
 import com.google.inject.Inject;
-import io.github.chitchat.client.config.Settings;
+import io.github.chitchat.client.config.UserContext;
 import io.github.chitchat.client.view.components.ChitPasswordField;
 import io.github.chitchat.client.view.components.ChitTextField;
 import io.github.chitchat.client.view.routing.Page;
@@ -18,7 +18,7 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @NoArgsConstructor
 public class LoginController implements Initializable {
-    @Inject private Settings settings;
+    @Inject private UserContext userContext;
     @Inject private Router router;
 
     @FXML private ChitTextField textFieldUser;
@@ -30,7 +30,7 @@ public class LoginController implements Initializable {
         Platform.runLater(
                 () -> {
                     textFieldUser.requestFocus();
-                    textFieldUser.setText(settings.getUsername());
+                    textFieldUser.setText(userContext.getUsername());
                 });
 
         // Require non-empty username and password
@@ -53,7 +53,7 @@ public class LoginController implements Initializable {
     private void login() {
         log.info("Logging in as {}", textFieldUser.getText());
 
-        settings.setUsername(textFieldUser.getText());
+        userContext.setUsername(textFieldUser.getText());
         router.navigateTo(Page.MAIN);
     }
 

@@ -4,7 +4,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
-<fx:root alignment="CENTER_LEFT" hgap="5" type="javafx.scene.layout.GridPane" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER_LEFT" hgap="5" type="javafx.scene.layout.GridPane" xmlns="http://javafx.com/javafx/17.0.2-ea">
 	<columnConstraints>
 		<ColumnConstraints />
 		<ColumnConstraints />
