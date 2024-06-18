@@ -63,6 +63,8 @@ public class App extends Application {
         settingsContext.storeStageSettings(stage);
         settingsContext.save();
         userContext.save();
+
+        System.exit(0);
     }
 
     private Image @NotNull [] getIcons() {

@@ -17,6 +17,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.example.WebRtcCallController;
 
 @Log4j2
 @NoArgsConstructor
@@ -79,6 +80,15 @@ public class MainController implements Initializable {
 
         messageList.scrollTo(box);
         inputArea.clear();
+    }
+
+    @FXML
+    private void onVideoCallButtonClick() {
+        try {
+            WebRtcCallController.call(1, "test");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML

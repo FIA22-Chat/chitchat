@@ -12,6 +12,8 @@
         <module>client</module>
         <module>common</module>
         <module>server</module>
+        <module>webrtc-client</module>
+        <module>webrtc-server</module>
     </modules>
 
     <properties>
@@ -25,6 +27,11 @@
             <dependency>
                 <groupId>io.github.chitchat</groupId>
                 <artifactId>common</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.okaml</groupId>
+                <artifactId>webrtc-client</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
             <dependency>

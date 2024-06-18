@@ -36,6 +36,10 @@
             <artifactId>common</artifactId>
         </dependency>
         <dependency>
+            <groupId>io.github.okaml</groupId>
+            <artifactId>webrtc-client</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <version>22.0.1</version>
