@@ -80,7 +80,6 @@ public class Router {
                     try {
                         log.trace("Cache miss on page: {}", k);
                         fxmlLoader.setLocation(App.class.getResource(k.getPath()));
-                        log.warn(settingsContext.getLocale());
                         fxmlLoader.setResources(
                                 ResourceBundle.getBundle(
                                         "io/github/chitchat/client/bundles/language",
