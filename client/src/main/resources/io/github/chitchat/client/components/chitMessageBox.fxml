@@ -5,7 +5,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
-<fx:root type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root xmlns:fx="http://javafx.com/fxml/1" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/17.0.2-ea">
 	<GridPane fx:id="grid" hgap="5.0" VBox.vgrow="NEVER">
 		<padding>
 			<Insets bottom="5" left="5" right="5" top="5" />

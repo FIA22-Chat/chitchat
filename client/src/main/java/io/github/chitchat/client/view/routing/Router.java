@@ -1,7 +1,9 @@
 package io.github.chitchat.client.view.routing;
 
 import io.github.chitchat.client.App;
+import io.github.chitchat.client.config.SettingsContext;
 import java.util.HashMap;
+import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,15 +23,18 @@ public class Router {
     private final Stage primaryStage;
     @Getter private Page currentPage;
 
+    private final SettingsContext settingsContext;
+
     /**
      * Constructs a new Router with the specified FXML loader, primary stage.
      *
      * @param fxmlLoader the FXML loader
      * @param primaryStage the primary stage
      */
-    public Router(FXMLLoader fxmlLoader, Stage primaryStage) {
+    public Router(FXMLLoader fxmlLoader, Stage primaryStage, SettingsContext settingsContext) {
         this.fxmlLoader = fxmlLoader;
         this.primaryStage = primaryStage;
+        this.settingsContext = settingsContext;
     }
 
     /**
@@ -68,6 +73,24 @@ public class Router {
         stage.show();
     }
 
+    /** Clears the cache of all pages. */
+    public void clearCache() {
+        log.trace("Clearing cache for all pages...");
+        pagesCache.clear();
+    }
+
+    /** Clears the cache for the specified page. */
+    public void clearCache(Page page) {
+        log.trace("Clearing cache for page: {}", page);
+        pagesCache.remove(page);
+    }
+
+    /** Re-renders the current page. */
+    public void reRenderCurrentPage() {
+        pagesCache.remove(currentPage);
+        navigateTo(currentPage);
+    }
+
     private synchronized Parent loadPage(Page page) {
         return pagesCache.computeIfAbsent(
                 page,
@@ -75,8 +98,13 @@ public class Router {
                     try {
                         log.trace("Cache miss on page: {}", k);
                         fxmlLoader.setLocation(App.class.getResource(k.getPath()));
+                        fxmlLoader.setResources(
+                                ResourceBundle.getBundle(
+                                        "io/github/chitchat/client/bundles/language",
+                                        settingsContext.getLocale()));
 
-                        // This is a foolish way to do this, but it works
+                        // Due to the FXMLLoader being shared, we need to reset the root and
+                        // controller
                         fxmlLoader.setRoot(null);
                         fxmlLoader.setController(null);
                         return fxmlLoader.load();

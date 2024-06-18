@@ -2,10 +2,10 @@
 
 #messageContentWrapper {
     -fx-background-color: -color-outline3;
-    
+
     -fx-background-radius: 10px;
     -fx-border-radius: 10px;
-    
+
     -fx-padding: 10px;
 }
 
@@ -19,6 +19,6 @@
 }
 
 #messageContent {
-    -fx-text-fill: -color-text1;    
+    -fx-text-fill: -color-text1;
     -fx-font-size: 18px;
 }
