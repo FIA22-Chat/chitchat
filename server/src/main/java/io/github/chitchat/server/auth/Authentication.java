@@ -2,6 +2,8 @@ package io.github.chitchat.server.auth;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;
+import de.mkammerer.argon2.Argon2;
+import de.mkammerer.argon2.Argon2Factory;
 import io.github.chitchat.common.storage.database.DbUtil;
 import io.github.chitchat.common.storage.database.models.inner.PermissionType;
 import io.github.chitchat.common.storage.database.models.inner.UserType;
@@ -19,10 +21,13 @@ import java.util.*;
 import lombok.extern.log4j.Log4j2;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 
 @Log4j2
 public class Authentication {
+    private static final int ITERATIONS = 10;
+    private static final int MEMORY = 65536;
+    private static final int PARALLELISM = 1;
+
     private static final int TOKEN_LENGTH = 256;
     private static final int FAILED_ATTEMPTS_THRESHOLD = 3;
     private static final Duration BLOCK_DURATION = Duration.ofMinutes(5);
@@ -35,7 +40,7 @@ public class Authentication {
                     PermissionType.EDIT_MESSAGE,
                     PermissionType.SEND_MESSAGE);
 
-    private final Argon2PasswordEncoder encoder;
+    private final Argon2 encoder;
     private final ServerUserService serverUserService;
     private final ServerUserSessionService serverUserSessionService;
 
@@ -46,7 +51,7 @@ public class Authentication {
             ServerUserSessionService serverUserSessionService) {
         this.serverUserService = serverUserService;
         this.serverUserSessionService = serverUserSessionService;
-        this.encoder = Argon2PasswordEncoder.defaultsForSpringSecurity_v5_8();
+        this.encoder = Argon2Factory.create();
 
         this.temporarilyBlockedUsers =
                 Caffeine.newBuilder().expireAfterWrite(Duration.ofMinutes(5)).build(_ -> 0);
@@ -70,8 +75,9 @@ public class Authentication {
                         DEFAULT_PERMISSIONS,
                         name,
                         email,
-                        encoder.encode(password),
+                        encoder.hash(ITERATIONS, MEMORY, PARALLELISM, password.getBytes()),
                         Instant.now());
+
         serverUserService.create(user);
         return user;
     }
@@ -127,7 +133,7 @@ public class Authentication {
             throw new TemporarilyBlockedException("User has been previously temporarily blocked");
         }
 
-        if (!encoder.matches(password, user.getPassword())) {
+        if (!encoder.verify(user.getPassword(), password.getBytes())) {
             log.trace("User with id: {} failed to authenticate", user.getId());
             temporarilyBlockedUsers.put(user, currentUserBlockedCount + 1);
             throw new AuthenticationFailedException("Invalid password");
