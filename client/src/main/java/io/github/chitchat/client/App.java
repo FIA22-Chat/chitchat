@@ -38,9 +38,9 @@ public class App extends Application {
         var injector =
                 Guice.createInjector(
                         new AppModule(APP_NAME),
-                        new FrontendModule(stage),
                         new SettingsModule(),
-                        new UserModule());
+                        new UserModule(),
+                        new FrontendModule(stage));
         this.stage = stage;
         this.settingsContext = injector.getInstance(SettingsContext.class);
         this.userContext = injector.getInstance(UserContext.class);
