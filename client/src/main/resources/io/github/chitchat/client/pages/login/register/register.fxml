@@ -35,12 +35,12 @@
 			<RowConstraints />
 		</rowConstraints>
 
-		<ChitTextField fx:id="textFieldUser" prefHeight="60.0" prefWidth="500.0" promptText="Username" styleClass="text-field-primary" GridPane.rowIndex="0">
+		<ChitTextField fx:id="textFieldUser" prefHeight="60.0" prefWidth="500.0" promptText="%username" styleClass="text-field-primary" GridPane.rowIndex="0">
 			<left>
 				<FontIcon iconLiteral="fth-user" />
 			</left>
 		</ChitTextField>
-		<ChitPasswordField fx:id="textFieldPassword" prefHeight="60.0" prefWidth="500.0" promptText="Password" styleClass="text-field-primary" GridPane.rowIndex="1">
+		<ChitPasswordField fx:id="textFieldPassword" prefHeight="60.0" prefWidth="500.0" promptText="%password" styleClass="text-field-primary" GridPane.rowIndex="1">
 			<left>
 				<FontIcon iconLiteral="fth-lock" />
 			</left>
@@ -62,7 +62,7 @@
 			text="%registerAction" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
 	</GridPane>
 
-	<Hyperlink id="returnToLogin" GridPane.rowIndex="3" GridPane.halignment="CENTER" text="Return to Login" onAction="#back">
+	<Hyperlink id="returnToLogin" GridPane.rowIndex="3" GridPane.halignment="CENTER" text="%returnToLoginAction" onAction="#back">
 		<graphic>
 			<FontIcon iconLiteral="fth-arrow-left" />
 		</graphic>

@@ -32,12 +32,12 @@
 			<RowConstraints />
 		</rowConstraints>
 
-		<ChitTextField fx:id="textFieldUser" prefHeight="60.0" prefWidth="500.0" promptText="Username" styleClass="text-field-primary" GridPane.rowIndex="0">
+		<ChitTextField fx:id="textFieldUser" prefHeight="60.0" prefWidth="500.0" promptText="%username" styleClass="text-field-primary" GridPane.rowIndex="0">
 			<left>
 				<FontIcon iconLiteral="fth-user" />
 			</left>
 		</ChitTextField>
-		<ChitPasswordField fx:id="textFieldPassword" prefHeight="60.0" prefWidth="500.0" promptText="Password" styleClass="text-field-primary" GridPane.rowIndex="1">
+		<ChitPasswordField fx:id="textFieldPassword" prefHeight="60.0" prefWidth="500.0" promptText="%password" styleClass="text-field-primary" GridPane.rowIndex="1">
 			<left>
 				<FontIcon iconLiteral="fth-lock" />
 			</left>
