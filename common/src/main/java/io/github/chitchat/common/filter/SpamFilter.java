@@ -25,7 +25,6 @@ public class SpamFilter {
      */
     public boolean isSpamming(User user) {
         int currentCount = rateLimitCache.get(user, _ -> 0);
-
         if (currentCount >= MAX_REQUESTS_USER) {
             log.trace("User {} is spamming", user);
             return true;
