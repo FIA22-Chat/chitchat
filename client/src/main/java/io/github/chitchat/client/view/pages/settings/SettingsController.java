@@ -51,11 +51,11 @@ public class SettingsController {
         profileImageView.setImage(new Image("io/github/chitchat/client/assets/logo/logo-256x.png"));
         usernameField.setText(userContext.getUsername());
 
-        setupLocalComboBox(languageBox);
+        setupLanguageComboBox(languageBox);
     }
 
-    private void setupLocalComboBox(@NotNull ComboBox<Locale> languageBox) {
-        languageBox.getSelectionModel().select(settingsContext.getLocale());
+    private void setupLanguageComboBox(@NotNull ComboBox<Locale> languageBox) {
+        // Setup display functionality for the language box
         languageBox.setConverter(
                 new StringConverter<>() {
 
@@ -78,10 +78,12 @@ public class SettingsController {
                                 if (item == null || empty) {
                                     setGraphic(null);
                                 } else {
-                                    setText(item.getDisplayLanguage() + " - " + item.getLanguage());
+                                    setText(item.getDisplayLanguage(settingsContext.getLocale()));
                                 }
                             }
                         });
+
+        // Add all available languages to the language box
         languageBox
                 .getItems()
                 .addAll(
@@ -89,10 +91,22 @@ public class SettingsController {
                                 .map(Locale::forLanguageTag)
                                 .sorted(Comparator.comparing(Locale::getDisplayLanguage))
                                 .toList());
+        // Select the current language
+        languageBox.getSelectionModel().select(settingsContext.getLocale());
     }
 
     @FXML
-    private void saveSettings() {}
+    private void saveSettings() {
+        userContext.setUsername(usernameField.getText());
+        settingsContext.save();
+
+        // Re-render if a language change occurred
+        if (!settingsContext.getLocale().equals(languageBox.getValue())) {
+            settingsContext.setLocale(languageBox.getValue());
+            router.clearCache();
+            router.reRenderCurrentPage();
+        }
+    }
 
     @FXML
     private void cancelSettings() {}
@@ -123,7 +137,4 @@ public class SettingsController {
     public void backToMain() {
         router.navigateTo(Page.MAIN);
     }
-
-    @FXML
-    private void changeLanguage() {}
 }

@@ -73,6 +73,24 @@ public class Router {
         stage.show();
     }
 
+    /** Clears the cache of all pages. */
+    public void clearCache() {
+        log.trace("Clearing cache for all pages...");
+        pagesCache.clear();
+    }
+
+    /** Clears the cache for the specified page. */
+    public void clearCache(Page page) {
+        log.trace("Clearing cache for page: {}", page);
+        pagesCache.remove(page);
+    }
+
+    /** Re-renders the current page. */
+    public void reRenderCurrentPage() {
+        pagesCache.remove(currentPage);
+        navigateTo(currentPage);
+    }
+
     private synchronized Parent loadPage(Page page) {
         return pagesCache.computeIfAbsent(
                 page,
@@ -85,6 +103,8 @@ public class Router {
                                         "io/github/chitchat/client/bundles/language",
                                         settingsContext.getLocale()));
 
+                        // Due to the FXMLLoader being shared, we need to reset the root and
+                        // controller
                         fxmlLoader.setRoot(null);
                         fxmlLoader.setController(null);
                         return fxmlLoader.load();
