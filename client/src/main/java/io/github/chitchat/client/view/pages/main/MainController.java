@@ -17,6 +17,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.example.WebRtcCallController;
 
 @Log4j2
 @NoArgsConstructor
@@ -40,15 +41,21 @@ public class MainController implements Initializable {
         groupList.setCellFactory(_ -> new ChitGroupCell());
         messageList.setCellFactory(_ -> new ChitMessageBoxCell());
 
+        // temp example data
         selectedGroupImage.setImage(
                 new Image("/io/github/chitchat/client/assets/logo/logo-60x.png"));
         groupList
                 .getItems()
                 .addAll(
                         new ChitGroup(
-                                "aaaa",
-                                "aaaa",
+                                "group1",
+                                "msg1",
+                                "/io/github/chitchat/client/assets/logo/logo-256x.png"),
+                        new ChitGroup(
+                                "group2",
+                                "msg2",
                                 "/io/github/chitchat/client/assets/logo/logo-256x.png"));
+        messageList.getItems().addAll(new ChitMessageBox("User1", "Hallo Welt!", "/io/github/chitchat/client/assets/logo/logo-256x.png", Pos.BASELINE_LEFT), new ChitMessageBox("User1", "Hallo Welt!", Pos.BASELINE_LEFT));
 
         inputArea.setOnAction(_ -> sendMessage());
         sendButton.setOnAction(_ -> sendMessage());
@@ -79,6 +86,15 @@ public class MainController implements Initializable {
 
         messageList.scrollTo(box);
         inputArea.clear();
+    }
+
+    @FXML
+    private void onVideoCallButtonClick() {
+        try {
+            WebRtcCallController.call(1, "test");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML

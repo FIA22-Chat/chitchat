@@ -1,10 +1,12 @@
 package io.github.chitchat.client;
 
 import com.google.inject.Guice;
-import io.github.chitchat.client.config.Settings;
+import io.github.chitchat.client.config.SettingsContext;
+import io.github.chitchat.client.config.UserContext;
 import io.github.chitchat.client.modules.AppModule;
 import io.github.chitchat.client.modules.FrontendModule;
 import io.github.chitchat.client.modules.SettingsModule;
+import io.github.chitchat.client.modules.UserModule;
 import io.github.chitchat.client.view.routing.Page;
 import io.github.chitchat.client.view.routing.Router;
 import java.util.Objects;
@@ -20,7 +22,8 @@ public class App extends Application {
     private static final double STAGE_MIN_WIDTH = 300;
     private static final double STAGE_MIN_HEIGHT = 300;
 
-    private Settings settings;
+    private SettingsContext settingsContext;
+    private UserContext userContext;
     private Stage stage;
 
     public static void main(String[] args) {
@@ -30,18 +33,22 @@ public class App extends Application {
     }
 
     @Override
-    public void start(@NotNull Stage stage) throws InterruptedException {
+    public void start(@NotNull Stage stage) {
         log.info("Starting client GUI...");
         var injector =
                 Guice.createInjector(
-                        new AppModule(APP_NAME), new FrontendModule(stage), new SettingsModule());
+                        new AppModule(APP_NAME),
+                        new SettingsModule(),
+                        new UserModule(),
+                        new FrontendModule(stage));
         this.stage = stage;
-        this.settings = injector.getInstance(Settings.class);
+        this.settingsContext = injector.getInstance(SettingsContext.class);
+        this.userContext = injector.getInstance(UserContext.class);
 
         var router = injector.getInstance(Router.class);
         router.navigateTo(Page.LOGIN);
 
-        settings.applyStageSettings(stage);
+        settingsContext.applyStageSettings(stage);
         stage.setMinWidth(STAGE_MIN_WIDTH);
         stage.setMinHeight(STAGE_MIN_HEIGHT);
         stage.getIcons().addAll(getIcons());
@@ -53,8 +60,11 @@ public class App extends Application {
     public void stop() {
         log.info("Stopping client...");
 
-        settings.storeStageSettings(stage);
-        settings.save();
+        settingsContext.storeStageSettings(stage);
+        settingsContext.save();
+        userContext.save();
+
+        System.exit(0);
     }
 
     private Image @NotNull [] getIcons() {

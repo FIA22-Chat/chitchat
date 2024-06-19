@@ -72,7 +72,6 @@ include:
   - name: InconsistentResourceBundle
   - name: SuspiciousLocalesLanguages
   - name: TrailingSpacesInProperty
-  - name: UnusedProperty
   - name: ComparableImplementedButEqualsNotOverridden
   - name: EqualsAndHashcode
   - name: ArrayEquality
