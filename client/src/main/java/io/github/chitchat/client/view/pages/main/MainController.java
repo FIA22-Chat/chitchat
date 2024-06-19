@@ -41,15 +41,21 @@ public class MainController implements Initializable {
         groupList.setCellFactory(_ -> new ChitGroupCell());
         messageList.setCellFactory(_ -> new ChitMessageBoxCell());
 
+        // temp example data
         selectedGroupImage.setImage(
                 new Image("/io/github/chitchat/client/assets/logo/logo-60x.png"));
         groupList
                 .getItems()
                 .addAll(
                         new ChitGroup(
-                                "aaaa",
-                                "aaaa",
+                                "group1",
+                                "msg1",
+                                "/io/github/chitchat/client/assets/logo/logo-256x.png"),
+                        new ChitGroup(
+                                "group2",
+                                "msg2",
                                 "/io/github/chitchat/client/assets/logo/logo-256x.png"));
+        messageList.getItems().addAll(new ChitMessageBox("User1", "Hallo Welt!", "/io/github/chitchat/client/assets/logo/logo-256x.png", Pos.BASELINE_LEFT), new ChitMessageBox("User1", "Hallo Welt!", Pos.BASELINE_LEFT));
 
         inputArea.setOnAction(_ -> sendMessage());
         sendButton.setOnAction(_ -> sendMessage());
